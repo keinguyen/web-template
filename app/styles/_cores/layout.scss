@@ -1,0 +1,21 @@
+// default layout define here
+html {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  &.safari {
+    background: none;
+  }
+}
+
+body {
+  min-width: map-get($screen, xs);
+  margin: auto;
+  font-family: $default-font;
+  font-size: $default-font-size;
+  font-weight: normal;
+  line-height: $default-line-height;
+  background-color: $default-bg-color;
+  color: $default-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

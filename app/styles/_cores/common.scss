@@ -1,0 +1,44 @@
+@import "resources";
+
+.template {
+  position: absolute;
+  display: none;
+  user-select: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.image-full-width {
+  width: 100%;
+}
+
+.freeze {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden !important;
+}
+
+.to-uppercase {
+  text-transform: uppercase;
+}
+
+.to-capitalize {
+  text-transform: capitalize;
+}
+
+.to-normal {
+  font-weight: normal;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-margin {
+  margin: 0!important;
+}

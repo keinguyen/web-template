@@ -1,0 +1,74 @@
+{
+  "name": "web-template",
+  "title": "Web Template",
+  "description": "Web template using es6, pug, scss, bootstrap",
+  "version": "0.0.1",
+  "author": "keinguyen2212@gmail.com",
+  "homepage": "https://github.com/keinguyen/web-template",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keinguyen/web-template.git"
+  },
+  "keywords": [
+    "web",
+    "template",
+    "es6",
+    "pug",
+    "scss",
+    "bootstrap"
+  ],
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "start": "gulp --env=dev",
+    "dev": "gulp --env=dev",
+    "build": "gulp --env=prod",
+    "deploy": "gulp deploy:ftp",
+    "upload": "gulp deploy:gh-pages"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "detectizr": "^2.2.0",
+    "express": "^4.16.3",
+    "gulp": "^4.0.0",
+    "jquery": "^3.3.1",
+    "pug": "^2.0.3",
+    "systematize": "^3.0.1",
+    "font-awesome": "^4.7.0"
+  },
+  "devDependencies": {
+    "browser-sync": "2.24.4",
+    "del": "^3.0.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-changed": "^3.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-i18n-pug": "^1.0.3",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sass-unicode": "^1.0.1",
+    "gulp-sftp": "^0.1.5",
+    "gulp-uglify": "^3.0.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-rtlcss": "^1.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-html-replace": "^1.6.2",
+    "require-dir": "^1.0.0",
+    "undertaker-forward-reference": "^1.0.2",
+    "yargs": "^11.0.0",
+    "webpack-stream": "^4.0.3",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-plugin-transform-runtime": "^6.23.0"
+  }
+}

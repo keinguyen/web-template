@@ -1,0 +1,56 @@
+include ../_mixins/all
+
+- const isRTL = translate.isRTL
+- const dir = isRTL ? 'rtl' : 'ltr'
+- const rtlSuffix = isRTL ? '-rtl' : ''
+
+block vars
+  - let title = 'Template'
+  - let description = 'Template Description'
+  - let namespace = ''
+  - let keywords = ''
+
+doctype html
+html.no-js(lang=$localeName dir=dir)
+  head
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(charset="utf-8")
+    meta(name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, width=device-width")
+
+    //- Start: Seo
+    title=title
+    meta(name="description" content=description)
+    meta(name="keywords" content="")
+    meta(name="robots" content="index, follow")
+    //- End: Seo
+
+    //- Start: Favicon
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/site.webmanifest")
+    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5")
+    meta(name="msapplication-TileColor" content="#ffc40d")
+    meta(name="theme-color" content="#ffffff")
+    //- End: Favicon
+
+    |
+    | <!-- build:css#{rtlSuffix}-->
+    link(rel="stylesheet" href=`/css/libs${rtlSuffix}.css`)
+    block styles-bundle
+    // endbuild
+
+    block styles
+
+  body(class=namespace)
+    block container
+
+    //- Start: Scripts
+    // build:js
+    script(src="/js/libs.js")
+    block scripts-bundle
+    // endbuild
+    block scripts
+    //- End: Scripts
+
+    noscript JavaScript is off. Please enable to view full site.

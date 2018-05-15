@@ -1,0 +1,6 @@
+mixin link(href = '#', title = href.slice(href.lastIndexOf('/') + 1))
+  a(href=href title=title)&attributes(attributes)
+    if block
+      block
+    else
+      !=title
