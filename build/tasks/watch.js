@@ -9,6 +9,7 @@ const isDeveloping = env === 'dev';
 
 const {
   filesPugAll,
+  filesLocales,
   filesScss,
   filesScssOthers,
   filesScssAppsWatch,
@@ -38,6 +39,7 @@ gulp.task('watch', () => {
     : gulp.series('build:views', gulp.parallel('reload', 'print:results'));
 
   gulp.watch(filesPugAll, watchViewsTask);
+  gulp.watch(filesLocales, watchViewsTask);
 
   //----- CSS --------------------
   gulp.watch(filesScssOthers, gulp.series(

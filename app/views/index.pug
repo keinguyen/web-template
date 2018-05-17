@@ -3,6 +3,9 @@ extends _layouts/layout-full
 block append vars
   - title = 'Index'
 
+block append styles
+  link(rel="stylesheet" href=`/css/index${rtlSuffix}.css`)
+
 block append container
   h1=translate.home.title
   p This page using #{$localeName} language

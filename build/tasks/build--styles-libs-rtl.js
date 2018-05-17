@@ -4,7 +4,9 @@ const rename = require('gulp-rename');
 
 const cached = require('../utils/cached');
 
-const renameOpts = require('../config/rename');
+const {
+  rtl: renameOpts
+} = require('../config/rename');
 
 const {
   browserSync

@@ -4,6 +4,10 @@ const rename = require('gulp-rename');
 const cleanCss = require('gulp-clean-css');
 
 const {
+  min: renameOpts
+} = require('../config/rename');
+
+const {
   dist
 } = require('../config/directories');
 
@@ -19,7 +23,7 @@ gulp.task('bundle:css', () => {
     .pipe(concat('styles.css'))
     .on('error', handleError)
     .pipe(gulp.dest(dest))
-    .pipe(rename('styles.min.css'))
+    .pipe(rename(renameOpts))
     .pipe(cleanCss())
     .on('error', handleError)
     .pipe(gulp.dest(dest))

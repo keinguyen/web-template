@@ -1,3 +1,8 @@
 module.exports = {
-  suffix: '-rtl'
+  rtl: {
+    suffix: '-rtl'
+  },
+  min: {
+    suffix: '.min'
+  }
 }

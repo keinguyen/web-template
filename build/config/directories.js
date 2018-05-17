@@ -44,6 +44,7 @@ const distFontAwesome = `${distFont}FontAwesome/`;
 
 const filesPug = addPath(srcView, '**/*.pug', ['$*/**/*', '_*/**/*']);
 const filesPugAll = addPath(srcView, '**/*.pug');
+const filesLocales = `${srcLocales}**/*.json`;
 
 const filesScssApps = `${srcStyle}apps.scss`;
 const filesScssLibs = `${srcStyle}libs.scss`;
@@ -59,8 +60,8 @@ const filesScssLibsWatch = addPath(srcStyle, ['libs.scss', '_*/**/*.scss']);
 const filesJs = addPath(srcScript, '**/*.js', ['$*/**/*', '_*/**/*']);
 const fileJsLib = addPath(srcScript, '_lib/**/*.js');
 
-const filesCopy = addPath(srcAsset, '**/*' , ['**/.gitkeep', '!site/*']);
-const filesSite = addPath(srcAsset, 'site/*' , '**/.gitkeep');
+const filesCopy = addPath(srcAsset, '**/*' , ['**/.gitkeep', 'site/*']);
+const filesSite = addPath(srcAsset, 'site/**/*' , '**/.gitkeep');
 const filesAssets = filesCopy.concat(filesSite);
 const filesFontAwesome = `${nodeModules}font-awesome/fonts/*`;
 
@@ -87,6 +88,7 @@ module.exports = {
 
   filesPug,
   filesPugAll,
+  filesLocales,
 
   filesScssApps,
   filesScssLibs,
