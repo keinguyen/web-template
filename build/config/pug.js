@@ -7,7 +7,8 @@ module.exports = {
   i18n: {
     dest: dist,
     locales: `${srcLocales}*.json`,
-    namespace: 'translate'
+    namespace: 'translate',
+    verbose: true
   },
   pretty: true,
   doctype: 'html'

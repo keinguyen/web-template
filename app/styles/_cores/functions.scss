@@ -1,7 +1,7 @@
 //_____________________________________________________
 //                                           GET SCREEN
 @function screen($name) {
-  @return map-get($screen, $name);
+  @return map-get($grid-breakpoints, $name);
 }
 
 

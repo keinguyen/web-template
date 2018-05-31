@@ -1,8 +1,8 @@
 {
   "name": "web-template",
   "title": "Web Template",
-  "description": "Web template using es6, pug, scss, bootstrap",
-  "version": "0.0.1",
+  "description": "Web template use es6, pug, scss, bootstrap",
+  "version": "1.0.0",
   "author": "keinguyen2212@gmail.com",
   "homepage": "https://github.com/keinguyen/web-template",
   "license": "MIT",
@@ -30,13 +30,14 @@
     "upload": "gulp deploy:gh-pages"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "detectizr": "^2.2.0",
     "express": "^4.16.3",
     "gulp": "^4.0.0",
     "jquery": "^3.3.1",
     "pug": "^2.0.3",
-    "systematize": "^3.0.1",
+    "bootstrap": "^4.1.1",
+    "popper.js": "^1.14.3",
     "font-awesome": "^4.7.0"
   },
   "devDependencies": {
@@ -50,7 +51,7 @@
     "gulp-gh-pages": "^0.5.4",
     "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.2.0",
-    "gulp-i18n-pug": "^1.0.3",
+    "gulp-i18n-pug": "^1.1.0",
     "gulp-sass": "^4.0.1",
     "gulp-sass-bulk-import": "^1.0.1",
     "gulp-sass-unicode": "^1.0.1",
@@ -58,8 +59,8 @@
     "gulp-uglify": "^3.0.0",
     "gulp-clean-css": "^3.9.4",
     "gulp-rtlcss": "^1.2.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.6.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-replace": "^1.0.0",
     "gulp-html-replace": "^1.6.2",
     "require-dir": "^1.0.0",
     "undertaker-forward-reference": "^1.0.2",
@@ -68,7 +69,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-plugin-transform-runtime": "^6.23.0"
   }
 }

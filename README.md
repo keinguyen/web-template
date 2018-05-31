@@ -1,5 +1,7 @@
-SAPIENT MAF
+WEB TEMPLATE
 ===================
+
+Web template use es6, pug, scss, bootstrap
 
 ## 1. Installation
 ```bash
@@ -14,7 +16,9 @@ npm i
 ```bash
 app/
 |   assets/
-|   |   # All files and folders will be copied to /dist
+|   |   # All files and folders (except site folder) will be copied to /dist
+|   |   site/
+|   |    # All content in this folder will be copied direct to /dist
 |   |
 |   |
 |   scrips/
@@ -23,24 +27,21 @@ app/
 |   |   |   #   which cannot be downloaded through npm
 |   |   |
 |   |   |
-|   |   $*/
-|   |   |   # Every files in folders have start name, is $,
-|   |   |   #   will be compiled & merged to /dist/js/app.js
 |   |   |
-|   |   |
-|   |   ... # Others will be compiled to /dist/js/
+|   |   main.js # This file is the entry file to compile with webpack
 |   |
 |   |
 |   styles/
 |   |   _*/
 |   |   |   # Every files in folders have start name, is _,
 |   |   |   #   won't be compiled.
-|   |   |   # It only use to store many reusable components
+|   |   |   # It only use to store many libraries or variables
 |   |   |
 |   |   |
 |   |   $*/
 |   |   |   # Every files in folders have start name, is $,
-|   |   |   #   will be compiled & merged to /dist/css/app.css
+|   |   |   #   won't be compiled.
+|   |   |   # It only use to merge into apps.css
 |   |   |
 |   |   |
 |   |   ... # Others will be compiled to /dist/css/
@@ -62,31 +63,38 @@ app/
 |       ... # Others will be compiled to /dist/
 |
 |
-config/
-|   ...
-|   js-lib.js # Define JS library need to be included
-|   ...
+build/
+|   .... # Manage build tasks
+|
+|
+server/
+|   .... # Manage server side render views
 |
 |
 dist/
 |   # Store compiled html, css, js
 |
 .gitignore
-.npmrc
+.gitattributes
 gulpfile.js # Run tasks/scripts
+package-lock.json
 package.json
 README.md
-server.js # Run node server
 ```
 
 
 ## 4. Tasks
+- `npm start`: Shorthand for `npm run dev`
 - `npm run dev`: Build Project + Watch + Node Server
 - `npm run build`: Build Project (min)
 - `npm run deploy`: Build Project + Deploy to FTP
 - `npm run upload`: Build Project + Deploy to gh-pages
 
 
-## Pug global variables
+## 5. Pug global variables
 - `translate`: object variable get value from `app/locales/#{lang}.json`
 - `$localeName`: variable get value equal name of current using locale json
+
+
+## 6. Site favicon
+Use this online tool: https://realfavicongenerator.net/ to get the site favicon package and put it in `app/assets/site`

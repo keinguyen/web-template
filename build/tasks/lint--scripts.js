@@ -10,9 +10,7 @@ const {
 const cached = require('../utils/cached');
 const errors = require('../utils/errors');
 
-const {
-  isStreaming
-} = require('../utils/browser-sync');
+const stream = require('../utils/browser-sync');
 
 gulp.task('lint:scripts', () => {
   let tmpGulp = gulp
@@ -20,10 +18,12 @@ gulp.task('lint:scripts', () => {
     .pipe(cached('eslint'))
     .pipe(eslint(options))
     .pipe(eslint.results((results) => {
-      errors.isJSValid = errors.handleESLintError(results)
+      let isValid = errors.handleESLintError(results);
+      errors.isJSValid = isValid;
+      !isValid && delete cached.caches.eslint;
     }));
 
-  if (isStreaming) {
+  if (stream.isStreaming) {
     cb();
     return tmpGulp;
   }
