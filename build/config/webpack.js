@@ -28,7 +28,7 @@ module.exports = {
               targets: {
                 browsers
               }
-            }]
+            }], 'stage-2'
           ],
           plugins: ['transform-runtime'],
           cacheDirectory: true
