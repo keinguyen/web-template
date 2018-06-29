@@ -12,7 +12,7 @@ const errors = require('../utils/errors');
 
 const stream = require('../utils/browser-sync');
 
-gulp.task('lint:scripts', () => {
+gulp.task('lint:scripts', (cb) => {
   let tmpGulp = gulp
     .src(filesJs)
     .pipe(cached('eslint'))
