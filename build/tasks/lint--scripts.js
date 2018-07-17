@@ -12,7 +12,7 @@ const errors = require('../utils/errors');
 
 const stream = require('../utils/browser-sync');
 
-gulp.task('lint:scripts', (cb) => {
+gulp.task('lint:scripts', () => {
   let tmpGulp = gulp
     .src(filesJs)
     .pipe(cached('eslint'))
@@ -24,7 +24,6 @@ gulp.task('lint:scripts', (cb) => {
     }));
 
   if (stream.isStreaming) {
-    cb();
     return tmpGulp;
   }
 
