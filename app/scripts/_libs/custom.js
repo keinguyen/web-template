@@ -1,8 +1,8 @@
 ;(function () {
-  document.getElementsByTagName('html')[0].classList.add('js');
-
   String.prototype.toCamelCase = function () {
-    return this.valueOf().replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+    return this.valueOf().replace(/-([a-z])/g, function (g) {
+      return g[1].toUpperCase();
+    });
   }
 
   Number.prototype.toRad = function () {

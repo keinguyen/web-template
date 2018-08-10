@@ -1,16 +1,23 @@
 const {
+  resolve,
   join
 } = require('path')
+const yargs = require('yargs')
 
 const {
-  dist,
   srcScript,
+  dist,
   distScript
 } = require('./directories')
 
-const browsers = require('./autoprefixer')
+const {
+  env
+} = yargs.argv
+
+const isDeveloping = env === 'dev';
 
 module.exports = {
+  mode: isDeveloping ? 'development' : 'production',
   context: join(__dirname, dist),
   output: {
     path: join(__dirname, distScript),
@@ -23,19 +30,17 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
         options: {
-          presets: [
-            ['env', {
-              targets: {
-                browsers
-              }
-            }], 'stage-2'
-          ],
-          plugins: ['transform-runtime'],
+          presets: ['env', 'stage-2'],
+          plugins: ['transform-runtime', 'transform-decorators-legacy'],
           cacheDirectory: true
         }
       }
     ]
   },
-  resolve: {},
-  devtool: 'source-map'
+  resolve: {
+    alias: {
+      '@': resolve(srcScript, 'cores')
+    }
+  },
+  devtool: isDeveloping && 'source-map'
 }

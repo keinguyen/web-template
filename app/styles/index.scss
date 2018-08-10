@@ -1,5 +1,7 @@
+@import "resources";
+
 body {
   background: black;
   color: white;
-  padding-left: 10px;
+  padding-left: rem(10px);
 }

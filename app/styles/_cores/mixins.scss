@@ -35,3 +35,45 @@
     @content;
   }
 }
+
+
+
+//_____________________________________________________
+//                                      ABSOLUTE CENTER
+@mixin absolute-center($x: true, $y: true) {
+  @if $x or $y {
+    position: absolute;
+
+    @if $x {
+      left: 50%;
+    }
+
+    @if $y {
+      top: 50%;
+    }
+
+    $transform: false;
+
+    @if $x and $y {
+      $transform: translate(-50%, -50%);
+    } @else if $x {
+      $transform: translateX(-50%);
+    } @else if $y {
+      $transform: translateY(-50%);
+    }
+
+    @if $transform {
+      transform: $transform;
+    }
+  }
+}
+
+
+
+//_____________________________________________________
+//                                             NO TOUCH
+@mixin no-touch {
+  html.no-touchevents & {
+    @content;
+  }
+}

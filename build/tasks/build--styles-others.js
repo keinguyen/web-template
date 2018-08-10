@@ -6,7 +6,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const cached = require('../utils/cached');
 
 const sassOpts = require('../config/sass');
-const autoprefixerOpts = require('../config/autoprefixer');
 
 const {
   browserSync
@@ -29,7 +28,7 @@ gulp.task('build:styles-others', () => {
     .on('error', handleError)
     .pipe(sassUnicode())
     .on('error', handleError)
-    .pipe(autoprefixer(autoprefixerOpts))
+    .pipe(autoprefixer())
     .on('error', handleError)
     .pipe(gulp.dest(distStyle))
     .pipe(browserSync.stream())

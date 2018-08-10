@@ -3,10 +3,7 @@ const sass = require('gulp-sass');
 const sassUnicode = require('gulp-sass-unicode');
 const autoprefixer = require('gulp-autoprefixer');
 
-const cached = require('../utils/cached');
-
 const sassOpts = require('../config/sass');
-const autoprefixerOpts = require('../config/autoprefixer');
 
 const {
   browserSync
@@ -28,7 +25,7 @@ gulp.task('build:styles-libs', () => {
     .on('error', handleError)
     .pipe(sassUnicode())
     .on('error', handleError)
-    .pipe(autoprefixer(autoprefixerOpts))
+    .pipe(autoprefixer())
     .on('error', handleError)
     .pipe(gulp.dest(distStyle))
     .pipe(browserSync.stream())

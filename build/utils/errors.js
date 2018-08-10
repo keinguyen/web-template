@@ -4,7 +4,7 @@ const list = {
   totalWarning: 0
 };
 
-const handleError = ({ plugin, message, codeFrame = '' } = {}) => {
+function handleError ({ plugin, message, codeFrame = '' } = {}) {
   ++list.totalError;
 
   list.data.push({
@@ -15,7 +15,7 @@ const handleError = ({ plugin, message, codeFrame = '' } = {}) => {
   });
 
   typeof this.emit === 'function' && this.emit('end');
-};
+}
 
 const handleESLintError = (results) => {
   if (results.errorCount === 0 && results.warningCount === 0) {

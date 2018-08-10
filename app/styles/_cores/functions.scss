@@ -31,3 +31,29 @@
 
   @return if(type-of($value) != 'list', ($value,), $value);
 }
+
+
+
+//_____________________________________________________
+//                              CONVERT PIXELS TO UNITS
+@function px2unit($unit, $pixels, $context) {
+  @if $unit {
+    @if (unitless($pixels)) {
+      $pixels: $pixels * 1px;
+    }
+
+    @if (unitless($context)) {
+      $context: $context * 1px;
+    }
+
+    @return $pixels / $context * 1#{$unit};
+  }
+}
+
+@function em($pixels, $context) {
+  @return px2unit('em', $pixels, $context);
+}
+
+@function rem($pixels, $context: $rem) {
+  @return px2unit('rem', $pixels, $context);
+}
