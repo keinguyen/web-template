@@ -17,7 +17,7 @@ const {
 const isDeveloping = env === 'dev';
 
 module.exports = {
-  mode: isDeveloping ? 'development' : 'production',
+  mode: 'none',
   context: join(__dirname, dist),
   output: {
     path: join(__dirname, distScript),
@@ -41,6 +41,12 @@ module.exports = {
     alias: {
       '@': resolve(srcScript, 'cores')
     }
+  },
+  optimization: {
+    flagIncludedChunks: true,
+    concatenateModules: true,
+    occurrenceOrder: true,
+    sideEffects: true
   },
   devtool: isDeveloping && 'source-map'
 }
