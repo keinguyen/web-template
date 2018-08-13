@@ -20,7 +20,7 @@ gulp.task('lint:scripts', () => {
 
       errors.isJSValid = !error;
 
-      error || warning && delete cached.caches.eslint;
+      (error || warning) && delete cached.caches.eslint;
     }));
 
   if (stream.isStreaming) {

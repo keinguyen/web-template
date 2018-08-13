@@ -1,5 +1,12 @@
 const gulp = require('gulp');
 const notify = require('gulp-notify');
+const yargs = require('yargs');
+
+const {
+  env
+} = yargs.argv;
+
+const isDeveloping = env === 'dev';
 
 const log = console.log;
 const errors = require('../utils/errors');
@@ -44,13 +51,15 @@ gulp.task('print:results', (cb) => {
   errList.data.forEach((item, i) => {
     const message = item.message;
     const code    = item.code;
-    const title  = item.plugin;
+    const title   = item.plugin;
     const type    = item.type || 'Error';
 
-    notify.onError({
-      title,
-      message
-    }).apply(this, arguments);
+    if (!isDeveloping || type !== 'Warning') {
+      notify.onError({
+        title,
+        message
+      }).apply(this, arguments);
+    }
 
     log(`---[ ${type} ${i + 1} ]-------------------------`);
     log(` |  Path : ${message}`);
