@@ -40,7 +40,7 @@ export class Plugin {
     );
     this.props = {};
 
-    typeof this.init === 'function' && window.setTimeout(this.init.bind(this));
+    typeof this.init === 'function' && setTimeout(this.init.bind(this));
   }
 
   destroy () {

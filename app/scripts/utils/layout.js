@@ -92,8 +92,8 @@ export default {
   },
 
   freeze () {
-    window.clearTimeout(lockTimeout);
-    lockTimeout = window.setTimeout(() => {
+    clearTimeout(lockTimeout);
+    lockTimeout = setTimeout(() => {
       let willBeFrozen = this.bodyHeight > this.height && !this.isFrozen;
 
       if (!willBeFrozen) {
@@ -130,8 +130,8 @@ export default {
   },
 
   unfreeze (callback) {
-    window.clearTimeout(lockTimeout);
-    lockTimeout = window.setTimeout(() => {
+    clearTimeout(lockTimeout);
+    lockTimeout = setTimeout(() => {
       if (!this.isFrozen) {
         typeof callback === 'function' && callback();
         return false;
@@ -150,7 +150,7 @@ export default {
         window.scrollTo(0, lastScroll);
         window.isUnfreezing = true;
 
-        window.setTimeout(() => {
+        setTimeout(() => {
           window.isUnfreezing = false;
           typeof callback === 'function' && callback();
         }, 50);

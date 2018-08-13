@@ -27,7 +27,8 @@
     "dev": "gulp --env=dev",
     "build": "gulp --env=prod",
     "deploy": "gulp deploy:ftp",
-    "upload": "gulp deploy:gh-pages"
+    "upload": "gulp deploy:gh-pages",
+    "build:js": "gulp build:js"
   },
   "dependencies": {
     "detectizr": "^2.2.0",

@@ -1,6 +1,11 @@
 module.exports = {
+  env: {
+    browser: true,
+    es6: true
+  },
+  parser: 'babel-eslint',
+  // 'extends': 'eslint:recommended',
   rules: {
-    // Error
     'no-cond-assign': ['error', 'always'],
     'no-dupe-args': 'error',
     'no-dupe-keys': 'error',
@@ -28,12 +33,5 @@ module.exports = {
     'no-useless-escape': 'warn',
     'no-unused-vars': 'warn',
     'quotes': ['warn', 'single', { 'allowTemplateLiterals': true }]
-  },
-  envs: ['browser', 'es6'],
-  parser: 'babel-eslint',
-  parserOptions: {
-    ecmaFeatures: {
-      modules: true
-    }
   }
 }

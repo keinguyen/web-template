@@ -31,7 +31,16 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: ['env', 'stage-2'],
-          plugins: ['transform-runtime', 'transform-decorators-legacy'],
+          plugins: [
+            [
+              'transform-runtime', {
+                helpers: false,
+                polyfill: false,
+                regenerator: true
+              }
+            ],
+            'transform-decorators-legacy'
+          ],
           cacheDirectory: true
         }
       }

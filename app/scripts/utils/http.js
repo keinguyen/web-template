@@ -81,5 +81,5 @@ export const downloadFile = (url, fileName) => {
     .appendTo('body')[0]
     .click();
 
-  window.setTimeout(() => $link.remove());
+  setTimeout(() => $link.remove());
 };

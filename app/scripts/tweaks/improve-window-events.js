@@ -17,8 +17,8 @@ let lastWinScroll = layout.scroll;
 $win
   .off('resize.improve')
   .on('resize.improve', () => {
-    window.clearTimeout(resizeTimeout);
-    resizeTimeout = window.setTimeout(() => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
       let currentWinWidth = layout.width;
       let currentWinHeight = layout.height;
 

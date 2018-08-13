@@ -1,8 +1,6 @@
 const gulp = require('gulp');
 const eslint = require('gulp-eslint');
 
-const options = require('../config/eslint');
-
 const {
   filesJs
 } = require('../config/directories');
@@ -16,7 +14,7 @@ gulp.task('lint:scripts', () => {
   let tmpGulp = gulp
     .src(filesJs)
     .pipe(cached('eslint'))
-    .pipe(eslint(options))
+    .pipe(eslint())
     .pipe(eslint.results((results) => {
       let { error, warning } = errors.handleESLintError(results);
 
