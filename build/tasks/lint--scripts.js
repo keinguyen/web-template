@@ -18,9 +18,11 @@ gulp.task('lint:scripts', () => {
     .pipe(cached('eslint'))
     .pipe(eslint(options))
     .pipe(eslint.results((results) => {
-      let isValid = errors.handleESLintError(results);
-      errors.isJSValid = isValid;
-      !isValid && delete cached.caches.eslint;
+      let { error, warning } = errors.handleESLintError(results);
+
+      errors.isJSValid = !error;
+
+      error || warning && delete cached.caches.eslint;
     }));
 
   if (stream.isStreaming) {
@@ -29,5 +31,5 @@ gulp.task('lint:scripts', () => {
 
   return tmpGulp
     .pipe(eslint.format())
-    .pipe(eslint.failOnError())
+    .pipe(eslint.failOnError());
 });

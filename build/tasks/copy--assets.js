@@ -10,5 +10,5 @@ gulp.task('copy:assets', () => {
   return gulp
     .src(filesAssets)
     .pipe(changed(dist))
-    .pipe(gulp.dest(dist))
+    .pipe(gulp.dest(dist));
 });

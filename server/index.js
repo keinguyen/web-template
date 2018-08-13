@@ -1,7 +1,18 @@
 //____________________________________________
+//                              REQUIRE MODULE
+const express = require('express');
+const bodyParser = require('body-parser');
+const pug = require('pug');
+const requireDir = require('require-dir');
+const {
+  join
+} = require('path');
+
+
+//____________________________________________
 //                             REQUIRE CONFIGS
 const {
-  port
+  port: { server: serverPort }
 } = require('../build/config/server');
 
 const {
@@ -13,38 +24,32 @@ const {
 const pugOptions = require('../build/config/pug');
 
 
-
-//____________________________________________
-//                              REQUIRE MODULE
-const express = require('express');
-const bodyParser = require('body-parser');
-const pug = require('pug');
-const requireDir = require('require-dir');
-const { join } = require('path');
-
-
-
 //____________________________________________
 //                             SERVER VARIABLE
 const locales = requireDir(`../${src}locales`);
 const app = express();
+const DEFAULT_LANG = 'en';
+
+const renderErrorHTML = (msg) => `
+  <body>
+    <style>
+      html {
+        background-color: #000;
+        color: #fff;
+      }
+    </style>
+    <pre>${msg}</pre>
+  </body>
+`;
 
 
 //____________________________________________
 //                                SETUP SERVER
 app.engine('pug', (path, options, callback) => {
-  pug.renderFile(path, pugOptions, (err, result) => {
-    let data = result ? result : `
-      <body>
-        <style>
-          html {
-            background-color: #000;
-            color: #fff;
-          }
-        </style>
-        <pre>${err.stack}</pre>
-      </body>
-    `;
+  let opts = Object.assign({}, pugOptions, options);
+
+  pug.renderFile(path, opts, (err, result) => {
+    let data = result ? result : renderErrorHTML(err.stack);
 
     callback(null, data);
   });
@@ -70,31 +75,36 @@ app.get('/[^\/]+/', (req, res) => {
 });
 
 app.get('/[^\/]+/*.html', (req, res) => {
-  let testFile = /^\/[^\/]+\/(.*)\.html/.exec(req.url);
-  let testLang =  /^\/([^\/]+)\//.exec(req.url);
+  try {
+    let testLang = /^\/([^\/]+)\//.exec(req.url);
+    let lang = testLang ? testLang[1] : DEFAULT_LANG;
 
-  if (testFile) {
-    let file = testFile[1];
-    let lang = testLang[1];
-
-    if (locales[lang]) {
-      pugOptions.translate = locales[lang];
-      pugOptions.$localeName = lang;
-      res.render(file);
-    } else {
-      res.send('Not found').status(404);
+    if (!locales[lang]) {
+      throw 'Not found';
     }
-  } else {
-    res.send('Not found').status(404);
+
+    let testFile = /^\/[^\/]+\/(.*)\.html/.exec(req.url);
+
+    if (!testFile) {
+      throw 'Not found';
+    }
+
+    res.render(testFile[1], {
+      [pugOptions.i18n.namespace]: locales[lang],
+      $localeName: lang
+    });
+  } catch (err) {
+    res.send(renderErrorHTML(err)).status(404);
   }
 });
 
 app.post('*', (req, res) => {
   try {
-    let json = require(join(__dirname, dist, req.url));
+    let json = require(join(__dirname, '..', dist, req.url));
+
     res.send(json);
   } catch (err) {
-    res.send('Not found').status(404);
+    res.send(renderErrorHTML(err)).status(404);
   }
 });
 
@@ -102,5 +112,5 @@ app.post('*', (req, res) => {
 
 //____________________________________________
 //                                    USE PORT
-const logPort = `----- Server listen at ${port.server} -----`
-app.listen(port.server, () => console.log(logPort))
+const logPort = `----- Server listen at ${serverPort} -----`;
+app.listen(serverPort, () => console.log(logPort));

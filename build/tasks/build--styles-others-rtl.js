@@ -18,7 +18,7 @@ const {
 
 const {
   handleError
-} = require('../utils/errors')
+} = require('../utils/errors');
 
 gulp.task('build:styles-others-rtl', () => {
   return gulp
@@ -34,5 +34,5 @@ gulp.task('build:styles-others-rtl', () => {
     .pipe(rename(renameOpts))
     .on('error', handleError)
     .pipe(gulp.dest(distStyle))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 });

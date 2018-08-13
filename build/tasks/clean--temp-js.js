@@ -5,10 +5,8 @@ const {
   distScript
 } = require('../config/directories');
 
-gulp.task('clean:temp-js', (cb) => {
-  del([
-    `${distScript}libs.js`,
-    `${distScript}apps.js`,
-    `${distScript}**/*.map`
-  ]).then(() => cb());
-});
+gulp.task('clean:temp-js', () => del([
+  `${distScript}libs.js`,
+  `${distScript}apps.js`,
+  `${distScript}**/*.map`
+]));

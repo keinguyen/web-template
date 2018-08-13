@@ -1,7 +1,13 @@
 import layout from './layout';
+import {
+  $mapKey
+} from './doms';
 
 const s4 = () => (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+const DEFAULT_GMAP_KEY = 'AIzaSyBxGSPCzu90IHbYPfE6j8bleprnrOk2ZII';
 
+export const GMAP_KEY = $mapKey.attr('content') || DEFAULT_GMAP_KEY;
+export const GMapApiUrl = `https://maps.googleapis.com/maps/api/js?v=3&key=${GMAP_KEY}`;
 export const regExEmail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 export const regExYT = /(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/user\/\S+|\/ytscreeningroom\?v=|\/sandalsResorts#\w\/\w\/.*\/))([^/&]{10,12})/;
 

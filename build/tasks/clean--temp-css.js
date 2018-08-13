@@ -7,11 +7,9 @@ const {
 
 const dest = `${dist}css/`;
 
-gulp.task('clean:temp-css', (cb) => {
-  del([
-    `${dest}libs.css`,
-    `${dest}apps.css`,
-    `${dest}libs-rtl.css`,
-    `${dest}apps-rtl.css`
-  ]).then(() => cb());
-});
+gulp.task('clean:temp-css', () => del([
+  `${dest}libs.css`,
+  `${dest}apps.css`,
+  `${dest}libs-rtl.css`,
+  `${dest}apps-rtl.css`
+]));

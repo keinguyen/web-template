@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 
 gulp.task('build:css', gulp.series(
+  'clean:css',
   'build:styles-apps',
   'build:styles-apps-rtl',
   'build:styles-libs',

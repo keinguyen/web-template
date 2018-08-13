@@ -16,7 +16,7 @@ const {
 
 const {
   handleError
-} = require('../utils/errors')
+} = require('../utils/errors');
 
 gulp.task('build:styles-libs', () => {
   return gulp
@@ -28,5 +28,5 @@ gulp.task('build:styles-libs', () => {
     .pipe(autoprefixer())
     .on('error', handleError)
     .pipe(gulp.dest(distStyle))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream());
 });

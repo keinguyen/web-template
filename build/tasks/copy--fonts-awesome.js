@@ -10,5 +10,5 @@ gulp.task('copy:fonts-awesome', () => {
   return gulp
     .src(filesFontAwesome)
     .pipe(changed(distFontAwesome))
-    .pipe(gulp.dest(distFontAwesome))
+    .pipe(gulp.dest(distFontAwesome));
 });

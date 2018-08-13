@@ -26,5 +26,5 @@ gulp.task('bundle:css-rtl', () => {
     .pipe(rename(renameOpts))
     .pipe(cleanCss())
     .on('error', handleError)
-    .pipe(gulp.dest(dest))
+    .pipe(gulp.dest(dest));
 });

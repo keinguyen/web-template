@@ -17,5 +17,5 @@ gulp.task('build:scripts-apps', (cb) => {
     .src(`${srcScript}main.js`)
     .pipe(webpack(option))
     .on('error', errors.handleError)
-    .pipe(gulp.dest(distScript))
+    .pipe(gulp.dest(distScript));
 });

@@ -97,7 +97,7 @@ export default {
       let willBeFrozen = this.bodyHeight > this.height && !this.isFrozen;
 
       if (!willBeFrozen) {
-        return;
+        return false;
       }
 
       if (this.isIOS) {
@@ -119,10 +119,13 @@ export default {
           .getComputedStyle(this)
           .getPropertyValue('position');
 
-        if (this.classList.contains('component-header') || position === 'fixed') {
-          return borderRight;
-        }
+        let condition = this.classList.contains('component-header')
+          || position === 'fixed';
+
+        return condition ? borderRight : '';
       });
+
+      return true;
     });
   },
 
@@ -131,7 +134,7 @@ export default {
     lockTimeout = window.setTimeout(() => {
       if (!this.isFrozen) {
         typeof callback === 'function' && callback();
-        return;
+        return false;
       }
 
       $body
@@ -154,6 +157,8 @@ export default {
       } else {
         typeof callback === 'function' && callback();
       }
+
+      return true;
     });
   }
 }

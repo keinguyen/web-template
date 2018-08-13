@@ -22,5 +22,5 @@ gulp.task('bundle:js', () => {
     .pipe(rename('scripts.min.js'))
     .pipe(uglify())
     .on('error', handleError)
-    .pipe(gulp.dest(dest))
+    .pipe(gulp.dest(dest));
 });

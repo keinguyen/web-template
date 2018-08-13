@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 export function Wrapper ({ name, options = {} } = {}) {
-  return (Class) => {
+  return Class => {
     function init () {
       $(`[data-${name}]`)[name]();
     }
@@ -23,15 +23,7 @@ export function Wrapper ({ name, options = {} } = {}) {
 
     $.fn[name].defaults = options;
 
-    if (window.XA) {
-      window.XA.component[name] = {
-        init
-      };
-
-      window.XA.register(name, window.XA.component[name]);
-    } else {
-      $(init);
-    }
+    $(init);
 
     return Class;
   }

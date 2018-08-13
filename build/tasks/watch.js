@@ -8,6 +8,7 @@ const {
 const isDeveloping = env === 'dev';
 
 const {
+  srcLocales,
   filesPugAll,
   filesLocales,
   filesScssOthers,
@@ -38,7 +39,12 @@ gulp.task('watch', () => {
     : gulp.series('build:views', gulp.parallel('reload', 'print:results'));
 
   gulp.watch(filesPugAll, watchViewsTask);
-  gulp.watch(filesLocales, watchViewsTask);
+
+  //----- LOCALE --------------------
+  gulp.watch(`${srcLocales}*/*.json`, gulp.series(
+    'build:locales',
+    watchViewsTask
+  ));
 
   //----- CSS --------------------
   gulp.watch(filesScssOthers, gulp.series(

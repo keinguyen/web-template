@@ -1,4 +1,7 @@
+import $ from 'jquery';
+
 import {
+  GMapApiUrl,
   getType
 } from './variables';
 
@@ -6,13 +9,12 @@ import {
   lang
 } from './layout'
 
-const {
-  jQuery: $
-} = window;
-
 const scriptLoader = {};
+const defaultFetchOpts = {
+  cache: false
+};
 
-const getScript = (src, callback) => {
+const getScript = (src) => new Promise((resolve, reject) => {
   let script = document.createElement('script');
 
   script.async = true;
@@ -20,17 +22,17 @@ const getScript = (src, callback) => {
 
   script.addEventListener('load', function () {
     document.head.removeChild(script);
-    typeof callback === 'function' && callback();
+    resolve(script);
+  });
+
+  script.addEventListener('error', function (err) {
+    reject(err);
   });
 
   document.head.appendChild(script);
-};
+})
 
 export const fetchData = (opts = {}) => {
-  let defaultOpts = {
-    cache: false
-  };
-
   if (opts.data) {
     switch (getType(opts.data)) {
       case 'object':
@@ -50,28 +52,18 @@ export const fetchData = (opts = {}) => {
     opts.data = `lang=${lang}`;
   }
 
-  return $.ajax(Object.assign({}, defaultOpts, opts));
-}
+  return $.ajax(Object.assign({}, defaultFetchOpts, opts));
+};
 
-export const loadScript = (url, callback) => {
+export const loadScript = (url) => {
   if (!scriptLoader[url]) {
-    scriptLoader[url] = {
-      loaded: false,
-      callbacks: [ callback ]
-    };
-
-    getScript(url, () => {
-      scriptLoader[url].loaded = true;
-      scriptLoader[url].callbacks.forEach(callback => {
-        typeof callback === 'function' && callback();
-      });
-    });
-  } else if (scriptLoader[url].loaded) {
-    typeof callback === 'function' && callback();
-  } else {
-    scriptLoader[url].callbacks.push(callback);
+    scriptLoader[url] = getScript(url);
   }
-}
+
+  return scriptLoader[url];
+};
+
+export const loadMapApi = () => loadScript(GMapApiUrl);
 
 export const downloadFile = (url, fileName) => {
   if (!url) {

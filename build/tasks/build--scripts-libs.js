@@ -7,8 +7,13 @@ const {
   distScript
 } = require('../config/directories');
 
+const {
+  handleError
+} = require('../utils/errors');
+
 gulp.task('build:scripts-libs', () => {
   return gulp.src(dirJsLib)
     .pipe(concat('libs.js'))
-    .pipe(gulp.dest(distScript))
+    .on('error', handleError)
+    .pipe(gulp.dest(distScript));
 });

@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 
 gulp.task('build:assets', gulp.series(
+  'build:locales',
   'build:scripts-libs',
   'lint:scripts',
   'build:scripts-apps',

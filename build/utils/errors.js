@@ -18,12 +18,8 @@ function handleError ({ plugin, message, codeFrame = '' } = {}) {
 }
 
 const handleESLintError = (results) => {
-  if (results.errorCount === 0 && results.warningCount === 0) {
-    return true;
-  }
-
   results.forEach(({ filePath, messages } = {}) => {
-    messages.forEach(({ severity, line, column, source, message } = {}) => {
+    messages.forEach(({ severity, line, column, message } = {}) => {
       const isError = severity === 2;
       const type = isError ? 'Error' : 'Warning';
       const checkCount = isError ? 'totalError' : 'totalWarning';
@@ -34,12 +30,15 @@ const handleESLintError = (results) => {
         type,
         plugin: `ES Lint ${type}`,
         message: filePath,
-        code: `[${line}:${column}]  ${source.trim()}\n |  ${message}`
+        code: `[${line}:${column}] ${message}`
       });
     });
   });
 
-  return false;
+  return {
+    error: results.errorCount,
+    warning: results.warningCount
+  };
 };
 
 module.exports = {

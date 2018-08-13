@@ -29,7 +29,7 @@ module.exports = {
     'no-unused-vars': 'warn',
     'quotes': ['warn', 'single', { 'allowTemplateLiterals': true }]
   },
-  envs: ['browser'],
+  envs: ['browser', 'es6'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {

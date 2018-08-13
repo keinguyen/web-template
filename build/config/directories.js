@@ -9,7 +9,7 @@ const pushPath = (src, paths, notInclude) => {
 
 const addPath = (src, paths, notIncludePaths) => {
   if (typeof src === 'undefined') {
-    return `**/*`;
+    return '**/*';
   }
 
   if (typeof paths === 'undefined') {

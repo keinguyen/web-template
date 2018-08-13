@@ -10,5 +10,5 @@ const {
 gulp.task('deploy:ftp', () => {
   return gulp
     .src(allDistFiles)
-    .pipe(sftp(options))
+    .pipe(sftp(options));
 });

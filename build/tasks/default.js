@@ -16,14 +16,14 @@ const defaultBuildTask = isDeveloping
   )
   : gulp.series(
       'clean:dist',
-      'build:views',
-      'build:views-min',
       'build:assets',
       'bundle:css',
       'bundle:css-rtl',
       'bundle:js',
       'clean:temp-css',
       'clean:temp-js',
+      'build:views',
+      'build:views-min',
       'print:results'
     );
 
