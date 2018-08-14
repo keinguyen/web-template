@@ -10,7 +10,6 @@ const isDeveloping = env === 'dev';
 const {
   srcLocales,
   filesPugAll,
-  filesLocales,
   filesScssOthers,
   filesScssAppsWatch,
   filesScssLibsWatch,
