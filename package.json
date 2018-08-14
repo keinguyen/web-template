@@ -31,14 +31,14 @@
     "build:js": "gulp build:js"
   },
   "dependencies": {
-    "detectizr": "^2.2.0",
-    "jquery": "^3.3.1",
-    "bootstrap": "^4.1.3",
-    "popper.js": "^1.14.4",
-    "font-awesome": "^4.7.0",
     "blazy": "^1.8.2",
+    "bootstrap": "^4.1.3",
+    "detectizr": "^2.2.0",
+    "es6-promise": "^4.2.4",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
     "picturefill": "^3.0.2",
-    "es6-promise": "^4.2.4"
+    "popper.js": "^1.14.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
