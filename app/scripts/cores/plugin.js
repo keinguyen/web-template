@@ -26,7 +26,7 @@ export function Wrapper ({ name, options = {} } = {}) {
     $(init);
 
     return Class;
-  }
+  };
 }
 
 export class Plugin {

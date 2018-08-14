@@ -72,7 +72,7 @@ export default {
     return (
       pageWidth >= RESPONSIVE_BREAKPOINTS.tablet &&
       pageWidth < RESPONSIVE_BREAKPOINTS.desktop
-    )
+    );
   },
 
   get isDesktop () {
@@ -161,4 +161,4 @@ export default {
       return true;
     });
   }
-}
+};

@@ -9,8 +9,9 @@ export default {
 
     if (days) {
       let date = new Date();
+      let expiresDate = days * 24 * 60 * 60 * 1000;
 
-      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      date.setTime(date.getTime() + expiresDate);
       expires = `; expires=${date.toUTCString()}`;
     }
 
@@ -36,4 +37,4 @@ export default {
   remove (key) {
     document.cookie = `${key}=; Max-Age=-99999999;`;
   }
-}
+};

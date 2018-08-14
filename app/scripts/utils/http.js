@@ -7,7 +7,7 @@ import {
 
 import {
   lang
-} from './layout'
+} from './layout';
 
 const scriptLoader = {};
 const defaultFetchOpts = {
@@ -30,7 +30,7 @@ const getScript = (src) => new Promise((resolve, reject) => {
   });
 
   document.head.appendChild(script);
-})
+});
 
 export const fetchData = (opts = {}) => {
   if (opts.data) {

@@ -8,6 +8,6 @@ export default class TemplatePluginMap extends Plugin {
   async init () {
     await loadMapApi();
 
-    console.log(window.google.maps);
+    this.$element.text('google map initialized');
   }
 }

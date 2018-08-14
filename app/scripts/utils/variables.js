@@ -3,7 +3,10 @@ import {
   $mapKey
 } from './doms';
 
-const s4 = () => (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+const s4 = () => {
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+};
+
 const DEFAULT_GMAP_KEY = 'AIzaSyBxGSPCzu90IHbYPfE6j8bleprnrOk2ZII';
 
 export const GMAP_KEY = $mapKey.attr('content') || DEFAULT_GMAP_KEY;
@@ -15,7 +18,7 @@ export const resizeDuration = 180;
 export const keyupDuration = 200;
 
 export const generateGUID = (prefix = 'class') => {
-  return `${prefix}-${s4()+s4()}-${s4()}-${s4()}-${s4()}-${s4()+s4()+s4()}`
+  return `${prefix}-${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
 };
 
 export const getType = (data) => {
@@ -52,4 +55,4 @@ export const serializeData = ($form) => {
     }));
 
   return dataInput.concat(dataCheckbox);
-}
+};

@@ -5,6 +5,6 @@ import { Plugin, Wrapper } from '@/plugin';
 })
 export default class TemplatePlugin extends Plugin {
   init () {
-    console.log(this);
+    this.$element.text('template initialized');
   }
 }
