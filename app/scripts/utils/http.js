@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 import {
   GMapApiUrl,
   getType

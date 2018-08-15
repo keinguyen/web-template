@@ -4,6 +4,12 @@ module.exports = {
     es6: true
   },
   parser: 'babel-eslint',
+  globals: {
+    $: true,
+    jQuery: true,
+    Plugin: true,
+    Wrapper: true
+  },
   rules: {
     // recommended
     'for-direction': 2,

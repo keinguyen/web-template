@@ -3,6 +3,7 @@ const {
   join
 } = require('path')
 const yargs = require('yargs')
+const { ProvidePlugin } = require('webpack')
 
 const {
   srcScript,
@@ -39,7 +40,8 @@ module.exports = {
                 regenerator: true
               }
             ],
-            'transform-decorators-legacy'
+            'transform-decorators-legacy',
+            'bulk-import'
           ],
           cacheDirectory: true
         }
@@ -51,6 +53,14 @@ module.exports = {
       '@': resolve(srcScript, 'cores')
     }
   },
+  plugins: [
+    new ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Plugin: ['@/plugin', 'Plugin'],
+      Wrapper: ['@/plugin', 'Wrapper']
+    })
+  ],
   optimization: {
     flagIncludedChunks: true,
     concatenateModules: true,

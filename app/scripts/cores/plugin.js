@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export function Wrapper ({ name, options = {} } = {}) {
   return Class => {
     function init () {

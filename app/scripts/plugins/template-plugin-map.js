@@ -1,4 +1,3 @@
-import { Plugin, Wrapper } from '@/plugin';
 import { loadMapApi } from '../utils/http';
 
 @Wrapper({
