@@ -61,7 +61,11 @@ export const loadScript = (url) => {
   return scriptLoader[url];
 };
 
-export const loadMapApi = () => loadScript(GMapApiUrl);
+export const loadMapApi = async () => {
+  await loadScript(GMapApiUrl);
+
+  return window.google.maps;
+};
 
 export const downloadFile = (url, fileName) => {
   if (!url) {

@@ -5,8 +5,8 @@ import { loadMapApi } from '../utils/http';
 })
 export default class TemplatePluginMap extends Plugin {
   async init () {
-    await loadMapApi();
+    const map = await loadMapApi();
 
-    this.$element.text('google map initialized');
+    this.$element.text('google map initialized', map);
   }
 }
