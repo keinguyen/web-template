@@ -40,8 +40,7 @@ module.exports = {
                 regenerator: true
               }
             ],
-            'transform-decorators-legacy',
-            'bulk-import'
+            'transform-decorators-legacy'
           ],
           cacheDirectory: true
         }

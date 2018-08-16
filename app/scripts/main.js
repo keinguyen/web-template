@@ -9,6 +9,5 @@ import './tweaks/add-active-state';
 import './tweaks/active-element-with-enter';
 
 // Plugins
-import * as Plugins from './plugins/*.js';
-
-export default Plugins;
+import './plugins/template-plugin';
+import './plugins/template-plugin-map';
