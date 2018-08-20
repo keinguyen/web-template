@@ -1,3 +1,5 @@
+const compression = require('compression')
+
 const {
   port: PORT
 } = require('./server')
@@ -9,5 +11,6 @@ module.exports = {
   open     : 'local',
   browser  : 'chrome.exe',
   ghostMode: false,
-  logPrefix: 'SYNC'
+  logPrefix: 'SYNC',
+  middleware: [compression()]
 }
