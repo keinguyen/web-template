@@ -4,4 +4,4 @@ module.exports = {
   pass: '',
   remotePath: '',
   port: 4742
-}
+};

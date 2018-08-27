@@ -46,4 +46,4 @@ module.exports = {
   list,
   handleError,
   handleESLintError
-}
+};

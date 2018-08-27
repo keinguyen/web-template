@@ -1,3 +1,7 @@
+const yargs = require('yargs');
+const { env } = yargs.argv;
+const isDeveloping = env === 'dev';
+
 // Path Functions
 const pushPath = (src, paths, notInclude) => {
   let notChar = notInclude ? '!' : '';
@@ -5,7 +9,7 @@ const pushPath = (src, paths, notInclude) => {
   return []
     .concat(paths || [])
     .map(item => notChar + src + item);
-}
+};
 
 const addPath = (src, paths, notIncludePaths) => {
   if (typeof src === 'undefined') {
@@ -20,7 +24,7 @@ const addPath = (src, paths, notIncludePaths) => {
   let notICPath = pushPath(src, notIncludePaths, true);
 
   return includePaths.concat(notICPath);
-}
+};
 // End Path Functions
 
 
@@ -62,7 +66,9 @@ const fileJsLib = addPath(srcScript, '_lib/**/*.js');
 
 const filesCopy = addPath(srcAsset, '**/*' , ['**/.gitkeep', 'site/*']);
 const filesSite = addPath(srcAsset, 'site/**/*' , '**/.gitkeep');
-const filesAssets = filesCopy.concat(filesSite);
+const filesAssets = filesCopy
+  .concat(filesSite)
+  .concat(isDeveloping ? [] : 'index.html');
 const filesFontAwesome = `${nodeModules}font-awesome/fonts/*`;
 
 const allDistFiles = `${dist}**/*`;
@@ -105,4 +111,4 @@ module.exports = {
   filesFontAwesome,
 
   allDistFiles
-}
+};

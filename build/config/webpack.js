@@ -1,19 +1,16 @@
-const {
-  resolve,
-  join
-} = require('path')
-const yargs = require('yargs')
-const { ProvidePlugin } = require('webpack')
+const yargs = require('yargs');
+const { ProvidePlugin } = require('webpack');
+const { resolve, join } = require('path');
 
 const {
   srcScript,
   dist,
   distScript
-} = require('./directories')
+} = require('./directories');
 
 const {
   env
-} = yargs.argv
+} = yargs.argv;
 
 const isDeveloping = env === 'dev';
 
@@ -67,4 +64,4 @@ module.exports = {
     sideEffects: true
   },
   devtool: isDeveloping && 'source-map'
-}
+};

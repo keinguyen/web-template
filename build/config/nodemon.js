@@ -5,7 +5,7 @@ const {
   srcStyle,
   srcScript,
   srcView
-} = require('./directories')
+} = require('./directories');
 
 module.exports = {
   script: 'server/index.js',
@@ -18,4 +18,4 @@ module.exports = {
     srcScript,
     srcView
   ]
-}
+};

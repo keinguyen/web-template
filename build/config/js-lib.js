@@ -11,4 +11,4 @@ module.exports = [
   `${nodeModules}detectizr/dist/detectizr.js`,
   `${nodeModules}picturefill/dist/picturefill.js`,
   `${nodeModules}picturefill/dist/plugins/mutation/pf.mutation.js`
-]
+];

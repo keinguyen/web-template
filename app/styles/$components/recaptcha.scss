@@ -1,0 +1,15 @@
+[data-recaptcha] {
+  & > * {
+    width: 100%!important;
+    overflow: hidden;
+  }
+
+  iframe {
+    transform-origin: top left;
+
+    html.edge[dir="rtl"] &,
+    html.ie[dir="rtl"] & {
+      transform-origin: top right;
+    }
+  }
+}

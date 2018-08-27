@@ -1,8 +1,8 @@
-const compression = require('compression')
+const compression = require('compression');
 
 const {
   port: PORT
-} = require('./server')
+} = require('./server');
 
 module.exports = {
   port     : PORT.web,
@@ -13,4 +13,4 @@ module.exports = {
   ghostMode: false,
   logPrefix: 'SYNC',
   middleware: [compression()]
-}
+};

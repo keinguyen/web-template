@@ -1,5 +1,6 @@
 import {
   GMapApiUrl,
+  ReCaptchaApiUrl,
   getType
 } from './variables';
 
@@ -65,6 +66,27 @@ export const loadMapApi = async () => {
   await loadScript(GMapApiUrl);
 
   return window.google.maps;
+};
+
+// ReCaptcha api loader
+let reCaptchaPromise = false;
+
+const checkReCaptchaReady = () => {
+  if (!reCaptchaPromise) {
+    reCaptchaPromise = new Promise((resolve) => {
+      window.grecaptcha.ready(() => {
+        resolve(window.grecaptcha);
+      });
+    });
+  }
+
+  return reCaptchaPromise;
+};
+
+export const loadCaptchaApi = async () => {
+  await loadScript(ReCaptchaApiUrl);
+
+  return checkReCaptchaReady();
 };
 
 export const downloadFile = (url, fileName) => {

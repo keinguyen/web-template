@@ -1,0 +1,15 @@
+[data-gmap] {
+  display: block;
+  width: 100%;
+  padding-bottom: 40%;
+  background: $color-black-1;
+
+  a[href^="http://maps.google.com/maps"],
+  a[href^="https://maps.google.com/maps"] {
+    display: none !important;
+  }
+
+  .gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+  }
+}

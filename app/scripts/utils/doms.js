@@ -5,6 +5,7 @@ export const $head = $('head');
 export const $body = $('body');
 export const $htmlBody = $html.add($body);
 export const $mapKey = $('meta[name="map-key"]');
+export const $captchaKey = $('meta[name="captcha-key"]');
 
 /*
  * Add fixed element's selector here to

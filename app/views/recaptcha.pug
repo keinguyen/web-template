@@ -1,0 +1,19 @@
+extends _layouts/layout-full
+
+block append vars
+  - title = 'ReCaptcha'
+
+block append container
+  +component-recaptcha({
+    required: 'false'
+  })
+  +component-recaptcha({
+    theme: 'dark'
+  })
+  +component-recaptcha({
+    size: 'compact'
+  })
+  +component-recaptcha({
+    theme: 'dark',
+    size: 'compact'
+  })
