@@ -16,39 +16,14 @@ export default class ReCaptcha extends Plugin {
   async init () {
     await loadCaptchaApi();
 
-    this.createInput();
     this.createCaptcha();
+    this.updateInputAttr();
     this.handleEvents();
-  }
-
-  createInput () {
-    if (this.$input) {
-      return false;
-    }
-
-    const { required, parsleyRequiredMessage } = this.options;
-    const requiredAttrStr = required ? 'required' : '';
-    const parsleyAttrStr = hasParsley && required
-      ? `data-parsley-required-message="${parsleyRequiredMessage || ''}"`
-      : '';
-
-    this.$input = $(`
-      <input
-        type="hidden"
-        name="recaptcha"
-        ${requiredAttrStr}
-        ${parsleyAttrStr}
-      />
-    `);
-
-    this.$element.after(this.$input);
-
-    return true;
   }
 
   createCaptcha () {
     if (this.props.captcha) {
-      return false;
+      return;
     }
 
     const $el = this.$element;
@@ -57,18 +32,29 @@ export default class ReCaptcha extends Plugin {
       sitekey,
       callback: (token) => {
         $el.trigger('captcha:change', token);
-        this.updateInput(token);
-      },
-      'expired-callback' () {
-        $el.trigger('captcha:expired');
         this.updateInput();
+      },
+      'expired-callback': () => {
+        $el.trigger('captcha:expired');
+        setTimeout(this.updateInputAttr.bind(this), 1000);
       },
       'error-callback' () {
         $el.trigger('captcha:error');
       }
     });
+  }
 
-    return true;
+  updateInputAttr () {
+    const { required, parsleyRequiredMessage = '' } = this.options;
+    const requiredMessage = hasParsley && required
+      ? parsleyRequiredMessage
+      : '';
+
+    this.$input = this.$element.find('textarea');
+
+    this.$input
+      .prop('required', required)
+      .attr('data-parsley-required-message', requiredMessage);
   }
 
   handleEvents () {
@@ -84,13 +70,13 @@ export default class ReCaptcha extends Plugin {
     $win.on(`width-change.${pluginName}`, onResizeCaptcha);
   }
 
-  updateInput (value = '') {
-    this.$input.val(value).trigger('change').trigger('input');
+  updateInput () {
+    this.$input.trigger('change').trigger('input');
   }
 
   resize () {
     if (!this.$element.is(':visible')) {
-      return false;
+      return;
     }
 
     const $iframe = this.$element.find('iframe');
@@ -100,8 +86,6 @@ export default class ReCaptcha extends Plugin {
     const ratio = this.$element.outerWidth() / $iframe.outerWidth();
 
     ratio < 1 && $iframe.css('transform', `scale(${ratio})`);
-
-    return true;
   }
 
   reset () {

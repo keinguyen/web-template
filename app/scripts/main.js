@@ -10,5 +10,6 @@ import './tweaks/active-element-with-enter';
 
 // Plugins
 import './plugins/template-plugin';
+import './plugins/form-validation';
 import './plugins/gmap';
 import './plugins/recaptcha';

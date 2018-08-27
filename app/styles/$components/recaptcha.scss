@@ -1,10 +1,12 @@
 [data-recaptcha] {
   & > * {
-    width: 100%!important;
+    width: 100% !important;
+    height: auto !important;
     overflow: hidden;
   }
 
   iframe {
+    display: block;
     transform-origin: top left;
 
     html.edge[dir="rtl"] &,

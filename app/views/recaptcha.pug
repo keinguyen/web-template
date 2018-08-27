@@ -4,16 +4,10 @@ block append vars
   - title = 'ReCaptcha'
 
 block append container
-  +component-recaptcha({
-    required: 'false'
-  })
-  +component-recaptcha({
-    theme: 'dark'
-  })
-  +component-recaptcha({
-    size: 'compact'
-  })
-  +component-recaptcha({
-    theme: 'dark',
-    size: 'compact'
-  })
+  form(method="post" data-form-validation)
+    input(name="text" required)
+    +component-recaptcha({
+      theme: 'dark',
+      size: 'compact'
+    })(data-parsley-required-message="Must validate")
+    button(type="submit") Submit
