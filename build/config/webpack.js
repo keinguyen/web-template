@@ -25,19 +25,25 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'stage-2'],
+          presets: [
+            '@babel/preset-env'
+          ],
           plugins: [
             [
-              'transform-runtime', {
-                helpers: false,
-                polyfill: false,
+              '@babel/plugin-transform-runtime', {
+                helpers: true,
                 regenerator: true
               }
             ],
-            'transform-decorators-legacy'
+            '@babel/plugin-proposal-class-properties',
+            [
+              '@babel/plugin-proposal-decorators', {
+                legacy: true
+              }
+            ]
           ],
           cacheDirectory: true
         }
