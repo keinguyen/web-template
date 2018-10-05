@@ -1,5 +1,12 @@
-export function Wrapper ({ name, options = {} } = {}) {
-  return Class => {
+import { $win } from '../utils/doms';
+
+export function Wrapper (param) {
+  let options = {};
+  let runOnload = false;
+
+  const createPlugin = Class => {
+    let name = Class.name.toKebabCase();
+
     function init () {
       $(`[data-${name}]`)[name]();
     }
@@ -11,7 +18,7 @@ export function Wrapper ({ name, options = {} } = {}) {
           $.data(
             this,
             `${name}-instance`,
-            new Class(this, options, name)
+            new Class(this, options)
           );
         } else if (instance[options]) {
           instance[options](params);
@@ -21,14 +28,31 @@ export function Wrapper ({ name, options = {} } = {}) {
 
     $.fn[name].defaults = options;
 
-    $(init);
+    if (runOnload) {
+      $win.on('load', init);
+    } else {
+      $(init);
+    }
 
     return Class;
   };
+
+  if (param instanceof Function) {
+    return createPlugin(param);
+  }
+
+  if (param) {
+    options = param.options || options;
+    runOnload = param.runOnload || runOnload;
+  }
+
+  return createPlugin;
 }
 
 export class Plugin {
-  constructor (element, options, pluginName) {
+  constructor (element, options) {
+    let pluginName = this.constructor.name.toKebabCase();
+
     this.$element = $(element);
     this.options = $.extend(
       { pluginName },
@@ -38,10 +62,6 @@ export class Plugin {
     );
     this.props = {};
 
-    typeof this.init === 'function' && setTimeout(this.init.bind(this));
-  }
-
-  destroy () {
-    $.removeData(this.$element[0], `${this.options.pluginName}-instance`);
+    typeof this.init === 'function' && this.init();
   }
 }

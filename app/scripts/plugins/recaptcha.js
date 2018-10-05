@@ -7,12 +7,12 @@ import {
 const hasParsley = !!$.fn.parsley;
 
 @Wrapper({
-  name: 'recaptcha',
+  runOnload: true,
   options: {
     required: true
   }
 })
-export default class ReCaptcha extends Plugin {
+export default class Recaptcha extends Plugin {
   async init () {
     await loadCaptchaApi();
 

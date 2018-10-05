@@ -1,6 +1,4 @@
-@Wrapper({
-  name: 'template-plugin'
-})
+@Wrapper
 export default class TemplatePlugin extends Plugin {
   init () {
     this.$element.text('template initialized');

@@ -20,6 +20,7 @@ const defaultBuildTask = isDeveloping
       'bundle:css',
       'bundle:css-rtl',
       'bundle:js',
+      'bundle:js-polyfill',
       'clean:temp-css',
       'clean:temp-js',
       'build:views',

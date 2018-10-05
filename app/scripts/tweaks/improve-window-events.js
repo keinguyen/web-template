@@ -13,6 +13,17 @@ let lastWinWidth = layout.width;
 let lastWinHeight = layout.height;
 let lastBreakpointIsDesktop = layout.isDesktop;
 let lastWinScroll = layout.scroll;
+let passiveIfSupported = false;
+
+try {
+  window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+    get () {
+      passiveIfSupported = { passive: true };
+
+      return true;
+    }
+  }));
+} catch (err) { /**/ }
 
 $win
   .off('resize.improve')
@@ -51,20 +62,20 @@ $win
         lastWinHeight = currentWinHeight;
       }
     }, resizeDuration);
-  })
-  .off('scroll.improve')
-  .on('scroll.improve', () => {
-    let currentWinScroll = layout.scroll;
-
-    let scrollName = 'stand';
-
-    if (currentWinScroll < lastWinScroll) {
-      scrollName = 'up';
-    } else if (currentWinScroll > lastWinScroll) {
-      scrollName = 'down';
-    }
-
-    $win.trigger(`scroll:${scrollName}`, currentWinScroll);
-
-    lastWinScroll = currentWinScroll;
   });
+
+window.addEventListener('scroll', () => {
+  let currentWinScroll = layout.scroll;
+
+  let scrollName = 'stand';
+
+  if (currentWinScroll < lastWinScroll) {
+    scrollName = 'up';
+  } else if (currentWinScroll > lastWinScroll) {
+    scrollName = 'down';
+  }
+
+  $win.trigger(`scroll:${scrollName}`, currentWinScroll);
+
+  lastWinScroll = currentWinScroll;
+}, passiveIfSupported);

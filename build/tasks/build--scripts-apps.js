@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const webpack = require('webpack-stream');
+const vinylNamed = require('vinyl-named');
 
 const {
   srcScript,
@@ -14,7 +15,8 @@ gulp.task('build:scripts-apps', (cb) => {
   }
 
   return gulp
-    .src(`${srcScript}main.js`)
+    .src(`${srcScript}*.js`)
+    .pipe(vinylNamed())
     .pipe(webpack(option))
     .on('error', errors.handleError)
     .pipe(gulp.dest(distScript));

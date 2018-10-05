@@ -1,10 +1,10 @@
-extends _layouts/layout-full
+extends _layouts/layout
 
 block append vars
   - title = 'Index'
 
 block append styles
-  link(rel="stylesheet" href=`/css/index${rtlSuffix}.css`)
+  +style('index')
 
 block append container
   h1=translate.home.title

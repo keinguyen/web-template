@@ -6,6 +6,7 @@ gulp.task('build:js', gulp.series(
   'lint:scripts',
   'build:scripts-apps',
   'bundle:js',
+  'bundle:js-polyfill',
   'clean:temp-js',
   'print:results'
 ));

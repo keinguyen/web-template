@@ -1,5 +1,4 @@
 @Wrapper({
-  name: 'form-validation',
   options: {
     triggerAfterFailure: 'input change',
     excluded: [

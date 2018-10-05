@@ -1,5 +1,5 @@
 // Initializations
-import './initializations/promise-polyfill';
+import './cores/prototype';
 import './initializations/import-jquery-plugins';
 import './initializations/lazyload';
 

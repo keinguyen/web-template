@@ -28,7 +28,8 @@ app/
 |   |   |
 |   |   |
 |   |   |
-|   |   main.js # This file is the entry file to compile with webpack
+|   |   apps.js # This file is the entry file to compile with webpack
+|   |   polyfill.js # This file is the polyfill for IE
 |   |
 |   |
 |   styles/

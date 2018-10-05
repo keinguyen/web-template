@@ -45,7 +45,8 @@ html.no-js(lang=$localeName dir=dir)
 
     |
     | <!-- build:css#{rtlSuffix}-->
-    link(rel="stylesheet" href=`/css/libs${rtlSuffix}.css`)
+    +style('libs')
+    +style('apps')
     block styles-bundle
     // endbuild
 
@@ -55,8 +56,20 @@ html.no-js(lang=$localeName dir=dir)
     block container
 
     //- Start: Scripts
+
+    script#polyfill-script.
+      if (/msie\s|trident\/|edge\//i.test(navigator.userAgent)) {
+        var script = document.createElement('script');
+
+        script.src = '/js/polyfill.js';
+
+        document
+          .getElementById('polyfill-script')
+          .insertAdjacentElement('afterend', script);
+      }
     // build:js
-    script(src="/js/libs.js")
+    script(src="/js/libs.js" defer)
+    script(src="/js/apps.js" defer)
     block scripts-bundle
     // endbuild
     block scripts

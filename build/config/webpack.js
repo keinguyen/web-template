@@ -19,7 +19,7 @@ module.exports = {
   context: join(__dirname, dist),
   output: {
     path: join(__dirname, distScript),
-    filename: 'apps.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -29,7 +29,9 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           presets: [
-            '@babel/preset-env'
+            ['@babel/preset-env', {
+              modules: 'amd'
+            }]
           ],
           plugins: [
             [
@@ -38,12 +40,13 @@ module.exports = {
                 regenerator: true
               }
             ],
-            '@babel/plugin-proposal-class-properties',
             [
               '@babel/plugin-proposal-decorators', {
                 legacy: true
               }
-            ]
+            ],
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-transform-function-name',
           ],
           cacheDirectory: true
         }
