@@ -20,7 +20,11 @@ gulp.task('bundle:js', () => {
     .on('error', handleError)
     .pipe(gulp.dest(dest))
     .pipe(rename('scripts.min.js'))
-    .pipe(uglify())
+    .pipe(uglify({
+      mangle: {
+        keep_fnames: true
+      }
+    }))
     .on('error', handleError)
     .pipe(gulp.dest(dest));
 });
