@@ -5,10 +5,11 @@ include ../_mixins/all
 - const rtlSuffix = isRTL ? '-rtl' : ''
 
 block vars
+  - let isTemplate = false
   - let title = 'Template'
-  - let description = 'Template Description'
   - let namespace = ''
   - let keywords = ''
+  - let menuIndex = 0
 
 doctype html
 html.no-js(lang=$localeName dir=dir)
@@ -23,55 +24,27 @@ html.no-js(lang=$localeName dir=dir)
 
     //- Start: Seo
     title=title
-    meta(name="description" content=description)
-    meta(name="keywords" content="")
     meta(name="robots" content="index, follow")
     //- End: Seo
 
-    //- Start: Favicon
-    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
-    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
-    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
-    link(rel="manifest" href="/site.webmanifest")
-    link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5")
-    meta(name="msapplication-TileColor" content="#ffc40d")
-    meta(name="theme-color" content="#ffffff")
-    //- End: Favicon
-
-    //- Start: Keys
-    meta(name="map-key" content="")
-    meta(name="captcha-key" content="")
-    //- End: Keys
-
-    |
-    | <!-- build:css#{rtlSuffix}-->
-    +style('libs')
-    +style('apps')
-    block styles-bundle
-    // endbuild
+    include ../_blocks/site-icon
+    include ../_blocks/meta-keys
+    include ../_blocks/styles
 
     block styles
 
   body(class=namespace)
-    block container
+    if !isTemplate
+      include ../_blocks/header
+    main(role="main")
+      block container
+
+    if !isTemplate
+      include ../_blocks/footer
 
     //- Start: Scripts
-
-    script#polyfill-script.
-      if (/msie\s|trident\/|edge\//i.test(navigator.userAgent)) {
-        var script = document.createElement('script');
-
-        script.src = '/js/polyfill.js';
-
-        document
-          .getElementById('polyfill-script')
-          .insertAdjacentElement('afterend', script);
-      }
-    // build:js
-    script(src="/js/libs.js" defer)
-    script(src="/js/apps.js" defer)
-    block scripts-bundle
-    // endbuild
+    include ../_blocks/polyfill
+    include ../_blocks/script
     block scripts
     //- End: Scripts
 

@@ -1,6 +1,5 @@
 html {
   font-size: $rem;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
 
   // Fix modernizr bug
   &.safari {
@@ -9,6 +8,8 @@ html {
 }
 
 body {
+  font-size: $font-size-default;
+
   &.freeze {
     position: fixed;
     width: 100%;

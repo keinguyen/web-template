@@ -8,11 +8,8 @@ const s4 = () => {
   return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 };
 
-const DEFAULT_GMAP_KEY = 'AIzaSyBxGSPCzu90IHbYPfE6j8bleprnrOk2ZII';
-const DEFAULT_RECAPTCHA_KEY = '6Le0n2wUAAAAAOUNG9GoG3gOn6NP9pP_ahiPC-9W';
-
-export const GMAP_KEY = $mapKey.attr('content') || DEFAULT_GMAP_KEY;
-export const RECAPTCHA_KEY = $captchaKey.attr('content') || DEFAULT_RECAPTCHA_KEY;
+export const GMAP_KEY = $mapKey.attr('content');
+export const RECAPTCHA_KEY = $captchaKey.attr('content');
 export const GMapApiUrl = `https://maps.googleapis.com/maps/api/js?v=3&key=${GMAP_KEY}`;
 export const ReCaptchaApiUrl = `https://www.google.com/recaptcha/api.js?render=explicit`;
 export const regExEmail = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;

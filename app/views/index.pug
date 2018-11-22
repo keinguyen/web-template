@@ -1,16 +1,10 @@
 extends _layouts/layout
 
 block append vars
-  - title = 'Index'
+  - title = 'Homepage'
+  - menuIndex = 0
 
-block append styles
-  +style('index')
-
-block append container
-  h1=translate.home.title
-  p This page using #{$localeName} language
-  div(data-template-plugin="test")
-  br
-  br
-  p: +link('recaptcha.html', 'reCaptcha')
-  p: +link('gmap.html', 'Gmap')
+block container
+  .container
+    .block
+      p(data-plugin) TODO

@@ -1,0 +1,7 @@
+mixin nav(items = [])
+  ul
+    each item, key in items
+      li(class=(key === menuIndex && 'active'))
+        +link(item.title, `/${$localeName + item.href}`, item.text)(class=item.class)
+        if item.itemsMenu && item.itemsMenu[0]
+          +nav(item.itemsMenu)

@@ -5,7 +5,6 @@ Web template use es6, pug, scss, bootstrap
 
 ## 1. Installation
 ```bash
-npm i -g gulp-cli
 npm i
 ```
 

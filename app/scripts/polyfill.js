@@ -31,7 +31,7 @@ if (typeof Object.assign !== 'function') {
 
 // Picture element
 import 'picturefill';
-import 'picturefill/src/plugins/mutation/pf.mutation';
+import 'picturefill/dist/plugins/mutation/pf.mutation';
 
 // Promise
 import _Promise from 'es6-promise';

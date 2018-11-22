@@ -1,4 +1,5 @@
-mixin img(src = imageTransparent, alt = src.slice(src.lastIndexOf('/') + 1), href, linkAttrs)
+mixin img(alt, src = imageTransparent, href, linkAttrs)
+  - alt = alt || src.slice(src.lastIndexOf('/') + 1)
   if href
     +link(href, alt)&attributes(linkAttrs)
       img(src=src alt=alt)&attributes(attributes)
@@ -17,11 +18,11 @@ mixin picture(media, alt, picAttrs)
 mixin simple-pic(srcD, srcM, alt, picAttrs)
   -
     let media = [{
-      media: '(max-width: 991px)',
-      src: srcM
+      media: '(min-width: 992px)',
+      src: srcD
     }, {
       media: 'default',
-      src: srcD
+      src: srcM
     }]
 
   +picture(media, alt, picAttrs)&attributes(attributes)

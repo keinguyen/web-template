@@ -1,13 +1,8 @@
 .git
-.DS_Store
-.sass-cache
 npm-debug.log
 .publish
 .vscode
-public
 dist
-Desktop.ini
 node_modules
-bower_components
 package-lock.json
 app/locales/*.json
