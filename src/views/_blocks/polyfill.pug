@@ -1,0 +1,10 @@
+script#polyfill-script.
+  if (/msie\s|trident\/|edge\//i.test(navigator.userAgent)) {
+    var script = document.createElement('script');
+
+    script.src = '/js/polyfill.js';
+
+    document
+      .getElementById('polyfill-script')
+      .insertAdjacentElement('afterend', script);
+  }

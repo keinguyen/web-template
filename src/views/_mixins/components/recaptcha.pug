@@ -1,0 +1,7 @@
+mixin component-recaptcha({ theme, required, size } = {})
+  div(
+    data-recaptcha
+    data-theme=theme
+    data-size=size
+    data-required=required
+  )&attributes(attributes)

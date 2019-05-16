@@ -1,0 +1,22 @@
+extends _layouts/layout
+
+block append vars
+  - isTemplate = true
+  - title = 'Sitemap'
+  - namespace = 'template'
+
+block styles
+  style.
+    .template {
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+block container
+  h1 Project name
+  h2 Templates
+  ul
+    li: +link('Style Guide', 'template-style-guide.html')
+  h2 Pages
+  ul
+    li: +link('Homepage', 'index.html')
