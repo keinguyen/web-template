@@ -2,6 +2,7 @@
 npm-debug.log
 .publish
 .vscode
+static
 dist
 node_modules
 package-lock.json
