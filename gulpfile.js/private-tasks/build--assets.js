@@ -4,8 +4,6 @@ const copyAssets = require('./copy--assets');
 
 const buildAssets = series(buildLocales, copyAssets);
 
-buildAssets.displayName = 'build:assets';
-
 module.exports = buildAssets;
 
 // gulp.task('build:assets', gulp.series(
