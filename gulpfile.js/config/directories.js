@@ -1,6 +1,7 @@
 const { addPath } = require('../utils');
 
 const isProduction = process.env.NODE_ENV === 'production';
+const ignoreTemplate = ['$*/**/*', '_*/**/*'];
 
 const nodeModules = 'node_modules/';
 exports.nodeModules = nodeModules;
@@ -9,11 +10,7 @@ const src = 'src/';
 exports.src = src;
 
 const static = 'static/';
-exports.static = static;
-
 const dist = 'dist/';
-exports.dist = dist;
-
 const output = isProduction ? dist : static;
 exports.output = output;
 
@@ -28,10 +25,22 @@ const filesAssets = filesCopy
   .concat(isProduction ? 'index.html' : []);
 exports.filesAssets = filesAssets;
 
+const srcScript = `${src}scripts/`;
+exports.srcScript = srcScript;
+
+const filesJs = addPath(srcScript, '**/*.js', ignoreTemplate);
+exports.filesJs = filesJs;
+
+const filesJsES6 = `${srcScript}*.js`;
+exports.filesJsES6 = filesJsES6;
+
+const outputScript = `${output}js/`;
+exports.outputScript = outputScript;
+
 
 // const srcStyle = `${src}styles/`;
 // const srcStyleCore = `${srcStyle}_cores/`;
-// const srcScript = `${src}scripts/`;
+
 // const srcView = `${src}views/`;
 
 
@@ -57,7 +66,7 @@ exports.filesAssets = filesAssets;
 // const filesScssAppsWatch = addPath(srcStyle, ['apps.scss', '$*/**/*.scss']);
 // const filesScssLibsWatch = addPath(srcStyle, ['libs.scss', '_*/**/*.scss']);
 
-// const filesJs = addPath(srcScript, '**/*.js', ['$*/**/*', '_*/**/*']);
+
 // const fileJsLib = addPath(srcScript, '_lib/**/*.js');
 
 

@@ -1,24 +1,15 @@
-const yargs = require('yargs');
 const { ProvidePlugin } = require('webpack');
 const { resolve, join } = require('path');
 
-const {
-  srcScript,
-  dist,
-  distScript
-} = require('./directories');
+const { srcScript, output, outputScript } = require('./directories');
 
-const {
-  env
-} = yargs.argv;
-
-const isDeveloping = env === 'dev';
+const isDeveloping = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: 'none',
-  context: join(__dirname, dist),
+  context: join(__dirname, output),
   output: {
-    path: join(__dirname, distScript),
+    path: join(__dirname, outputScript),
     filename: '[name].js'
   },
   module: {
@@ -47,6 +38,7 @@ module.exports = {
             ],
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-transform-function-name',
+            '@babel/plugin-syntax-dynamic-import'
           ],
           cacheDirectory: true
         }
@@ -67,6 +59,8 @@ module.exports = {
     })
   ],
   optimization: {
+    splitChunks: false,
+    nodeEnv: isDeveloping ? 'development' : 'production',
     flagIncludedChunks: true,
     concatenateModules: true,
     occurrenceOrder: true,

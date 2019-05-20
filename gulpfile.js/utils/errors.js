@@ -1,3 +1,5 @@
+const cached = require('gulp-cached');
+
 const list = {
   get totalIssue () {
     return this.totalError + this.totalWarning;
@@ -30,14 +32,15 @@ function handleESLintError (results) {
         plugin: `ES Lint ${type}`,
         message: filePath,
         code: `[${line}:${column}] ${message}`
-      })
+      });
     });
   });
 
-  return {
-    error: results.errorCount,
-    warning: results.warningCount
-  };
+  list.isJSValid = !results.errorCount;
+
+  if (results.errorCount || results.warningCount) {
+    delete cached.caches.eslint;
+  }
 }
 
 function resetError () {
