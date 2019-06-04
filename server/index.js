@@ -2,112 +2,47 @@
 //                              REQUIRE MODULE
 const express = require('express');
 const pug = require('pug');
-const requireDir = require('require-dir');
-const {
-  join
-} = require('path');
-
 
 //____________________________________________
 //                             REQUIRE CONFIGS
-const {
-  port: { server: serverPort }
-} = require('../build/config/server');
-
-const {
-  srcView,
-  src,
-  dist
-} = require('../build/config/directories');
-
-const pugOptions = require('../build/config/pug');
-
+const route = require('./route');
+const { DEV_PORT } = require('../gulpfile.js/config/server');
+const { srcView, output } = require('../gulpfile.js/config/directories');
+const pugOptions = require('../gulpfile.js/config/pug');
+const { renderErrorHTML } = require('../gulpfile.js/utils');
 
 //____________________________________________
 //                             SERVER VARIABLE
-const locales = requireDir(`../${src}locales`);
 const app = express();
-const DEFAULT_LANG = 'en';
-
-const renderErrorHTML = (msg) => `
-  <body>
-    <style>
-      html {
-        background-color: #000;
-        color: #fff;
-      }
-    </style>
-    <pre>${msg}</pre>
-  </body>
-`;
-
 
 //____________________________________________
 //                                SETUP SERVER
 app.engine('pug', (path, options, callback) => {
-  let opts = Object.assign({}, pugOptions, options);
+  let opts = { ...pugOptions, ...options };
 
-  pug.renderFile(path, opts, (err, result) => {
+  const x = pug.renderFile(path, opts, (err, result) => {
     let data = result ? result : renderErrorHTML(err.stack);
 
     callback(null, data);
   });
+
+  console.log(x);
+
+  debugger
 })
 
-app.use(express.static(dist));
-app.use(express.json());
-app.use(express.urlencoded());
 app.set('views', srcView);
 app.set('view engine', 'pug');
+app.use(express.static(output));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+// app.use('/', route);
 
-
-//____________________________________________
-//                              SERVER REQUEST
-app.get('/', (req, res) => {
-  res.redirect('/en/index.html');
-});
-
-app.get('/[^\/]+/', (req, res) => {
-  res.redirect(`${req.url}index.html`);
-});
-
-app.get('/[^\/]+/*.html', (req, res) => {
-  try {
-    let testLang = /^\/([^\/]+)\//.exec(req.url);
-    let lang = testLang ? testLang[1] : DEFAULT_LANG;
-
-    if (!locales[lang]) {
-      throw 'Not found';
-    }
-
-    let testFile = /^\/[^\/]+\/(.*)\.html/.exec(req.url);
-
-    if (!testFile) {
-      throw 'Not found';
-    }
-
-    res.render(testFile[1], {
-      [pugOptions.i18n.namespace]: locales[lang],
-      $localeName: lang
-    });
-  } catch (err) {
-    res.send(renderErrorHTML(err)).status(404);
-  }
-});
-
-app.post('*', (req, res) => {
-  try {
-    let json = require(join(__dirname, '..', dist, req.url));
-
-    res.send(json);
-  } catch (err) {
-    res.send(renderErrorHTML(err)).status(404);
-  }
-});
-
-
+console.log(process.env.isNoLocale);
 
 //____________________________________________
 //                                    USE PORT
-const logPort = `----- Server listen at ${serverPort} -----`;
-app.listen(serverPort, () => console.log(logPort));
+const logPort = `----- Server listen at ${DEV_PORT} -----`;
+// app.listen(DEV_PORT, () => console.log(logPort));

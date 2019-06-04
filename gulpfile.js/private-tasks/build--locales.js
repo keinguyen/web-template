@@ -25,6 +25,7 @@ function buildLocales (cb) {
   const folders = getFolders(srcLocales);
 
   if (folders[0]) {
+    process.env.isNoLocale = false;
     return parallel(...folders.map(generateBuildTmpFn))(cb);
   }
 

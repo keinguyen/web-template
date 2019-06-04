@@ -18,6 +18,8 @@ const srcLocales = `${src}locales/`;
 exports.srcLocales = srcLocales;
 
 const srcAsset = `${src}assets/`;
+exports.srcAsset = srcAsset;
+
 const filesFavicon = addPath(srcAsset, 'favicon/**/*' , 'favicon/**/.gitkeep');
 const filesCopy = addPath(srcAsset, '**/' , ['**/.gitkeep', 'favicon/']);
 const filesAssets = filesCopy
@@ -55,12 +57,11 @@ exports.filesCssLib = filesCssLib;
 const filesCssBuilt = addPath(outputStyle, '*.css', ['$*.css', '*-rtl.css']);
 exports.filesCssBuilt = filesCssBuilt;
 
-
+const srcView = `${src}views/`;
+exports.srcView = srcView;
 
 // const srcStyle = `${src}styles/`;
 // const srcStyleCore = `${srcStyle}_cores/`;
-
-// const srcView = `${src}views/`;
 
 
 // const distStyle = `${dist}css/`;

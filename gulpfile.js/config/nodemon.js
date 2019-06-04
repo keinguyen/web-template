@@ -1,6 +1,4 @@
 const {
-  nodeModules,
-  dist,
   srcAsset,
   srcStyle,
   srcScript,
@@ -9,10 +7,11 @@ const {
 
 module.exports = {
   script: 'server/index.js',
+  watch: [
+    'server/',
+    'src/'
+  ],
   ignore: [
-    'gulpfile.js',
-    nodeModules,
-    dist,
     srcAsset,
     srcStyle,
     srcScript,

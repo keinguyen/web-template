@@ -22,10 +22,26 @@ exports.addPath = (src, paths, notIncludePaths) => {
 };
 
 exports.getFolders = (dir) => {
-  return readdirSync(dir, { withFileTypes: true })
-    .filter(folder => folder.isDirectory())
-    .map(({ name }) => name);
+  try {
+    return readdirSync(dir, { withFileTypes: true })
+      .filter(folder => folder.isDirectory())
+      .map(({ name }) => name);
+  } catch (err) {
+    return [];
+  }
 };
 
 
 exports.pluralText = (text, number) => text + (number > 1 ? 's' : '');
+
+exports.renderErrorHTML = (msg) => `
+  <body>
+    <style>
+      html {
+        background-color: #000;
+        color: #fff;
+      }
+    </style>
+    <pre>${msg}</pre>
+  </body>
+`;
