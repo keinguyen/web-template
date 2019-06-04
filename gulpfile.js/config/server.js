@@ -4,10 +4,10 @@ module.exports = {
   STATIC_PORT: PORT,
 
   get DEV_PORT () {
-    return this.dev + 1;
+    return this.STATIC_PORT + 1;
   },
 
   get DASHBOARD_PORT () {
-    return this.dev - 1;
+    return this.STATIC_PORT - 1;
   }
 };

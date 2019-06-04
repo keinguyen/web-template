@@ -1,3 +1,9 @@
+const { staticJsAssestPath } = window;
+
+if (staticJsAssestPath) {
+  __webpack_require__.p = staticJsAssestPath;
+}
+
 async function initJS () {
   const { documentElement: { classList } } = document;
 

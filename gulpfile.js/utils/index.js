@@ -40,6 +40,7 @@ exports.renderErrorHTML = (msg) => `
       html {
         background-color: #000;
         color: #fff;
+        font-family: monospace;
       }
     </style>
     <pre>${msg}</pre>
