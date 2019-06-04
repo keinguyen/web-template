@@ -1,12 +1,4 @@
 //_____________________________________________________
-//                                           GET SCREEN
-@function screen($name) {
-  @return map-get($grid-breakpoints, $name);
-}
-
-
-
-//_____________________________________________________
 //                                  CONVERT MAP TO LIST
 @function to-list($value, $keep: 'both') {
   $keep: if(index('keys' 'values', $keep), $keep, 'both');
@@ -54,6 +46,6 @@
   @return px2unit('em', $pixels, $context);
 }
 
-@function rem($pixels, $context: $rem) {
+@function rem($pixels, $context: $font-size-rem) {
   @return px2unit('rem', $pixels, $context);
 }

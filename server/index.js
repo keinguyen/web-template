@@ -1,7 +1,6 @@
 //____________________________________________
 //                              REQUIRE MODULE
 const express = require('express');
-const bodyParser = require('body-parser');
 const pug = require('pug');
 const requireDir = require('require-dir');
 const {
@@ -56,10 +55,8 @@ app.engine('pug', (path, options, callback) => {
 })
 
 app.use(express.static(dist));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.json());
+app.use(express.urlencoded());
 app.set('views', srcView);
 app.set('view engine', 'pug');
 

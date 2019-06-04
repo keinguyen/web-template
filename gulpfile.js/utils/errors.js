@@ -19,7 +19,11 @@ function handleError ({ plugin, message, codeFrame = '' } = {}) {
     code: codeFrame
   });
 
-  typeof this.emit === 'function' && this.emit('end');
+  if (typeof this.emit === 'function') {
+    this.emit('end');
+  } else if (typeof this === 'function') {
+    this();
+  }
 }
 
 function handleESLintError (results) {

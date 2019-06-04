@@ -23,8 +23,8 @@
 //_____________________________________________________
 //                                          MEDIA QUERY
 @mixin mq($width, $type: min) {
-  @if map_has_key($grid-breakpoints, $width) {
-    $width: screen($width);
+  @if unitless($width) {
+    $width: $width * 1px
   }
 
   @if $type == max {

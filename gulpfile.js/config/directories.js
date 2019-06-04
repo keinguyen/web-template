@@ -37,6 +37,25 @@ exports.filesJsES6 = filesJsES6;
 const outputScript = `${output}js/`;
 exports.outputScript = outputScript;
 
+const srcStyle = `${src}styles/`;
+exports.srcStyle = srcStyle;
+
+const filesScssLib = `${srcStyle}$libs.scss`;
+exports.filesScssLib = filesScssLib;
+
+const filesScssBuilt = addPath(srcStyle, '*.scss', '$*.scss');
+exports.filesScssBuilt = filesScssBuilt;
+
+const outputStyle = `${output}css/`;
+exports.outputStyle = outputStyle;
+
+const filesCssLib = `${outputStyle}$libs.css`;
+exports.filesCssLib = filesCssLib;
+
+const filesCssBuilt = addPath(outputStyle, '*.css', ['$*.css', '*-rtl.css']);
+exports.filesCssBuilt = filesCssBuilt;
+
+
 
 // const srcStyle = `${src}styles/`;
 // const srcStyleCore = `${srcStyle}_cores/`;

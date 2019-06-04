@@ -1,4 +1,4 @@
-@import "resources";
+@import "_cores/resources";
 
 .template {
   margin: 20px;
@@ -19,7 +19,7 @@
   }
 
   ul {
-    @include mq("md") {
+    @include mq(1024) {
       overflow: hidden;
       margin: 0 -10px;
       list-style-type: none;
@@ -30,7 +30,7 @@
   li {
     margin-top: 20px;
 
-    @include mq("md") {
+    @include mq(1024) {
       float: left;
       width: (4 / 12) * 100%;
       padding: 0 10px;

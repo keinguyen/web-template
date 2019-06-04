@@ -1,5 +1,5 @@
 html {
-  font-size: $rem;
+  font-size: $font-size-rem;
 
   // Fix modernizr bug
   &.safari {
@@ -11,9 +11,12 @@ body {
   font-size: $font-size-default;
 
   &.freeze {
-    position: fixed;
-    width: 100%;
     height: 100%;
     overflow: hidden !important;
+
+    html.ios & {
+      position: fixed;
+      width: 100%;
+    }
   }
 }
