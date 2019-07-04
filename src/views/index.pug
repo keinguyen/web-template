@@ -1,7 +1,7 @@
 extends _layouts/layout
 
 block append vars
-  - title = 'Homepage'
+  - title = $translator.home ? $translator.home.title : 'Homepage'
   - menuIndex = 0
 
 block container

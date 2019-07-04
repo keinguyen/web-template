@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'development';
+
 const { series } = require('gulp');
 
 const cleanOutput = require('../private-tasks/clean--output');

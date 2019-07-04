@@ -23,12 +23,9 @@
   },
   "scripts": {
     "list-tasks": "gulp --tasks",
-    "start": "gulp --env=dev",
-    "dev": "gulp --env=dev",
-    "build": "gulp --env=prod",
-    "deploy": "gulp deploy:ftp",
-    "upload": "gulp deploy:gh-pages",
-    "build:js": "gulp build:js"
+    "start": "gulp",
+    "dev": "gulp",
+    "build": "gulp build"
   },
   "dependencies": {
     "detectizr": "^2.2.0",

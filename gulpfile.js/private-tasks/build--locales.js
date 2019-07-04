@@ -25,11 +25,10 @@ function buildLocales (cb) {
   const folders = getFolders(srcLocales);
 
   if (folders[0]) {
-    process.env.MULTI_LANGUAGE = true;
+    process.env.MULTI_LANGUAGE = folders;
     return parallel(...folders.map(generateBuildTmpFn))(cb);
   }
 
-  process.env.MULTI_LANGUAGE = false;
   return cb();
 }
 

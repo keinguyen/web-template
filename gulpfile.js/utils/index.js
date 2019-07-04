@@ -4,7 +4,7 @@ const pushPath = (src, paths, wontInclude) => {
   const not = wontInclude ? '!' : '';
 
   return [].concat(paths || []).map(item => not + src + item);
-}
+};
 
 exports.addPath = (src, paths, notIncludePaths) => {
   if (typeof src === 'undefined') {
@@ -30,7 +30,6 @@ exports.getFolders = (dir) => {
     return [];
   }
 };
-
 
 exports.pluralText = (text, number) => text + (number > 1 ? 's' : '');
 

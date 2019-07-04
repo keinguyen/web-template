@@ -3,7 +3,8 @@ const { resolve, join } = require('path');
 
 const { srcScript, output, outputScript } = require('./directories');
 
-const isDeveloping = process.env.NODE_ENV !== 'production';
+const nodeEnv = process.env.NODE_ENV;
+const isDevelopment = nodeEnv !== 'production';
 
 module.exports = {
   mode: 'none',
@@ -55,12 +56,12 @@ module.exports = {
     })
   ],
   optimization: {
+    nodeEnv,
     splitChunks: false,
-    nodeEnv: isDeveloping ? 'development' : 'production',
     flagIncludedChunks: true,
     concatenateModules: true,
     occurrenceOrder: true,
     sideEffects: true
   },
-  devtool: isDeveloping && 'source-map'
+  devtool: isDevelopment && 'source-map'
 };

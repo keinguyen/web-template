@@ -60,9 +60,13 @@ exports.filesCssBuilt = filesCssBuilt;
 const srcView = `${src}views/`;
 exports.srcView = srcView;
 
+const filesPugBuilt = addPath(srcView, '**/*.pug', ['$*/**/*', '_*/**/*']);
+exports.filesPugBuilt = filesPugBuilt;
+// const filesPugAll = addPath(srcView, '**/*.pug');
+// const filesLocales = `${srcLocales}**/*.json`;
+
 // const srcStyle = `${src}styles/`;
 // const srcStyleCore = `${srcStyle}_cores/`;
-
 
 // const distStyle = `${dist}css/`;
 // const distScript = `${dist}js/`;
@@ -70,10 +74,6 @@ exports.srcView = srcView;
 // const distData = `${dist}data/`;
 // const distFont = `${dist}fonts/`;
 // const distFontAwesome = `${distFont}FontAwesome/`;
-
-// const filesPug = addPath(srcView, '**/*.pug', ['$*/**/*', '_*/**/*']);
-// const filesPugAll = addPath(srcView, '**/*.pug');
-// const filesLocales = `${srcLocales}**/*.json`;
 
 // const filesScssApps = `${srcStyle}apps.scss`;
 // const filesScssLibs = `${srcStyle}libs.scss`;
