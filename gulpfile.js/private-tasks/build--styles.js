@@ -30,7 +30,7 @@ function buildStyles (name) {
       .pipe(browserSync.stream());
   }
 
-  _buildStyles.displayName = `build:styles-${name || 'others'}`
+  _buildStyles.displayName = `build:styles-${name || 'others'}`;
 
   return _buildStyles;
 }

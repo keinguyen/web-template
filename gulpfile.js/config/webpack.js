@@ -7,9 +7,9 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   mode: 'none',
-  context: join(__dirname, output),
+  context: join(__dirname, '../../', output),
   output: {
-    path: join(__dirname, outputScript),
+    path: join(__dirname, '../../', outputScript),
     filename: '[name].js'
   },
   module: {
@@ -19,11 +19,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: [
-            ['@babel/preset-env', {
-              modules: 'amd'
-            }]
-          ],
+          presets: ['@babel/preset-env'],
           plugins: [
             [
               '@babel/plugin-transform-runtime', {

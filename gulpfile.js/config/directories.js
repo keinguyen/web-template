@@ -9,9 +9,9 @@ exports.nodeModules = nodeModules;
 const src = 'src/';
 exports.src = src;
 
-const static = 'static/';
+const dest = 'static/';
 const dist = 'dist/';
-const output = isProduction ? dist : static;
+const output = isProduction ? dist : dest;
 exports.output = output;
 
 const srcLocales = `${src}locales/`;
@@ -20,8 +20,8 @@ exports.srcLocales = srcLocales;
 const srcAsset = `${src}assets/`;
 exports.srcAsset = srcAsset;
 
-const filesFavicon = addPath(srcAsset, 'favicon/**/*' , 'favicon/**/.gitkeep');
-const filesCopy = addPath(srcAsset, '**/' , ['**/.gitkeep', 'favicon/']);
+const filesCopy = addPath(srcAsset, '**', 'favicon/**');
+const filesFavicon = addPath(srcAsset, 'favicon/**');
 const filesAssets = filesCopy
   .concat(filesFavicon)
   .concat(isProduction ? 'index.html' : []);
@@ -88,9 +88,6 @@ exports.srcView = srcView;
 
 
 // const fileJsLib = addPath(srcScript, '_lib/**/*.js');
-
-
-
 
 // const filesFontAwesome = `${nodeModules}font-awesome/fonts/*`;
 

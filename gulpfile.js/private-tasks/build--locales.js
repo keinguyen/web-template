@@ -25,13 +25,13 @@ function buildLocales (cb) {
   const folders = getFolders(srcLocales);
 
   if (folders[0]) {
-    process.env.isNoLocale = false;
+    process.env.MULTI_LANGUAGE = true;
     return parallel(...folders.map(generateBuildTmpFn))(cb);
   }
 
-  process.env.isNoLocale = true;
-  cb();
-};
+  process.env.MULTI_LANGUAGE = false;
+  return cb();
+}
 
 buildLocales.displayName = 'build:locales';
 

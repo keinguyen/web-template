@@ -5,7 +5,7 @@ const router = express.Router();
 const { output, srcLocales } = require('../gulpfile.js/config/directories');
 const { renderErrorHTML } = require('../gulpfile.js/utils');
 
-const isMultiLang = true || process.env.isNoLocale;
+const isMultiLang = process.env.MULTI_LANGUAGE;
 const DEFAULT_LANG = 'en';
 
 function _require(path) {
@@ -18,10 +18,6 @@ router.get('/', (req, res) => {
   res.redirect(`/${isMultiLang ? `${DEFAULT_LANG}/index.html` : ''}`);
 });
 
-router.get('/[^\/]+/', (req, res) => {
-  res.redirect(`${req.url}index.html`);
-});
-
 router.get('*.html', (req, res) => {
   try {
     let lang;
@@ -29,7 +25,7 @@ router.get('*.html', (req, res) => {
     let { url } = req;
 
     if (isMultiLang) {
-      let testLang = /^\/([^\/]+)\//.exec(url);
+      let testLang = /^\/([^/]+)\//.exec(url);
 
       if (!testLang) {
         throw 'No language in the url';
@@ -41,7 +37,7 @@ router.get('*.html', (req, res) => {
       url = url.replace(testLang[0], '');
     }
 
-    let testFile = /(.+)\.html/.exec(url)
+    let testFile = /[/]?(.+)\.html/.exec(url);
 
     if (!testFile) {
       throw 'Not found';
@@ -52,7 +48,7 @@ router.get('*.html', (req, res) => {
       $localeName: lang
     }, (err, html) => {
       if (err) {
-        throw err
+        throw err;
       }
 
       res.send(html);
@@ -60,6 +56,10 @@ router.get('*.html', (req, res) => {
   } catch (err) {
     res.send(renderErrorHTML(err)).status(404);
   }
+});
+
+router.get('/[^/]+/', (req, res) => {
+  res.redirect(join(req.url, 'index.html'));
 });
 
 router.post('*', (req, res) => {

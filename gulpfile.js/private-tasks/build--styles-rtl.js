@@ -26,7 +26,7 @@ function buildStylesRtl (name) {
       .pipe(browserSync.stream());
   }
 
-  _buildStylesRtl.displayName = `build:styles-rtl-${name || 'others'}`
+  _buildStylesRtl.displayName = `build:styles-rtl-${name || 'others'}`;
 
   return _buildStylesRtl;
 }

@@ -9,7 +9,7 @@ function runViews (cb) {
   nodemon({
     ...options,
     env: {
-      'isNoLocale': process.env.isNoLocale
+      MULTI_LANGUAGE: process.env.MULTI_LANGUAGE
     }
   })
     .on('start', () => {

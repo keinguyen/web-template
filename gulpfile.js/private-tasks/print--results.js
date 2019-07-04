@@ -3,19 +3,20 @@ const stripIndent = require('strip-indent');
 
 const { pluralText } = require('../utils');
 const errors = require('../utils/errors');
+const { log } = console;
 
 notify.logLevel(0);
 
 function printResults (cb) {
   const errList = errors.list;
-  const { totalError, totalWarning, totalIssue } = errList;
+  const { totalError, totalWarning, totalIssue, data } = errList;
   const errorString = `${totalError} ${pluralText('error', totalError)}`;
   const warningString = `${totalWarning} ${pluralText('warning', totalWarning)}`;
   const resultString = `The project has ${errorString} & ${warningString}`;
   const resultStr = resultString; // Improve Performance Node
   const dashChar = ''.padEnd(resultStr.length + 4, '=');
 
-  console.log(stripIndent(`
+  log(stripIndent(`
     ${dashChar}
 
       ${resultStr}
@@ -27,7 +28,7 @@ function printResults (cb) {
     return cb();
   }
 
-  const infoLogs = stripIndent(errList.data.map(({ message, code, title, type }, i) => {
+  const infoLogs = stripIndent(data.map(({ message, code, title, type }, i) => {
     if (type !== 'Warning') {
       notify.onError({
         title,
@@ -43,14 +44,14 @@ function printResults (cb) {
   }).join(`
   `));
 
-  console.log((`
+  log((`
   ${infoLogs}
   ${dashChar}
-  `).replace(/^  /gm, ''));
+  `).replace(/^ {2}/gm, ''));
 
   errors.resetError();
 
-  cb();
+  return cb();
 }
 
 printResults.displayName = 'print:results';
