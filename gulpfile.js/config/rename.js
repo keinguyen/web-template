@@ -4,5 +4,8 @@ module.exports = {
   },
   min: {
     suffix: '.min'
+  },
+  backup: {
+    suffix: '.backup'
   }
 };

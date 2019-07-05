@@ -1,9 +1,8 @@
-const { series } = require('gulp');
+const { parallel } = require('gulp');
 
 const runViews = require('./run--views');
+const runWatchers = require('./run--watchers');
 
-const runDevServer = series(
-  runViews
-);
+const runDevServer = parallel(runViews, runWatchers);
 
 module.exports = runDevServer;

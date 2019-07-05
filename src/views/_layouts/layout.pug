@@ -3,53 +3,48 @@ include ../_mixins/all
 - const isRTL = $translator.isRTL
 - const dir = isRTL ? 'rtl' : 'ltr'
 - const rtlSuffix = isRTL ? '-rtl' : ''
+-
+  const viewports = [
+    'width=device-width',
+    'initial-scale=1',
+    'shrink-to-fit=no'
+  ].join(',')
 
 block vars
-  - let isTemplate = false
-  - let title = 'Template'
+  - let useHeader = true
+  - let useFooter = true
+  - let title = 'Layout'
   - let namespace = ''
-  - let keywords = ''
-  - let menuIndex = 0
 
 doctype html
 html.no-js(lang=$localeName dir=dir)
   head
+    title=title
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(charset="utf-8")
-    meta(name="viewport" content=[
-      'width=device-width',
-      'initial-scale=1',
-      'shrink-to-fit=no'
-    ].join(','))
+    meta(name="viewport" content!=viewports)
 
-    //- Start: Seo
-    title=title
-    meta(name="robots" content="index, follow")
-    //- End: Seo
-
-    include ../_blocks/site-icon
-    include ../_blocks/meta-keys
+    include ../_blocks/meta
+    include ../_blocks/favicon
     include ../_blocks/styles
 
     block styles
 
   body(class=namespace)
-    if !isTemplate
-      include ../_blocks/header
+    noscript JavaScript is off. Please enable to view full site.
+
+    if useHeader
+      include ../$components/header
 
     main(role="main")
       block container
 
-    if !isTemplate
-      include ../_blocks/footer
+    //- if !isTemplate
+    //-   include ../_blocks/footer
 
-    //- Start: Scripts
-    include ../_blocks/polyfill
-    include ../_blocks/script
-    block scripts
-      script.
-        var staticJsAssestPath = window.location.origin + '/js/';
-
+    //- //- Start: Scripts
+    //- include ../_blocks/script
+    //- block scripts
+    //-   script.
+    //-     var staticJsAssestPath = window.location.origin + '/js/';
     //- End: Scripts
-
-    noscript JavaScript is off. Please enable to view full site.

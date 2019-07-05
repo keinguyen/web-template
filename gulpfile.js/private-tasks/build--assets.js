@@ -13,10 +13,8 @@ const buildAssets = series(
   lintScripts,
   buildScriptsES6,
   buildScriptsExternal,
-  buildStyles('libs'),
-  buildStyles(),
-  buildStylesRtl('libs'),
-  buildStylesRtl()
+  buildStyles,
+  buildStylesRtl
 );
 
 module.exports = buildAssets;

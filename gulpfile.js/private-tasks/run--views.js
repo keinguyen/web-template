@@ -1,7 +1,8 @@
 const nodemon = require('gulp-nodemon');
 
-const options = require('../config/nodemon');
 const browserSync = require('../utils/browser-sync');
+const options = require('../config/nodemon');
+const browserSyncOpts = require('../config/browser-sync');
 
 function runViews (cb) {
   let started = false;
@@ -14,20 +15,21 @@ function runViews (cb) {
   })
     .on('start', () => {
       if (started) {
+        cb();
         return;
       }
 
       started = true;
-      // Force reload to make sure
-      // browsersync was not started
-      // before node server start
+
       setTimeout(() => {
-        browserSync.reload();
-      }, 2000);
-      cb();
+        browserSync.isStreaming = true;
+        browserSync.init(browserSyncOpts);
+
+        cb();
+      }, 1000);
     });
 }
 
-runViews.displayName = 'run:views'
+runViews.displayName = 'run:views';
 
 module.exports = runViews;

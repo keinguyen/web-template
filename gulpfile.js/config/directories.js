@@ -39,22 +39,32 @@ exports.filesJsES6 = filesJsES6;
 const outputScript = `${output}js/`;
 exports.outputScript = outputScript;
 
+const outputChunkScripts = `${outputScript}chunks/`;
+exports.outputChunkScripts = outputChunkScripts;
+
+const filesChunkJs = addPath(outputChunkScripts, '*.js', '*.backup.js');
+exports.filesChunkJs = filesChunkJs;
+
 const srcStyle = `${src}styles/`;
 exports.srcStyle = srcStyle;
 
-const filesScssLib = `${srcStyle}$libs.scss`;
-exports.filesScssLib = filesScssLib;
-
-const filesScssBuilt = addPath(srcStyle, '*.scss', '$*.scss');
+const filesScssBuilt = addPath(
+  srcStyle,
+  '**/*.scss',
+  ['$*/**/*.scss', '_*/**/*.scss']
+);
 exports.filesScssBuilt = filesScssBuilt;
+
+const filesScssPartial = addPath(
+  srcStyle,
+  ['$*/**/*.scss', '_*/**/*.scss']
+);
+exports.filesScssPartial = filesScssPartial;
 
 const outputStyle = `${output}css/`;
 exports.outputStyle = outputStyle;
 
-const filesCssLib = `${outputStyle}$libs.css`;
-exports.filesCssLib = filesCssLib;
-
-const filesCssBuilt = addPath(outputStyle, '*.css', ['$*.css', '*-rtl.css']);
+const filesCssBuilt = addPath(outputStyle, '*.css', '*-rtl.css');
 exports.filesCssBuilt = filesCssBuilt;
 
 const srcView = `${src}views/`;
@@ -62,33 +72,6 @@ exports.srcView = srcView;
 
 const filesPugBuilt = addPath(srcView, '**/*.pug', ['$*/**/*', '_*/**/*']);
 exports.filesPugBuilt = filesPugBuilt;
-// const filesPugAll = addPath(srcView, '**/*.pug');
-// const filesLocales = `${srcLocales}**/*.json`;
 
-// const srcStyle = `${src}styles/`;
-// const srcStyleCore = `${srcStyle}_cores/`;
-
-// const distStyle = `${dist}css/`;
-// const distScript = `${dist}js/`;
-// const distImage = `${dist}images/`;
-// const distData = `${dist}data/`;
-// const distFont = `${dist}fonts/`;
-// const distFontAwesome = `${distFont}FontAwesome/`;
-
-// const filesScssApps = `${srcStyle}apps.scss`;
-// const filesScssLibs = `${srcStyle}libs.scss`;
-// const filesScssOthers = addPath(srcStyle, '**/*.scss', [
-//   'apps.scss',
-//   'libs.scss',
-//   '$*/**/*',
-//   '_*/**/*'
-// ]);
-// const filesScssAppsWatch = addPath(srcStyle, ['apps.scss', '$*/**/*.scss']);
-// const filesScssLibsWatch = addPath(srcStyle, ['libs.scss', '_*/**/*.scss']);
-
-
-// const fileJsLib = addPath(srcScript, '_lib/**/*.js');
-
-// const filesFontAwesome = `${nodeModules}font-awesome/fonts/*`;
-
-// const allDistFiles = `${dist}**/*`;
+const filesPug = addPath(srcView, '**/*.pug');
+exports.filesPug = filesPug;

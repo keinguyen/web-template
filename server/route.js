@@ -4,9 +4,9 @@ const { join } = require('path');
 const router = express.Router();
 const { output, srcLocales } = require('../gulpfile.js/config/directories');
 const { renderErrorHTML } = require('../gulpfile.js/utils');
+const { DEFAULT_LANG } = require('../gulpfile.js/config/server');
 
-const isMultiLang = process.env.MULTI_LANGUAGE;
-const DEFAULT_LANG = 'en';
+const multiLang = process.env.MULTI_LANGUAGE;
 
 function _require(path) {
   delete require.cache[path];
@@ -15,7 +15,7 @@ function _require(path) {
 }
 
 router.get('/', (req, res) => {
-  res.redirect(`/${isMultiLang ? `${DEFAULT_LANG}/index.html` : ''}`);
+  res.redirect(`/${multiLang ? `${DEFAULT_LANG}/index.html` : ''}`);
 });
 
 router.get('*.html', (req, res) => {
@@ -24,7 +24,7 @@ router.get('*.html', (req, res) => {
     let localeLang;
     let { url } = req;
 
-    if (isMultiLang) {
+    if (multiLang) {
       let testLang = /^\/([^/]+)\//.exec(url);
 
       if (!testLang) {

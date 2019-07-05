@@ -9,5 +9,7 @@ module.exports = {
 
   get DASHBOARD_PORT () {
     return this.STATIC_PORT - 1;
-  }
+  },
+
+  DEFAULT_LANG: 'en'
 };

@@ -1,5 +1,4 @@
-const compression = require('compression');
-
+// const compression = require('compression');
 const server = require('./server');
 
 module.exports = {
@@ -9,10 +8,9 @@ module.exports = {
     port: server.DASHBOARD_PORT
   },
   open: 'local',
-  browser: 'chrome.exe',
   ghostMode: false,
   logPrefix: 'SYNC',
-  middleware: [
-    compression()
-  ]
+  // middleware: [
+  //   compression()
+  // ]
 };

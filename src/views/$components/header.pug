@@ -1,0 +1,11 @@
+header.header
+  .container
+    +link('index.html', 'Logo')
+      +img('/images/logo.jpg', 'Logo')
+    +nav([
+      { title: 'Home', href: `/index.html` },
+      { title: 'Style Guide', href: `/template-style-guide.html` },
+      { title: 'Sitemap', href: `/sitemap.html` },
+      { title: 'Google Map', href: `/components/gmap.html` },
+      { title: 'ReCaptcha', href: `/components/recaptcha.html` }
+    ])

@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'development';
-
 const { series } = require('gulp');
 
 const cleanOutput = require('../private-tasks/clean--output');
@@ -13,26 +11,5 @@ const tasks = [
   printResults,
   runDevServer
 ];
-
-// const defaultBuildTask = isDeveloping
-//   ? series(
-//     'clean--dist',
-//     'build--assets',
-//     'print--results',
-//     'server'
-//   )
-//   : series(
-//       'clean--dist',
-//       'build--assets',
-//       'bundle--css',
-//       'bundle--css-rtl',
-//       'bundle--js',
-//       'bundle--js-polyfill',
-//       'clean--temp-css',
-//       'clean--temp-js',
-//       'build--views',
-//       'build--views-min',
-//       'print--results'
-//     );
 
 module.exports = series(...tasks);
