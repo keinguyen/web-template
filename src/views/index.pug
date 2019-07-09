@@ -1,11 +1,28 @@
 extends _layouts/layout
 
-//- block append vars
-//-   - title = $translator.home ? $translator.home.title : 'Homepage'
-//-   - menuIndex = 0
+block append vars
+  - title = $translator.home ? $translator.home.title : 'Homepage'
 
-//- block container
-//-   p Hello
-  //- .container
-  //-   .block
-  //-     p(data-plugin) TODO
+block container
+  .container
+    +hero([
+      {
+        title: 'Welcome to the web boilerplate',
+        pics: {
+          'default': '/images/hero/tech1.jpeg',
+          991: '/images/hero/tech-m-1.jpeg',
+        }
+      }, {
+        title: 'This is Hero component example',
+        pics: {
+          'default': '/images/hero/tech2.jpeg',
+          991: '/images/hero/tech-m-2.jpeg',
+        }
+      }, {
+        title: 'Why do you swipe to third slide??',
+        pics: {
+          'default': '/images/hero/tech3.jpeg',
+          991: '/images/hero/tech-m-3.jpeg',
+        }
+      }
+    ])

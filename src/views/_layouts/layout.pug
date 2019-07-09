@@ -15,6 +15,7 @@ block vars
   - let useFooter = true
   - let title = 'Layout'
   - let namespace = ''
+  - let menuIndex = 0
 
 doctype html
 html.no-js(lang=$localeName dir=dir)
@@ -39,12 +40,10 @@ html.no-js(lang=$localeName dir=dir)
     main(role="main")
       block container
 
-    //- if !isTemplate
-    //-   include ../_blocks/footer
+    if useFooter
+      include ../$components/footer
 
-    //- //- Start: Scripts
-    //- include ../_blocks/script
-    //- block scripts
-    //-   script.
-    //-     var staticJsAssestPath = window.location.origin + '/js/';
-    //- End: Scripts
+    include ../_blocks/scripts
+    block scripts
+      script.
+        var staticJsAssestPath = window.location.origin + '/js/';

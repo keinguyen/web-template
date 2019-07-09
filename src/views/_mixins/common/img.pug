@@ -4,11 +4,9 @@ mixin img(src = imageTransparent, alt)
 
 mixin picture(sources, alt)
   picture&attributes(picAttrs)
-    each source in sources
-      - const src = source.src || imageTransparent
-      - const media = source.media
-      if media
-        if media === 'default'
-          +img(src, alt)&attributes(attributes)
-        else
-          source(media=media srcset=src type=source.type)
+    each source, breakpoint in sources
+      - const src = typeof source === 'string' ? source : (source.src || imageTransparent)
+      if breakpoint === 'default'
+        +img(src, alt)&attributes(attributes)
+      else
+        source(media=`(max-width: ${breakpoint}px)` srcset=src type=source.type)

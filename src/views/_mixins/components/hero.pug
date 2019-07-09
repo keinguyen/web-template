@@ -1,0 +1,6 @@
+mixin hero(items = [])
+  section.hero&attributes(attributes)
+    each item in items
+      .hero__item
+        +picture(item.pics, item.title).hero__img
+        p.hero__title=item.item

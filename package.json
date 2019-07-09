@@ -32,7 +32,8 @@
     "es6-promise": "^4.2.8",
     "function.name": "^1.0.12",
     "jquery": "^3.4.1",
-    "picturefill": "^3.0.3"
+    "picturefill": "^3.0.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",

@@ -1,3 +1,40 @@
 .header {
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem .2rem;
+    border-bottom: 1px solid $color-gray-1;
+    box-shadow: 0 5px 10px -10px rgba(black, .5);
+  }
 
+  &__nav {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    a {
+      color: $color-gray-2;
+      font-weight: bold;
+      text-decoration: none;
+      padding: .5rem 1rem;
+      transition: color .1s ease;
+
+      &:hover,
+      &.\--active {
+        color: $color-black-1;
+      }
+
+      &.\--active {
+        pointer-events: none;
+      }
+    }
+  }
 }
