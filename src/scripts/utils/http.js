@@ -1,95 +1,66 @@
-import {
-  GMapApiUrl,
-  ReCaptchaApiUrl,
-  getType
-} from './variables';
+import { GMAP_URL, DEFAULT_AJAX_OPTS } from './variables';
+import { wait } from './index';
+import { lang } from './layout';
 
-import {
-  lang
-} from './layout';
+const SCRIPT_CACHED = {};
 
-const scriptLoader = {};
-const defaultFetchOpts = {
-  cache: false
-};
+function getScript (src) {
+  return new Promise((resolve, reject) => {
+    let script = document.createElement('script');
 
-const getScript = (src) => new Promise((resolve, reject) => {
-  let script = document.createElement('script');
+    script.async = true;
+    script.src = src;
 
-  script.async = true;
-  script.src = src;
+    script.addEventListener('load', function () {
+      document.head.removeChild(script);
+      resolve(script);
+    });
 
-  script.addEventListener('load', function () {
-    document.head.removeChild(script);
-    resolve(script);
+    script.addEventListener('error', function (err) {
+      reject(err);
+    });
+
+    document.head.appendChild(script);
   });
+}
 
-  script.addEventListener('error', function (err) {
-    reject(err);
-  });
+export function loadScript (url) {
+  if (!SCRIPT_CACHED[url]) {
+    SCRIPT_CACHED[url] = getScript(url);
+  }
 
-  document.head.appendChild(script);
-});
+  return SCRIPT_CACHED[url];
+}
 
-export const fetchData = (opts = {}) => {
-  if (opts.data) {
-    switch (getType(opts.data)) {
-      case 'object':
-        opts.data.lang = lang;
-        break;
-      case 'string':
-        opts.data = `${opts.data}&lang=${lang}`;
-        break;
-      case 'array':
-        opts.data.push({
-          name: 'lang',
-          value: lang
-        });
-        break;
+export function callApi (opts) {
+  return new Promise((resolve, reject) => {
+    const isString = typeof opts === 'string';
+
+    let options = {
+      ...DEFAULT_AJAX_OPTS,
+      data: {},
+      url: isString ? opts : ''
+    };
+
+    if (!isString) {
+      options = { ...options, ...opts };
     }
-  } else {
-    opts.data = `lang=${lang}`;
-  }
 
-  return $.ajax(Object.assign({}, defaultFetchOpts, opts));
-};
+    if (!options.data.lang) {
+      options.data.lang = lang;
+    }
 
-export const loadScript = (url) => {
-  if (!scriptLoader[url]) {
-    scriptLoader[url] = getScript(url);
-  }
+    $.ajax(Object.assign(options)).done(resolve).fail(reject);
+  });
+}
 
-  return scriptLoader[url];
-};
-
-export const loadMapApi = async () => {
-  await loadScript(GMapApiUrl);
+export async function loadMapApi () {
+  await loadScript(GMAP_URL);
 
   return window.google.maps;
-};
+}
 
-// ReCaptcha api loader
-let reCaptchaPromise = false;
-
-const checkReCaptchaReady = () => {
-  if (!reCaptchaPromise) {
-    reCaptchaPromise = new Promise((resolve) => {
-      window.grecaptcha.ready(() => {
-        resolve(window.grecaptcha);
-      });
-    });
-  }
-
-  return reCaptchaPromise;
-};
-
-export const loadCaptchaApi = async () => {
-  await loadScript(ReCaptchaApiUrl);
-
-  return checkReCaptchaReady();
-};
-
-export const downloadFile = (url, fileName) => {
+export async function download (url, fileName = '') {
   if (!url) {
     return;
   }
@@ -105,5 +76,7 @@ export const downloadFile = (url, fileName) => {
     .appendTo('body')[0]
     .click();
 
-  setTimeout(() => $link.remove());
-};
+  await wait();
+
+  $link.remove();
+}

@@ -1,81 +1,76 @@
-import {
-  $win
-} from '../utils/doms';
-
-import {
-  resizeDuration
-} from '../utils/variables';
+import { $win } from '../utils/doms';
+import { wait } from '../utils/index';
+import { RESIZE_TIME } from '../utils/variables';
 
 import layout from '../utils/layout';
 
-let resizeTimeout;
+let passiveIfSupported = false;
+let lastWinScroll = layout.scroll;
+let resizeTimeout = {};
 let lastWinWidth = layout.width;
 let lastWinHeight = layout.height;
 let lastBreakpointIsDesktop = layout.isDesktop;
-let lastWinScroll = layout.scroll;
-let passiveIfSupported = false;
 
 try {
-  window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+  const passive = Object.defineProperty({}, 'passive', {
     get () {
       passiveIfSupported = { passive: true };
 
       return true;
     }
-  }));
-} catch (err) { /**/ }
-
-$win
-  .off('resize.improve')
-  .on('resize.improve', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      let currentWinWidth = layout.width;
-      let currentWinHeight = layout.height;
-
-      $win.trigger('resized', [ currentWinWidth, currentWinHeight ]);
-
-      if (lastWinWidth !== currentWinWidth) {
-        $win.trigger('width-change', currentWinWidth);
-
-        let currentBreakpointIsDesktop = layout.isDesktop;
-
-        if (lastBreakpointIsDesktop !== currentBreakpointIsDesktop) {
-          // Prevent conflict event name with slick
-          $win.trigger('breakpoint:change', currentWinWidth);
-
-          let breakpointEvtName = currentBreakpointIsDesktop
-            ? 'desktop'
-            : 'mobile';
-
-          $win.trigger(`breakpoint:${breakpointEvtName}`, currentWinWidth);
-
-          lastBreakpointIsDesktop = currentBreakpointIsDesktop;
-        }
-
-        lastWinWidth = currentWinWidth;
-      }
-
-      if (lastWinHeight !== currentWinHeight) {
-        $win.trigger('height-change', currentWinHeight);
-
-        lastWinHeight = currentWinHeight;
-      }
-    }, resizeDuration);
   });
 
+  window.addEventListener('test', null, passive);
+} catch (err) { /**/ }
+
 window.addEventListener('scroll', () => {
-  let currentWinScroll = layout.scroll;
+  const currentWinScroll = layout.scroll;
 
-  let scrollName = 'stand';
-
-  if (currentWinScroll < lastWinScroll) {
-    scrollName = 'up';
-  } else if (currentWinScroll > lastWinScroll) {
-    scrollName = 'down';
+  if (currentWinScroll === lastWinScroll) {
+    return;
   }
 
-  $win.trigger(`scroll:${scrollName}`, currentWinScroll);
+  const name = currentWinScroll < lastWinScroll ? 'up' : 'down';
+
+  $win.trigger(`scroll:${name}`, currentWinScroll);
 
   lastWinScroll = currentWinScroll;
 }, passiveIfSupported);
+
+$win.off('resize.improve').on('resize.improve', async () => {
+  resizeTimeout.cancel && resizeTimeout.cancel();
+  resizeTimeout = wait(RESIZE_TIME);
+  await resizeTimeout;
+
+  const currentWinWidth = layout.width;
+  const currentWinHeight = layout.height;
+
+  $win.trigger('resized', [ currentWinWidth, currentWinHeight ]);
+
+  if (lastWinWidth !== currentWinWidth) {
+    $win.trigger('width-change', currentWinWidth);
+
+    const currentBreakpointIsDesktop = layout.isDesktop;
+
+    if (lastBreakpointIsDesktop !== currentBreakpointIsDesktop) {
+      // Prevent conflict event name with slick
+      $win.trigger('breakpoint:change', currentWinWidth);
+
+      const breakpointEvtName = currentBreakpointIsDesktop
+        ? 'desktop'
+        : 'mobile';
+
+      $win.trigger(`breakpoint:${breakpointEvtName}`, currentWinWidth);
+
+      lastBreakpointIsDesktop = currentBreakpointIsDesktop;
+    }
+
+    lastWinWidth = currentWinWidth;
+  }
+
+  if (lastWinHeight !== currentWinHeight) {
+    $win.trigger('height-change', currentWinHeight);
+
+    lastWinHeight = currentWinHeight;
+  }
+});

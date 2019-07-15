@@ -43,7 +43,8 @@ html.no-js(lang=$localeName dir=dir)
     if useFooter
       include ../$components/footer
 
-    include ../_blocks/scripts
     block scripts
       script.
         var staticJsAssestPath = window.location.origin + '/js/';
+
+    include ../_blocks/scripts

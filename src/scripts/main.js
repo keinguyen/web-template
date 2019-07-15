@@ -5,9 +5,7 @@ if (staticJsAssestPath) {
 }
 
 async function initJS () {
-  const { documentElement: { classList } } = document;
-
-  if (classList.contains('ie')) {
+  if (document.documentElement.classList.contains('ie')) {
     await import(/* webpackChunkName: "chunks/ie-polyfill" */ './polyfill/ie');
   }
 

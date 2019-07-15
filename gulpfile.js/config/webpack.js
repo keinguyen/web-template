@@ -51,8 +51,7 @@ module.exports = {
     new ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      Plugin: ['@/plugin', 'Plugin'],
-      Wrapper: ['@/plugin', 'Wrapper']
+      Plugin: ['@/plugin', 'default']
     })
   ],
   optimization: {

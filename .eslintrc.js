@@ -14,7 +14,6 @@ module.exports = {
     $: true,
     jQuery: true,
     Plugin: true,
-    Wrapper: true,
     __webpack_require__: true
   },
   rules: {

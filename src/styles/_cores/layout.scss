@@ -20,9 +20,29 @@ body {
       position: fixed;
       width: 100%;
     }
+
+    &[class*="--scroll-"] {
+      border-right-style: solid;
+      border-right-color: $color-white-1;
+    }
+
+    @for $i from 13 through 18 {
+      &.\--scroll-#{$i} {
+        border-right-width: $i * 1px;
+      }
+    }
   }
 }
 
 main {
-  padding-bottom: 100px;
+  padding-bottom: 60px;
+}
+
+img {
+  max-width: 100%;
+
+  &:not([src]),
+  &[src=""] {
+    display: none;
+  }
 }

@@ -1,50 +1,51 @@
-import {
-  $win,
-  $html,
-  $body,
-  $fixed
-} from './doms';
+import { $win, $html, $body } from './doms';
+import { wait } from './index';
+import { RESPONSIVE_BREAKPOINTS } from './variables';
 
-// Refer to responsive breakpoints
-const RESPONSIVE_BREAKPOINTS = {
-  tablet: 768,
-  desktop: 992
-};
+const { TABLET, DESKTOP } = RESPONSIVE_BREAKPOINTS;
 
-let lockTimeout;
+let lockTimeout = {};
 let lastScroll;
 
 function calculateScrollWidth () {
-  let tempDiv = document.createElement('div');
+  const body = $body[0];
+  const _div = document.createElement('div');
 
-  tempDiv.style.position = 'absolute';
-  tempDiv.style.top = '0px';
-  tempDiv.style.left = '0px';
-  tempDiv.style.width = '100%';
-  tempDiv.style.height = '50px';
+  _div.style.position = 'absolute';
+  _div.style.top = '0px';
+  _div.style.left = '0px';
+  _div.style.width = '100%';
+  _div.style.height = '50px';
 
-  document.body.appendChild(tempDiv);
+  body.appendChild(_div);
 
-  let fullWidth = tempDiv.offsetWidth;
+  const fullWidth = _div.offsetWidth;
 
-  tempDiv.style.overflowY = 'scroll';
+  _div.style.overflowY = 'scroll';
 
-  let limitWidth = tempDiv.clientWidth;
+  const limitWidth = _div.clientWidth;
 
-  document.body.removeChild(tempDiv);
+  body.removeChild(_div);
 
-  return fullWidth - limitWidth;
+  const scrollWidth = fullWidth - limitWidth;
+
+  body.classList.add(`--scroll-${scrollWidth}`);
+
+  return scrollWidth;
 }
 
+export const scrollWidth = calculateScrollWidth();
+export const lang = $html.attr('lang') || '';
+export const isRTL = $html.attr('dir') === 'rtl';
+export const isIOS = $html.hasClass('ios');
+export const isIE = $html.is('.ie, .edge');
 
-export const lang = $html.attr('lang');
 export default {
+  scrollWidth,
   lang,
-  scrollWidth: calculateScrollWidth(),
-  breakpoints: RESPONSIVE_BREAKPOINTS,
-  isRTL: $html.attr('dir') === 'rtl',
-  isIOS: $html.hasClass('ios'),
-  isIE: $html.is('.ie, .edge'),
+  isRTL,
+  isIOS,
+  isIE,
 
   get screenWidth () {
     return window.innerWidth;
@@ -58,25 +59,25 @@ export default {
     return window.innerHeight;
   },
 
+  get bodyHeight () {
+    return document.body.clientHeight;
+  },
+
   get isFrozen () {
     return $body.hasClass('freeze');
   },
 
-  get bodyHeight () {
-    return $body.outerHeight();
+  get isDesktop () {
+    return this.screenWidth >= DESKTOP;
   },
 
   get isTablet () {
     let pageWidth = this.screenWidth;
 
     return (
-      pageWidth >= RESPONSIVE_BREAKPOINTS.tablet &&
-      pageWidth < RESPONSIVE_BREAKPOINTS.desktop
+      pageWidth >= TABLET &&
+      pageWidth < DESKTOP
     );
-  },
-
-  get isDesktop () {
-    return this.screenWidth >= RESPONSIVE_BREAKPOINTS.desktop;
   },
 
   get isMobile () {
@@ -84,81 +85,64 @@ export default {
   },
 
   get isSmallScreen () {
-    return !this.isDesktop && !this.isTablet;
+    return this.screenWidth < TABLET;
   },
 
   get scroll () {
     return $win.scrollTop();
   },
 
-  freeze () {
-    clearTimeout(lockTimeout);
-    lockTimeout = setTimeout(() => {
-      let willBeFrozen = this.bodyHeight > this.height && !this.isFrozen;
-
-      if (!willBeFrozen) {
-        return false;
-      }
-
-      if (this.isIOS) {
-        lastScroll = this.scroll;
-        $body.css('top', -lastScroll);
-      }
-
-      let borderRight = `${this.scrollWidth}px solid #fff`;
-
-      $body
-        .addClass('freeze')
-        .css({
-          borderRight,
-          paddingRight: ''
-        });
-
-      $fixed.css('border-right', function () {
-        let position = window
-          .getComputedStyle(this)
-          .getPropertyValue('position');
-
-        let condition = this.classList.contains('component-header')
-          || position === 'fixed';
-
-        return condition ? borderRight : '';
-      });
-
-      return true;
-    });
+  set scroll (value) {
+    window.scrollTo(0, value);
   },
 
-  unfreeze (callback) {
-    clearTimeout(lockTimeout);
-    lockTimeout = setTimeout(() => {
-      if (!this.isFrozen) {
-        typeof callback === 'function' && callback();
-        return false;
-      }
+  async freeze () {
+    // Set Timeout
+    lockTimeout.cancel && lockTimeout.cancel();
+    lockTimeout = wait();
+    await lockTimeout;
+    // End Timeout
 
-      $body
-        .removeClass('freeze')
-        .css({
-          borderRight: ''
-        });
+    const shouldFreeze = this.bodyHeight > this.height && !this.isFrozen;
 
-      $fixed.css('border-right', '');
+    if (!shouldFreeze) {
+      return false;
+    }
 
-      if (this.isIOS) {
-        $body.css('top', '');
-        window.scrollTo(0, lastScroll);
-        window.isUnfreezing = true;
+    if (this.isIOS) {
+      lastScroll = this.scroll;
+      $body.css('top', -lastScroll);
+    }
 
-        setTimeout(() => {
-          window.isUnfreezing = false;
-          typeof callback === 'function' && callback();
-        }, 50);
-      } else {
-        typeof callback === 'function' && callback();
-      }
+    $body.addClass('freeze');
 
-      return true;
-    });
+    return true;
+  },
+
+  async unfreeze () {
+    // Set Timeout
+    lockTimeout.cancel && lockTimeout.cancel();
+    lockTimeout = wait();
+    await lockTimeout;
+    // End Timeout
+
+    if (!this.isFrozen) {
+      return false;
+    }
+
+    window.isUnfreezing = true;
+
+    $body.removeClass('freeze');
+
+    if (this.isIOS) {
+      $body.css('top', '');
+      this.scroll = lastScroll;
+
+      await wait(50);
+    }
+
+    window.isUnfreezing = false;
+
+    return true;
   }
 };

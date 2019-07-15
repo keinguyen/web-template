@@ -15,7 +15,7 @@ export default {
       expires = `; expires=${date.toUTCString()}`;
     }
 
-    document.cookie = `${key}=${value.toString()}${expires}`;
+    document.cookie = `${key}=${value.toString() + expires}`;
   },
 
   get (key) {

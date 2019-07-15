@@ -77,3 +77,20 @@
     @content;
   }
 }
+
+
+
+//_____________________________________________________
+//                                                 SIZE
+@mixin size ($width, $height: $width) {
+  @if unitless($width) {
+    $width: $width * 1px
+  }
+
+  @if unitless($height) {
+    $height: $height * 1px
+  }
+
+  width: $width;
+  height: $height;
+}

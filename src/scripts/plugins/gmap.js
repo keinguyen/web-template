@@ -1,20 +1,26 @@
 import { loadMapApi } from '../utils/http';
 
-const generateLatLng = (lat, lng) => new window.google.maps.LatLng(lat, lng);
+let Maps;
 
-@Wrapper({
+function generateLatLng (lat, lng) {
+  return new Maps.LatLng(lat, lng);
+}
+
+@Plugin({
   options: {
     disableDefaultUI: true,
     zoom: 5
   }
 })
-export default class Gmap extends Plugin {
+export default class Gmap {
   async init () {
-    const { Map } = await loadMapApi();
-    const props = this.props;
+    Maps = await loadMapApi();
 
-    props.map = new Map(this.$element[0], Object.assign({}, this.options, {
+    const mapOpts = {
+      ...this.options,
       center: generateLatLng(51.508742, -0.120850)
-    }));
+    };
+
+    this.props.map = new Maps.Map(this.$element[0], mapOpts);
   }
 }
