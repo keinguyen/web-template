@@ -15,7 +15,7 @@ function _require(path) {
 }
 
 router.get('/', (req, res) => {
-  res.redirect(`/${multiLang ? `${DEFAULT_LANG}/index.html` : ''}`);
+  res.redirect(`/${multiLang ? `${DEFAULT_LANG}/index.html` : 'index.html'}`);
 });
 
 router.get('*.html', (req, res) => {

@@ -27,7 +27,6 @@ exports.getFolders = (dir) => {
       .filter(folder => lstatSync(dir + folder).isDirectory())
       .map(folder => folder);
   } catch (err) {
-    console.log(err)
     return [];
   }
 };
