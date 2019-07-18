@@ -1,4 +1,4 @@
-const { readdirSync } = require('fs');
+const { readdirSync, lstatSync } = require('fs');
 
 const pushPath = (src, paths, wontInclude) => {
   const not = wontInclude ? '!' : '';
@@ -23,8 +23,8 @@ exports.addPath = (src, paths, notIncludePaths) => {
 
 exports.getFolders = (dir) => {
   try {
-    return readdirSync(dir, { withFileTypes: true })
-      .filter(folder => folder.isDirectory())
+    return readdirSync(dir)
+      .filter(folder => lstatSync(dir + folder).isDirectory())
       .map(({ name }) => name);
   } catch (err) {
     return [];
