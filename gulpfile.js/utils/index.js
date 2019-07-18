@@ -24,8 +24,7 @@ exports.addPath = (src, paths, notIncludePaths) => {
 exports.getFolders = (dir) => {
   try {
     return readdirSync(dir)
-      .filter(folder => lstatSync(dir + folder).isDirectory())
-      .map(folder => folder);
+      .filter(folder => lstatSync(dir + folder).isDirectory());
   } catch (err) {
     return [];
   }
