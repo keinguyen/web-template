@@ -1,4 +1,3 @@
-// const compression = require('compression');
 const server = require('./server');
 
 module.exports = {
@@ -9,8 +8,5 @@ module.exports = {
   },
   open: 'local',
   ghostMode: false,
-  logPrefix: 'SYNC',
-  // middleware: [
-  //   compression()
-  // ]
+  logPrefix: 'SYNC'
 };
