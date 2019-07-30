@@ -19,3 +19,5 @@ export function wait (ms = 10) {
 
   return _promise;
 }
+
+export const waitTmp = { cancel () { /* empty fn */ } };

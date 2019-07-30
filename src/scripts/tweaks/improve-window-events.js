@@ -1,12 +1,12 @@
 import { $win } from '../utils/doms';
-import { wait } from '../utils/index';
+import { wait, waitTmp } from '../utils/index';
 import { RESIZE_TIME } from '../utils/variables';
 
 import layout from '../utils/layout';
 
 let passiveIfSupported = false;
 let lastWinScroll = layout.scroll;
-let resizeTimeout = {};
+let resizeTimeout = waitTmp;
 let lastWinWidth = layout.width;
 let lastWinHeight = layout.height;
 let lastBreakpointIsDesktop = layout.isDesktop;
@@ -38,7 +38,7 @@ window.addEventListener('scroll', () => {
 }, passiveIfSupported);
 
 $win.off('resize.improve').on('resize.improve', async () => {
-  resizeTimeout.cancel && resizeTimeout.cancel();
+  resizeTimeout.cancel();
   resizeTimeout = wait(RESIZE_TIME);
   await resizeTimeout;
 

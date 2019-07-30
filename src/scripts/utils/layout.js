@@ -1,10 +1,10 @@
 import { $win, $html, $body } from './doms';
-import { wait } from './index';
+import { wait, waitTmp } from './index';
 import { RESPONSIVE_BREAKPOINTS } from './variables';
 
 const { TABLET, DESKTOP } = RESPONSIVE_BREAKPOINTS;
 
-let lockTimeout = {};
+let lockTimeout = waitTmp;
 let lastScroll;
 
 function calculateScrollWidth () {
@@ -98,7 +98,7 @@ export default {
 
   async freeze () {
     // Set Timeout
-    lockTimeout.cancel && lockTimeout.cancel();
+    lockTimeout.cancel();
     lockTimeout = wait();
     await lockTimeout;
     // End Timeout
@@ -121,7 +121,7 @@ export default {
 
   async unfreeze () {
     // Set Timeout
-    lockTimeout.cancel && lockTimeout.cancel();
+    lockTimeout.cancel();
     lockTimeout = wait();
     await lockTimeout;
     // End Timeout

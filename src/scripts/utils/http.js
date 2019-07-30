@@ -10,15 +10,8 @@ function getScript (src) {
 
     script.async = true;
     script.src = src;
-
-    script.addEventListener('load', function () {
-      document.head.removeChild(script);
-      resolve(script);
-    });
-
-    script.addEventListener('error', function (err) {
-      reject(err);
-    });
+    script.onload = resolve;
+    script.onerror = reject;
 
     document.head.appendChild(script);
   });
@@ -50,7 +43,7 @@ export function callApi (opts) {
       options.data.lang = lang;
     }
 
-    $.ajax(Object.assign(options)).done(resolve).fail(reject);
+    $.ajax(options).done(resolve).fail(reject);
   });
 }
 
