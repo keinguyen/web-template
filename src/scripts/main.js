@@ -1,7 +1,7 @@
-const { staticJsAssestPath } = window;
+const { staticJsAssetsPath } = window;
 
-if (staticJsAssestPath) {
-  __webpack_require__.p = staticJsAssestPath;
+if (staticJsAssetsPath) {
+  __webpack_require__.p = staticJsAssetsPath;
 }
 
 async function initJS () {
