@@ -1,3 +1,7 @@
+// Remove below polyfill if support IE > 10
+import _Promise from 'es6-promise';
+_Promise.polyfill();
+
 const { staticJsAssetsPath } = window;
 
 if (staticJsAssetsPath) {

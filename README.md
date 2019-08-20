@@ -13,7 +13,7 @@ npm i
 
 ## 3. Constructor
 ```bash
-app/
+src/
 |   assets/
 |   |   # All files and folders (except site folder) will be copied to /dist
 |   |   favicon/

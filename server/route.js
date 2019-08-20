@@ -9,7 +9,9 @@ const { DEFAULT_LANG } = require('../gulpfile.js/config/server');
 const multiLang = process.env.MULTI_LANGUAGE;
 
 function _require(path) {
-  delete require.cache[path];
+  const _path = join(__dirname, path);
+
+  delete require.cache[_path];
 
   return require(path);
 }

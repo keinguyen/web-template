@@ -14,11 +14,13 @@ if (typeof Object.assign !== 'function') {
         let nextSource = arguments[index];
 
         if (nextSource !== null) {
+          /* eslint-disable */
           for (let nextKey in nextSource) {
             if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
               to[nextKey] = nextSource[nextKey];
             }
           }
+          /* eslint-enable */
         }
       }
 
@@ -32,9 +34,5 @@ if (typeof Object.assign !== 'function') {
 // Picture element
 import 'picturefill';
 import 'picturefill/dist/plugins/mutation/pf.mutation';
-
-// Promise
-import _Promise from 'es6-promise';
-_Promise.polyfill();
 
 import 'function.name';
