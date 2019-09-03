@@ -1,19 +1,22 @@
-// Remove below polyfill if support IE > 10
-import _Promise from 'es6-promise';
-_Promise.polyfill();
+import './initializations/update-js-assets-path';
 
-const { staticJsAssetsPath } = window;
-
-if (staticJsAssetsPath) {
-  __webpack_require__.p = staticJsAssetsPath;
-}
+const isIE = document.documentElement.classList.contains('ie');
 
 async function initJS () {
-  if (document.documentElement.classList.contains('ie')) {
+  if (isIE) {
     await import(/* webpackChunkName: "chunks/ie-polyfill" */ './polyfill/ie');
   }
 
   import(/* webpackChunkName: "chunks/apps" */ './main/index');
 }
 
-initJS();
+if (isIE) {
+  const script = document.createElement('script');
+
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.min.js';
+  script.onload = initJS;
+
+  document.head.appendChild(script);
+} else {
+  initJS();
+}
