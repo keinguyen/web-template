@@ -1,7 +1,9 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    node: true
   },
   parser: 'babel-eslint',
   parserOptions: {
@@ -13,7 +15,7 @@ module.exports = {
     $: true,
     jQuery: true,
     Plugin: true,
-    Wrapper: true
+    __webpack_require__: true
   },
   rules: {
     // recommended

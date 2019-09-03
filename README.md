@@ -1,7 +1,7 @@
 WEB TEMPLATE
 ===================
 
-Web template use es6, pug, scss, bootstrap
+Web template use es6, pug, scss
 
 ## 1. Installation
 ```bash
@@ -9,14 +9,14 @@ npm i
 ```
 
 ## 2. Configuration
-- Every configuration is stored in `./config/**`
+- Every configuration is stored in `./gulpfile.js/config/**`
 
 ## 3. Constructor
 ```bash
-app/
+src/
 |   assets/
 |   |   # All files and folders (except site folder) will be copied to /dist
-|   |   site/
+|   |   favicon/
 |   |    # All content in this folder will be copied direct to /dist
 |   |
 |   |
@@ -27,8 +27,7 @@ app/
 |   |   |
 |   |   |
 |   |   |
-|   |   apps.js # This file is the entry file to compile with webpack
-|   |   polyfill.js # This file is the polyfill for IE
+|   |   *.js # These files is the entry file to compile with webpack
 |   |
 |   |
 |   styles/
@@ -63,8 +62,8 @@ app/
 |       ... # Others will be compiled to /dist/
 |
 |
-build/
-|   .... # Manage build tasks
+gulpfile.js/
+|   .... # Manage build tasks and configuration
 |
 |
 server/
@@ -72,12 +71,18 @@ server/
 |
 |
 dist/
-|   # Store compiled html, css, js
+|   # Store compiled html, css, js (production build)
 |
+|
+static/
+|   # Store compiled css, js (work on dev)
+|
+|
+.browserslistrc
+.eslintrc.js
 .gitignore
 .gitattributes
-gulpfile.js # Run tasks/scripts
-package-lock.json
+index.html
 package.json
 README.md
 ```
@@ -87,14 +92,24 @@ README.md
 - `npm start`: Shorthand for `npm run dev`
 - `npm run dev`: Build Project + Watch + Node Server
 - `npm run build`: Build Project (min)
-- `npm run deploy`: Build Project + Deploy to FTP
-- `npm run upload`: Build Project + Deploy to gh-pages
 
 
 ## 5. Pug global variables
-- `translate`: object variable get value from `app/locales/#{lang}.json`
+- `$translator`: object variable get value from `app/locales/#{lang}.json`
 - `$localeName`: variable get value equal name of current using locale json
 
 
-## 6. Site favicon
+## 6. JS Dynamic import path (chunks files)
+At `src/views/_layouts/layout.pug`, there is a script with variable `staticJsAssetsPath`, update that variable to server js path, and it will load correctly chunks files
+
+
+## 7. Site favicon
 Use this online tool: https://realfavicongenerator.net/ to get the site favicon package and put it in `app/assets/site`
+
+
+## 8. Single language mode
+Just remove folder `src/locales`
+
+
+## 9. Run production server
+Use `http-server` package in npm to run local server at `dist` folder

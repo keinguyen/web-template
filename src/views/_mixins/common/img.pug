@@ -1,0 +1,12 @@
+mixin img(src = imageTransparent, alt)
+  - alt = alt || src.slice(src.lastIndexOf('/') + 1)
+  img(src=src alt=alt)&attributes(attributes)
+
+mixin picture(sources, alt)
+  picture&attributes(picAttrs)
+    each source, breakpoint in sources
+      - const src = typeof source === 'string' ? source : (source.src || imageTransparent)
+      if breakpoint === 'default'
+        +img(src, alt)&attributes(attributes)
+      else
+        source(media=`(max-width: ${breakpoint}px)` srcset=src type=source.type)

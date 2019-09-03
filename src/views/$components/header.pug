@@ -1,0 +1,9 @@
+header.header
+  .container
+    .header__wrapper
+      +link('/en/index.html', 'Logo').header__logo
+        +img('/images/logo.jpg', 'Logo')
+      +nav([
+        { title: 'Home', href: `/index.html` },
+        { title: 'Gmap', href: `/components/gmap.html` }
+      ]).header__nav

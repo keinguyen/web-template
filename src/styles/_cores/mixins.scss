@@ -1,0 +1,96 @@
+//_____________________________________________________
+//                                            FONT FACE
+@mixin font-face($name, $pathNotIncludeExt, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $name;
+    src: url("#{$pathNotIncludeExt}.woff") format("woff");
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+
+
+
+//_____________________________________________________
+//                                            SMOOTHING
+@mixin font-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
+//_____________________________________________________
+//                                          MEDIA QUERY
+@mixin mq($width, $type: min) {
+  @if unitless($width) {
+    $width: $width * 1px
+  }
+
+  @if $type == max {
+    $width: $width - 1px;
+  }
+
+  @media only screen and (#{$type}-width: $width) {
+    @content;
+  }
+}
+
+
+
+//_____________________________________________________
+//                                      ABSOLUTE CENTER
+@mixin absolute-center($x: true, $y: true) {
+  @if $x or $y {
+    position: absolute;
+
+    @if $x {
+      left: 50%;
+    }
+
+    @if $y {
+      top: 50%;
+    }
+
+    $transform: false;
+
+    @if $x and $y {
+      $transform: translate(-50%, -50%);
+    } @else if $x {
+      $transform: translateX(-50%);
+    } @else if $y {
+      $transform: translateY(-50%);
+    }
+
+    @if $transform {
+      transform: $transform;
+    }
+  }
+}
+
+
+
+//_____________________________________________________
+//                                             NO TOUCH
+@mixin no-touch {
+  html.no-touchevents & {
+    @content;
+  }
+}
+
+
+
+//_____________________________________________________
+//                                                 SIZE
+@mixin size ($width, $height: $width) {
+  @if unitless($width) {
+    $width: $width * 1px
+  }
+
+  @if unitless($height) {
+    $height: $height * 1px
+  }
+
+  width: $width;
+  height: $height;
+}

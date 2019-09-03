@@ -1,0 +1,50 @@
+include ../_mixins/all
+
+- const isRTL = $translator.isRTL
+- const dir = isRTL ? 'rtl' : 'ltr'
+- const rtlSuffix = isRTL ? '-rtl' : ''
+-
+  const viewports = [
+    'width=device-width',
+    'initial-scale=1',
+    'shrink-to-fit=no'
+  ].join(',')
+
+block vars
+  - let useHeader = true
+  - let useFooter = true
+  - let title = 'Layout'
+  - let namespace = ''
+  - let menuIndex = 0
+
+doctype html
+html.no-js(lang=$localeName dir=dir)
+  head
+    title=title
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(charset="utf-8")
+    meta(name="viewport" content!=viewports)
+
+    include ../_blocks/meta
+    include ../_blocks/favicon
+    include ../_blocks/styles
+
+    block styles
+
+  body(class=namespace)
+    noscript JavaScript is off. Please enable to view full site.
+
+    if useHeader
+      include ../$components/header
+
+    main(role="main")
+      block container
+
+    if useFooter
+      include ../$components/footer
+
+    block scripts
+      script.
+        var staticJsAssetsPath = window.location.origin + '/js/';
+
+    include ../_blocks/scripts
