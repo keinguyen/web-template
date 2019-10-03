@@ -2,13 +2,13 @@
   "name": "web-template",
   "title": "Web Template",
   "description": "Web template use es6, pug, scss",
-  "version": "3.0.3",
-  "author": "nguyen.thoi@sutrixsolutions.com",
-  "homepage": "https://gitlab.sutrix.com/Frontend_Team/_NEW_FEboilerplate",
+  "version": "3.0.5",
+  "author": "keinguyen2212@gmail.com",
+  "homepage": "https://github.com/keinguyen/web-template",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.sutrix.com/Frontend_Team/_NEW_FEboilerplate.git"
+    "url": "https://github.com/keinguyen/web-template.git"
   },
   "keywords": [
     "web",
@@ -25,7 +25,8 @@
     "list-tasks": "gulp --tasks",
     "start": "gulp",
     "dev": "gulp",
-    "build": "gulp build"
+    "build": "gulp build",
+    "serve": "http-server ./dist"
   },
   "dependencies": {
     "detectizr": "^2.2.0",
@@ -35,13 +36,13 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
+    "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/runtime": "^7.6.2",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "browser-sync": "2.26.7",
@@ -64,6 +65,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp": "^4.0.2",
+    "http-server": "0.11.1",
     "organizze-gulp-sass-bulk-import": "^0.1.1",
     "pug": "^2.0.4",
     "require-dir": "^1.2.0",

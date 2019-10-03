@@ -1,6 +1,8 @@
+import { isRTL } from '../utils/layout';
 @Plugin({
   options: {
-    rows: 0
+    rtl: isRTL,
+    rows: 0,
   }
 })
 export default class Slider {

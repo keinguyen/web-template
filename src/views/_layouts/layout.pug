@@ -1,5 +1,18 @@
 include ../_mixins/all
 
+block vars
+  - let useHeader = true
+  - let useFooter = true
+  - let title = 'Layout'
+  - let namespace = ''
+  - let menuIndex = 0
+  - let pageLevel = 0
+
+- const rootAssetsPath = $localeName ? '../' : ''
+- const _levelPath = [...Array(pageLevel)].map(() => '..').join('/')
+- const _trailDash = pageLevel ? '/' : ''
+- const levelPath = _levelPath + _trailDash
+- const assetsPath = rootAssetsPath + levelPath
 - const isRTL = $translator.isRTL
 - const dir = isRTL ? 'rtl' : 'ltr'
 - const rtlSuffix = isRTL ? '-rtl' : ''
@@ -10,12 +23,14 @@ include ../_mixins/all
     'shrink-to-fit=no'
   ].join(',')
 
-block vars
-  - let useHeader = true
-  - let useFooter = true
-  - let title = 'Layout'
-  - let namespace = ''
-  - let menuIndex = 0
+-
+  const translateAssetPath = (path, useLevel) => {
+    const isExternalPath = /^(https?:)?\/\//.test(path)
+
+    return isExternalPath
+      ? path
+      : (useLevel ? levelPath : assetsPath) + path.replace(/^\//, '')
+  }
 
 doctype html
 html.no-js(lang=$localeName dir=dir)
@@ -35,16 +50,16 @@ html.no-js(lang=$localeName dir=dir)
     noscript JavaScript is off. Please enable to view full site.
 
     if useHeader
-      include ../$components/header
+      include ../$modules/header
 
     main(role="main")
       block container
 
     if useFooter
-      include ../$components/footer
+      include ../$modules/footer
 
     block scripts
       script.
-        var staticJsAssetsPath = window.location.origin + '/js/';
+        var staticJsAssetsPath = '#{assetsPath}js/';
 
     include ../_blocks/scripts

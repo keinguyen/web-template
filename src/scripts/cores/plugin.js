@@ -26,8 +26,7 @@ function getElementData (el) {
   }, {});
 }
 
-function setupClass (Class, element, options) {
-  const pluginName = Class.name.toKebabCase();
+function setupClass (Class, element, options, pluginName) {
   const _this = new Class();
 
   _this.__pluginName = pluginName;
@@ -62,18 +61,24 @@ export default function Plugin (param) {
     }
 
     $.fn[name] = function (opts, params) {
-      return this.each(function () {
-        const instance = $.data(this, `${name}-instance`);
+      const instanceName = `${name}-instance`;
 
-        if (instance instanceof Class) {
-          if (typeof instance[opts] === 'function') {
-            instance[opts](params);
-          } else {
-            console.error(`This element has been initialized with plugin ${baseName}, please provide correct method`);
-          }
-        } else {
-          $.data(this, `${name}-instance`, setupClass(Class, this, opts));
+      return this.each(function () {
+        const instance = $.data(this, instanceName);
+
+        if (!(instance instanceof Class)) {
+          $.data(this, instanceName, setupClass(Class, this, opts, name));
+
+          return;
         }
+
+        if (typeof instance[opts] !== 'function') {
+          console.error(`This element has been initialized with plugin ${baseName}, please provide a correct method`);
+
+          return;
+        }
+
+        instance[opts](params);
       });
     };
 

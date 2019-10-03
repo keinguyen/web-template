@@ -8,7 +8,9 @@ const { handleError } = require('../utils/errors');
 function buildViewsMin () {
   return gulp
     .src(`${output}**/*.html`)
-    .pipe(htmlReplace(useminOpts))
+    .pipe(htmlReplace(useminOpts, {
+      resolvePaths: true
+    }))
     .on('error', handleError)
     .pipe(gulp.dest(output));
 }

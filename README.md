@@ -92,6 +92,7 @@ README.md
 - `npm start`: Shorthand for `npm run dev`
 - `npm run dev`: Build Project + Watch + Node Server
 - `npm run build`: Build Project (min)
+- `npm run serve`: Run production local server
 
 
 ## 5. Pug global variables
@@ -103,13 +104,9 @@ README.md
 At `src/views/_layouts/layout.pug`, there is a script with variable `staticJsAssetsPath`, update that variable to server js path, and it will load correctly chunks files
 
 
-## 7. Site favicon
-Use this online tool: https://realfavicongenerator.net/ to get the site favicon package and put it in `app/assets/site`
-
-
-## 8. Single language mode
+## 7. Single language mode
 Just remove folder `src/locales`
 
 
-## 9. Run production server
-Use `http-server` package in npm to run local server at `dist` folder
+## 8. Site favicon
+Use this online tool: https://realfavicongenerator.net/ to get the site favicon package and put it in `app/assets/site`
