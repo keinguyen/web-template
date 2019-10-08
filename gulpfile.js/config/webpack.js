@@ -33,9 +33,15 @@ module.exports = {
                 legacy: true
               }
             ],
+            [
+              '@babel/plugin-proposal-pipeline-operator', {
+                proposal: 'minimal'
+              }
+            ],
             '@babel/plugin-proposal-class-properties',
             '@babel/plugin-transform-function-name',
-            '@babel/plugin-syntax-dynamic-import'
+            '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-proposal-optional-chaining'
           ],
           cacheDirectory: true
         }
