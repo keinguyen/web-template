@@ -17,14 +17,16 @@ function _require(path) {
 }
 
 router.get('/', (req, res) => {
-  res.redirect(`/${multiLang ? `${DEFAULT_LANG}/index.html` : 'index.html'}`);
+  let defautLangPath = multiLang ? `/${DEFAULT_LANG}` : '';
+
+  res.redirect(`${defautLangPath}/index.html`);
 });
 
-router.get('*.html', (req, res) => {
+router.get('/*.html', (req, res) => {
   try {
     let lang;
     let localeLang;
-    let { url } = req;
+    let { path: url } = req;
 
     if (multiLang) {
       let testLang = /^\/([^/]+)\//.exec(url);
@@ -60,8 +62,8 @@ router.get('*.html', (req, res) => {
   }
 });
 
-router.get('/[^/]+/', (req, res) => {
-  res.redirect(join(req.url, 'index.html'));
+router.get(/^\/.*[^(\.html)]$/, (req, res) => {
+  res.redirect(join(req.path, 'index.html'));
 });
 
 router.post('*', (req, res) => {
