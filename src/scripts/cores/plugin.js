@@ -48,9 +48,9 @@ export default function Plugin (param) {
   function createPlugin (Class) {
     const baseName = Class.name;
     const name = baseName.toKebabCase();
-    const options = (param && param.options) || {};
-    const loadEvent = (param && param.when) || READY_STATE;
-    const selector = param && param.selector;
+    const options = param?.options || {};
+    const loadEvent = param?.when || READY_STATE;
+    const selector = param?.selector;
 
     function init () {
       $(`[data-${name}]`)[name]();
