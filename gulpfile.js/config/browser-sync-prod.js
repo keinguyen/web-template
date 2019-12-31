@@ -1,9 +1,9 @@
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'production'
 
-const compression = require('compression');
+const compression = require('compression')
 
-const { output } = require('./directories');
-const server = require('./server');
+const { output } = require('./directories')
+const server = require('./server')
 
 module.exports = {
   server: output,
@@ -17,4 +17,4 @@ module.exports = {
   middleware: [
     compression()
   ]
-};
+}

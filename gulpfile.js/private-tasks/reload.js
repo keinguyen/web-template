@@ -1,10 +1,10 @@
-const browserSync = require('../utils/browser-sync');
+const browserSync = require('../utils/browser-sync')
 
 function reload (cb) {
-  browserSync.reload();
-  cb();
+  browserSync.reload()
+  cb()
 }
 
-reload.displayName = 'reload';
+reload.displayName = 'reload'
 
-module.exports = reload;
+module.exports = reload

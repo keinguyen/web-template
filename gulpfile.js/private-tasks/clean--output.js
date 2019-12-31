@@ -1,9 +1,9 @@
-const del = require('del');
+const del = require('del')
 
-const { output } = require('../config/directories');
+const { output } = require('../config/directories')
 
-const cleanOutput = () => del(output);
+const cleanOutput = () => del(output)
 
-cleanOutput.displayName = 'clean:output';
+cleanOutput.displayName = 'clean:output'
 
-module.exports = cleanOutput;
+module.exports = cleanOutput

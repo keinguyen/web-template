@@ -1,23 +1,24 @@
-const { src, dest } = require('gulp');
-const webpack = require('webpack-stream');
-const vinylNamed = require('vinyl-named');
+const { src, dest } = require('gulp')
+const webpack = require('webpack-stream')
+const compiler = require('webpack')
+const vinylNamed = require('vinyl-named')
 
-const { filesJsES6, outputScript } = require('../config/directories');
-const option = require('../config/webpack');
-const { list, handleError } = require('../utils/errors');
+const { filesJsES6, outputScript } = require('../config/directories')
+const option = require('../config/webpack')
+const { list, handleError } = require('../utils/errors')
 
 function buildScriptsES6 (cb) {
   if (!list.isJSValid) {
-    return cb();
+    return cb()
   }
 
   return src(filesJsES6)
     .pipe(vinylNamed())
-    .pipe(webpack(option))
+    .pipe(webpack(option, compiler))
     .on('error', handleError)
-    .pipe(dest(outputScript));
+    .pipe(dest(outputScript))
 }
 
-buildScriptsES6.displayName = 'build:scripts-es6';
+buildScriptsES6.displayName = 'build:scripts-es6'
 
-module.exports = buildScriptsES6;
+module.exports = buildScriptsES6

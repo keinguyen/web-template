@@ -1,9 +1,9 @@
-import { loadMapApi } from '../utils/http';
+import { loadMapApi } from '../utils/http'
 
-let Maps;
+let Maps
 
 function generateLatLng (lat, lng) {
-  return new Maps.LatLng(lat, lng);
+  return new Maps.LatLng(lat, lng)
 }
 
 @Plugin({
@@ -14,13 +14,13 @@ function generateLatLng (lat, lng) {
 })
 export default class Gmap {
   async init () {
-    Maps = await loadMapApi();
+    Maps = await loadMapApi()
 
     const mapOpts = {
       ...this.options,
       center: generateLatLng(51.508742, -0.120850)
-    };
+    }
 
-    this.props.map = new Maps.Map(this.$element[0], mapOpts);
+    this.props.map = new Maps.Map(this.$element[0], mapOpts)
   }
 }

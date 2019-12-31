@@ -1,12 +1,12 @@
-const { src, dest, lastRun } = require('gulp');
-const { filesAssets, output } = require('../config/directories');
+const { src, dest, lastRun } = require('gulp')
+const { filesAssets, output } = require('../config/directories')
 
 function copyAssets () {
   return src(filesAssets, {
     since: lastRun(copyAssets)
-  }).pipe(dest(output));
+  }).pipe(dest(output))
 }
 
-copyAssets.displayName = 'copy:assets';
+copyAssets.displayName = 'copy:assets'
 
-module.exports = copyAssets;
+module.exports = copyAssets

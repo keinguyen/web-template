@@ -1,0 +1,25 @@
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime", {
+        "helpers": true,
+        "regenerator": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators", {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-pipeline-operator", {
+        "proposal": "minimal"
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-function-name",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-optional-chaining"
+  ]
+}

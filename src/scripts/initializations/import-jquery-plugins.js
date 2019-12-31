@@ -1,4 +1,4 @@
 // Import jQuery base libraries here
-import 'slick-carousel';
+import 'slick-carousel'
 
-window.devj = $;
+window.devj = $

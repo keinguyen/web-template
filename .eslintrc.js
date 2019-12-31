@@ -182,7 +182,7 @@ module.exports = {
       allowTemplateLiterals: true
     }],
     'semi-spacing': 1,
-    'semi': 1,
+    'semi': [1, 'never'],
     'space-infix-ops': 1,
     'switch-colon-spacing': 1,
     'no-duplicate-imports': [1, {

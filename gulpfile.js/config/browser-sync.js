@@ -1,4 +1,4 @@
-const server = require('./server');
+const server = require('./server')
 
 module.exports = {
   port: server.DEV_PORT,
@@ -9,4 +9,4 @@ module.exports = {
   open: 'local',
   ghostMode: false,
   logPrefix: 'SYNC'
-};
+}

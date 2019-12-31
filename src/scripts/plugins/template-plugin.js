@@ -1,6 +1,6 @@
 @Plugin
 export default class TemplatePlugin {
   init () {
-    this.$element.text('template initialized');
+    this.$element.text('template initialized')
   }
 }

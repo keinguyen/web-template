@@ -1,50 +1,50 @@
-const express = require('express');
-const { join } = require('path');
+const express = require('express')
+const { join } = require('path')
 
-const router = express.Router();
-const { output, srcLocales } = require('../gulpfile.js/config/directories');
-const { renderErrorHTML } = require('../gulpfile.js/utils');
-const { DEFAULT_LANG } = require('../gulpfile.js/config/server');
+const router = express.Router()
+const { output, srcLocales } = require('../gulpfile.js/config/directories')
+const { renderErrorHTML } = require('../gulpfile.js/utils')
+const { DEFAULT_LANG } = require('../gulpfile.js/config/server')
 
-const multiLang = process.env.MULTI_LANGUAGE;
+const multiLang = process.env.MULTI_LANGUAGE
 
 function _require(path) {
-  const _path = join(__dirname, path);
+  const _path = join(__dirname, path)
 
-  delete require.cache[_path];
+  delete require.cache[_path]
 
-  return require(path);
+  return require(path)
 }
 
 router.get('/', (req, res) => {
-  let defautLangPath = multiLang ? `/${DEFAULT_LANG}` : '';
+  let defautLangPath = multiLang ? `/${DEFAULT_LANG}` : ''
 
-  res.redirect(`${defautLangPath}/index.html`);
-});
+  res.redirect(`${defautLangPath}/index.html`)
+})
 
 router.get('/*.html', (req, res) => {
   try {
-    let lang;
-    let localeLang;
-    let { path: url } = req;
+    let lang
+    let localeLang
+    let { path: url } = req
 
     if (multiLang) {
-      let testLang = /^\/([^/]+)\//.exec(url);
+      let testLang = /^\/([^/]+)\//.exec(url)
 
       if (!testLang) {
-        throw 'No language in the url';
+        throw 'No language in the url'
       }
 
-      lang = testLang[1];
-      localeLang = _require(`../${srcLocales + lang}.json`);
+      lang = testLang[1]
+      localeLang = _require(`../${srcLocales + lang}.json`)
 
-      url = url.replace(testLang[0], '');
+      url = url.replace(testLang[0], '')
     }
 
-    let testFile = /[/]?(.+)\.html/.exec(url);
+    let testFile = /[/]?(.+)\.html/.exec(url)
 
     if (!testFile) {
-      throw 'Not found';
+      throw 'Not found'
     }
 
     res.render(testFile[1], {
@@ -52,28 +52,28 @@ router.get('/*.html', (req, res) => {
       $localeName: lang
     }, (err, html) => {
       if (err) {
-        throw err;
+        throw err
       }
 
-      res.send(html);
-    });
+      res.send(html)
+    })
   } catch (err) {
-    res.send(renderErrorHTML(err)).status(404);
+    res.send(renderErrorHTML(err)).status(404)
   }
-});
+})
 
 router.get(/^\/.*[^(\.html)]$/, (req, res) => {
-  res.redirect(join(req.path, 'index.html'));
-});
+  res.redirect(join(req.path, 'index.html'))
+})
 
 router.post('*', (req, res) => {
   try {
-    let json = _require(join(__dirname, '..', output, req.url));
+    let json = _require(join(__dirname, '..', output, req.url))
 
-    res.send(json);
+    res.send(json)
   } catch (err) {
-    res.send(renderErrorHTML(err)).status(404);
+    res.send(renderErrorHTML(err)).status(404)
   }
-});
+})
 
-module.exports = router;
+module.exports = router

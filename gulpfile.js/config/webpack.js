@@ -1,10 +1,10 @@
-const { ProvidePlugin } = require('webpack');
-const { resolve, join } = require('path');
+const { ProvidePlugin } = require('webpack')
+const { resolve, join } = require('path')
 
-const { srcScript, output, outputScript } = require('./directories');
+const { srcScript, output, outputScript } = require('./directories')
 
-const nodeEnv = process.env.NODE_ENV;
-const isDevelopment = nodeEnv !== 'production';
+const nodeEnv = process.env.NODE_ENV
+const isDevelopment = nodeEnv !== 'production'
 
 module.exports = {
   mode: 'none',
@@ -20,29 +20,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['@babel/preset-env'],
-          plugins: [
-            [
-              '@babel/plugin-transform-runtime', {
-                helpers: true,
-                regenerator: true
-              }
-            ],
-            [
-              '@babel/plugin-proposal-decorators', {
-                legacy: true
-              }
-            ],
-            [
-              '@babel/plugin-proposal-pipeline-operator', {
-                proposal: 'minimal'
-              }
-            ],
-            '@babel/plugin-proposal-class-properties',
-            '@babel/plugin-transform-function-name',
-            '@babel/plugin-syntax-dynamic-import',
-            '@babel/plugin-proposal-optional-chaining'
-          ],
           cacheDirectory: true
         }
       }
@@ -69,4 +46,4 @@ module.exports = {
     sideEffects: true
   },
   devtool: isDevelopment && 'source-map'
-};
+}

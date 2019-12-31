@@ -1,6 +1,6 @@
-const browserSync = require('browser-sync');
-const browserSyncInstance = browserSync.create();
+const browserSync = require('browser-sync')
+const browserSyncInstance = browserSync.create()
 
-browserSyncInstance.isStreaming = false;
+browserSyncInstance.isStreaming = false
 
-module.exports = browserSyncInstance;
+module.exports = browserSyncInstance
