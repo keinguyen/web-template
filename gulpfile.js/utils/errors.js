@@ -5,13 +5,14 @@ const list = {
     return this.totalError + this.totalWarning
   }
 }
+exports.list = list
 
 function pushError (info) {
   list.data.push(info)
   list[info.type === 'Error' ? 'totalError' : 'totalWarning']++
 }
 
-function handleError ({ plugin, message, codeFrame = '' } = {}) {
+exports.handleError = function ({ plugin, message, codeFrame = '' } = {}) {
   pushError({
     type: 'Error',
     plugin: plugin.toUpperCase(),
@@ -26,7 +27,7 @@ function handleError ({ plugin, message, codeFrame = '' } = {}) {
   }
 }
 
-function handleESLintError (results) {
+exports.handleESLintError = (results) => {
   results.forEach(({ filePath, messages } = {}) => {
     messages.forEach(({ severity, line, column, message } = {}) => {
       const type = severity === 2 ? 'Error' : 'Warning'
@@ -53,12 +54,6 @@ function resetError () {
   list.totalWarning = 0
   list.isJSValid = true
 }
+exports.resetError = resetError
 
 resetError()
-
-module.exports = {
-  list,
-  handleError,
-  handleESLintError,
-  resetError
-}
