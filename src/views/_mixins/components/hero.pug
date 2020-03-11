@@ -1,9 +1,0 @@
-mixin hero(items = [])
-  section.hero(data-slider data-dots="true" data-arrows="false")&attributes(attributes)
-    each item in items
-      .hero__item
-        +picture(item.pics, item.title).hero__img
-        p.hero__title(class={
-          '--right': item.isRight,
-          '--black': item.isBlack,
-        })!=item.title

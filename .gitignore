@@ -1,8 +1,0 @@
-.git
-npm-debug.log
-.publish
-.vscode
-static
-dist
-node_modules
-src/locales/*.json

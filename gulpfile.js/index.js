@@ -1,11 +1,30 @@
-const requireDir = require('require-dir')
+// const { log, getAvaiableLocales } = require('../tools')
+// const cleanDev = require('./private-tasks/clean--dev')
 
-const task = process.argv[2]
+// log('Checking languages')
 
-process.env.NODE_ENV = ~['build'].indexOf(task) ? 'production' : 'development'
+// const locales = getAvaiableLocales()
 
-const tasks = requireDir('./tasks')
+// if (locales[0]) {
+//   log('Boilerplate is running in multi languages mode')
+//   log('Available languages:', '\x1b[33m', locales.join(', '), '\x1b[0m')
+// } else {
+//   log('Boilerplate is running in single language mode')
+// }
 
-Object.keys(tasks).forEach((name) => {
-  exports[name] = tasks[name]
-})
+// process.env.LOCALES = JSON.stringify(locales)
+
+// process.on('exit', () => {
+//   log('Starting', '\x1b[36m', 'clean:dev', '\x1b[0m', '...')
+//   cleanDev(true)
+//   log('Finished', '\x1b[36m', 'clean:dev', '\x1b[0m')
+// })
+
+// process.on('SIGINT', () => {
+//   process.exit()
+// })
+
+// const requireDir = require('require-dir')
+// const tasks = requireDir('./tasks')
+
+// module.exports = tasks

@@ -1,8 +1,0 @@
-mixin link(href = '#', title, text = title)
-  - const _href = href !== '#' ? translateAssetPath(href, true) : href
-  - const _title = title || _href.slice(_href.lastIndexOf('/') + 1)
-  a(href=_href title=_title)&attributes(attributes)
-    if block
-      block
-    else
-      !=text

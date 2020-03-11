@@ -1,7 +1,0 @@
-mixin nav(items = [])
-  ul&attributes(attributes)
-    each item, index in items
-      li
-        +link(item.href, item.title, item.text)(class=[ item.class, menuIndex === index && '--active' ])
-        if item.itemsMenu && item.itemsMenu[0]
-          +nav(item.itemsMenu)
