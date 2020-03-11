@@ -2,7 +2,7 @@ const express = require('express')
 const pug = require('pug')
 const { join } = require('path')
 
-const { renderErrorHTML, getAvaiableLocalesData, replaceSlash } = require('../../tools')
+const { renderErrorHTML, getAvaiableLocalesData, replaceSlash, logGulp } = require('../../tools')
 const browserSync = require('../browser-sync')
 
 const { srcViews, filesView, filesPublic, filesLocale } = require('../../.dirrc')
@@ -80,17 +80,17 @@ router.get(/\.html$/, async (req, res) => {
       VIEW_CACHE = {}
     }
 
-    if (!VIEW_CACHE[viewPath]) {
+    if (!VIEW_CACHE[path]) {
       const options = {
         ...pugCfg,
         $translator,
         $localeName,
       }
 
-      VIEW_CACHE[viewPath] = renderHtml(viewPath, options)
+      VIEW_CACHE[path] = renderHtml(viewPath, options)
     }
 
-    const html = await VIEW_CACHE[viewPath]
+    const html = await VIEW_CACHE[path]
 
     res.type('text/html').send(html)
   } catch (err) {
@@ -102,20 +102,23 @@ router.get(/\.html$/, async (req, res) => {
   }
 })
 
-browserSync.watch(replaceSlash(filesView), () => {
+browserSync.observe(replaceSlash(filesView), () => {
   isRefreshViewCache = true
 
+  logGulp('PUG(S) changed. Refreshing view ...')
   browserSync.reload()
 })
 
-browserSync.watch(replaceSlash(filesLocale), () => {
+browserSync.observe(replaceSlash(filesLocale), () => {
   isRefreshLanguageCache = true
   isRefreshViewCache = true
 
+  logGulp('LOCALE(S) changed. Refreshing view ...')
   browserSync.reload()
 })
 
-browserSync.watch(replaceSlash(filesPublic), () => {
+browserSync.observe(replaceSlash(filesPublic), () => {
+  logGulp('ASSET(S) changed. Refreshing view ...')
   browserSync.reload()
 })
 

@@ -95,9 +95,10 @@ router.get(/\.css$/, async (req, res) => {
   }
 })
 
-browserSync.watch(replaceSlash(filesStyle), () => {
+browserSync.observe(replaceSlash(filesStyle), () => {
   isRefreshStyleCache = true
 
+  logGulp('STYLE(S) changed. Refreshing css ...')
   browserSync.reload('*.css')
 })
 
