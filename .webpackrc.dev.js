@@ -1,28 +1,25 @@
-const { tmpJs } = require('./.dirrc')
-
 module.exports = {
   mode: 'development',
-  output: {
-    path: tmpJs,
-    filename: '[name].js'
-  }
   // context: join(__dirname, '../../', output),
-  // output: {
-  //   path: join(__dirname, '../../', outputScript),
-  //   filename: '[name].js'
-  // },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.js$/,
-  //       exclude: /node_modules/,
-  //       loader: 'babel-loader',
-  //       options: {
-  //         cacheDirectory: true
-  //       }
-  //     }
-  //   ]
-  // },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  optimization: {
+    splitChunks: false
+  },
   // resolve: {
   //   alias: {
   //     '@': resolve(srcScript, 'cores')
@@ -35,7 +32,6 @@ module.exports = {
   //     Plugin: ['@/plugin', 'default']
   //   })
   // ],
-  // optimization: {
-  //   splitChunks: false
-  // }
+  // devtool: 'inline-source-map' // Uncomment this line if you have problem with debug in devtool
+  devtool: 'source-map' // Comment this line if above line is uncommented
 }

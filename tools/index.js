@@ -27,30 +27,42 @@ exports.logGulp = (...arg) => {
   return logger
 }
 
-const logFormatter = `
-{{time}} \x1b[91m{{path}} has a problem\x1b[0m
-           \x1b[35mSource:\x1b[0m \x1b[33m{{file}}:{{line}}:{{column}}\x1b[0m
-           \x1b[35mReason:\x1b[0m \x1b[91m{{message}}\x1b[0m
-`
-
-exports.logError = (path, err) => {
+function logFormatter (path, err, formatter) {
   if (!err) {
     console.log('Nothing to log')
     return
   }
 
   const { column, line, file, message } = err
-  const detail = logFormatter
+  const detail = formatter
     .replace(/{{time}}/g, `[\x1b[90m${getTime()}\x1b[0m]`)
     .replace(/{{path}}/g, path)
     .replace(/{{file}}/g, file)
     .replace(/{{column}}/g, column)
     .replace(/{{line}}/g, line)
-    .replace(/{{message}}/g, message.replace(/\n/g, '\n          '))
+    .replace(/{{message}}/g, message.replace(/\n/g, '\n           '))
 
   console.log(detail)
 
   return detail
+}
+
+const errorLogFormatter = `
+{{time}} \x1b[91m{{path}} has a problem\x1b[0m
+           \x1b[90mSource:\x1b[0m \x1b[96m{{file}}:{{line}}:{{column}}\x1b[0m
+           \x1b[90mReason:\x1b[0m \x1b[91m{{message}}\x1b[0m
+`
+exports.logError = (path, err) => {
+  return logFormatter(path, err, errorLogFormatter)
+}
+
+const wanringLogFormatter = `
+{{time}} \x1b[93m{{path}} has a problem\x1b[0m
+           \x1b[90mSource:\x1b[0m \x1b[96m{{file}}:{{line}}:{{column}}\x1b[0m
+           \x1b[90mReason:\x1b[0m \x1b[93m{{message}}\x1b[0m
+`
+exports.logWarning = (path, err) => {
+  return logFormatter(path, err, wanringLogFormatter)
 }
 
 function getDetailLocalesData () {

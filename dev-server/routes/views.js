@@ -105,7 +105,7 @@ router.get(/\.html$/, async (req, res) => {
 browserSync.observe(replaceSlash(filesView), () => {
   isRefreshViewCache = true
 
-  logGulp('PUG(S) changed. Refreshing view ...')
+  logGulp('PUG(S) changed. Refreshing browser ...')
   browserSync.reload()
 })
 
@@ -113,12 +113,12 @@ browserSync.observe(replaceSlash(filesLocale), () => {
   isRefreshLanguageCache = true
   isRefreshViewCache = true
 
-  logGulp('LOCALE(S) changed. Refreshing view ...')
+  logGulp('LOCALE(S) changed. Refreshing browser ...')
   browserSync.reload()
 })
 
 browserSync.observe(replaceSlash(filesPublic), () => {
-  logGulp('ASSET(S) changed. Refreshing view ...')
+  logGulp('ASSET(S) changed. Refreshing browser ...')
   browserSync.reload()
 })
 

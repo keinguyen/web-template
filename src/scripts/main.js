@@ -1,3 +1,7 @@
-console.log(0)
-const x = 5
-console.log(x)
+import './initialization/variables'
+
+import polyfill from './polyfill'
+
+polyfill(() => {
+  import(/* webpackChunkName: "chunks/apps" */ './main/index')
+})

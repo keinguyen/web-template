@@ -23,7 +23,7 @@ exports.filesStyle = filesStyle
 const srcScripts = join(src, 'scripts')
 exports.srcScripts = srcScripts
 
-const filesScript = join(srcScripts, '*.js')
+const filesScript = join(srcScripts, '**/*.js')
 exports.filesScript = filesScript
 
 const public = join(__dirname, 'public')
