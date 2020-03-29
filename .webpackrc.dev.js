@@ -12,6 +12,18 @@ module.exports = {
             options: {
               cacheDirectory: true
             }
+          }, {
+            loader: 'eslint-loader',
+            options: {
+              configFile: './.eslintrc.js',
+              cache: true,
+              failOnError: true,
+              formatter (res) {
+                debugger
+
+                return ''
+              },
+            }
           }
         ]
       }
