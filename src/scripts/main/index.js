@@ -1,5 +1,12 @@
 console.log('app loaded')
 
+function Decorator (Class) {
+  console.log(0)
+  // const
+  return Class;
+}
+
+@Decorator
 class Test {
   state = {
     x: 1
@@ -28,5 +35,6 @@ class Test {
 const test = new Test()
 
 console.log(test)
+console.log(test.x?.y ?? 5)
 
 test.write()
