@@ -31,7 +31,7 @@
   "dependencies": {
     "detectizr": "^2.2.0",
     "function.name": "^1.0.12",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "picturefill": "^3.0.3",
     "slick-carousel": "^1.8.1"
   },
