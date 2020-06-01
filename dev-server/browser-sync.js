@@ -1,7 +1,7 @@
 const browserSync = require('browser-sync')
 const browserSyncInstance = browserSync.create()
 
-let observeTimeout = {}
+const observeTimeout = {}
 
 browserSyncInstance.observe = (path, fn) => {
   browserSyncInstance.watch(path, (...arg) => {

@@ -12,34 +12,41 @@
   },
   "keywords": [],
   "engines": {
-    "node": ">=8",
-    "npm": ">=5"
+    "node": ">=10",
+    "npm": ">=6"
   },
   "scripts": {
-    "start": "node dev-server/index.js"
+    "start": "node dev-server/index.js",
+    "dev": "node dev-server/index.js",
+    "build": "node dev-server/build.js"
   },
   "dependencies": {
-    "@babel/runtime": "^7.9.2"
+    "@babel/runtime": "7.10.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-decorators": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "autoprefixer": "^9.7.5",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "browser-sync": "^2.26.7",
-    "del": "^5.1.0",
-    "eslint-loader": "^3.0.3",
-    "eslint": "^6.8.0",
-    "express": "^4.17.1",
-    "postcss": "^7.0.27",
-    "pug": "^2.0.4",
-    "require-dir": "^1.2.0",
-    "rtlcss": "^2.5.0",
-    "sass": "^1.26.3",
-    "webpack": "^4.42.1"
+    "@babel/core": "7.10.2",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-decorators": "7.10.1",
+    "@babel/plugin-transform-runtime": "7.10.1",
+    "@babel/preset-env": "7.10.2",
+    "autoprefixer": "9.8.0",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "8.1.0",
+    "browser-sync": "2.26.7",
+    "del": "5.1.0",
+    "eslint-config-standard": "14.1.1",
+    "eslint-loader": "4.0.2",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "eslint": "7.1.0",
+    "express": "4.17.1",
+    "postcss": "7.0.31",
+    "pug": "3.0.0",
+    "require-dir": "1.2.0",
+    "rtlcss": "2.5.0",
+    "sass": "1.26.7",
+    "webpack": "4.43.0"
   }
 }

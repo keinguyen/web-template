@@ -5,7 +5,7 @@ const rtlcss = require('rtlcss')
 const autoprefixer = require('autoprefixer')
 const { join } = require('path')
 
-const { replaceSlash, logGulp, logError } = require('../../tools')
+const { replaceSlash, logGulp, logError } = require('../helpers')
 const browserSync = require('../browser-sync')
 
 const { srcStyles, filesStyle } = require('../../.dirrc')
@@ -19,7 +19,7 @@ let isRefreshStyleCache = false
 function renderCss (filePath, isRTL) {
   return new Promise((resolve, reject) => {
     try {
-      let processor = postcss()
+      const processor = postcss()
 
       if (isRTL) {
         processor.use(rtlcss)

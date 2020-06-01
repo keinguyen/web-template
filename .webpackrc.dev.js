@@ -18,11 +18,7 @@ module.exports = {
               configFile: './.eslintrc.js',
               cache: true,
               failOnError: true,
-              formatter (res) {
-                debugger
-
-                return ''
-              },
+              formatter: 'json'
             }
           }
         ]
@@ -44,6 +40,5 @@ module.exports = {
   //     Plugin: ['@/plugin', 'default']
   //   })
   // ],
-  // devtool: 'inline-source-map' // Uncomment this line if you have problem with debug in devtool
-  devtool: 'source-map' // Comment this line if above line is uncommented
+  devtool: 'source-map'
 }

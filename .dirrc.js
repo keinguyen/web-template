@@ -26,14 +26,17 @@ exports.srcScripts = srcScripts
 const filesScript = join(srcScripts, '**/*.js')
 exports.filesScript = filesScript
 
-const public = join(__dirname, 'public')
-exports.public = public
+const assets = join(__dirname, 'public')
+exports.assets = assets
 
-const filesPublic = join(public, '**/*')
-exports.filesPublic = filesPublic
+const filesAssets = join(assets, '**/*')
+exports.filesAssets = filesAssets
 
 const tmp = join(__dirname, '.tmp')
 exports.tmp = tmp
 
 const tmpJs = join(tmp, 'js')
 exports.tmpJs = tmpJs
+
+const dist = join(__dirname, 'dist')
+exports.dist = dist

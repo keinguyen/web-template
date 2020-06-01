@@ -3,7 +3,7 @@ console.log('app loaded')
 function Decorator (Class) {
   console.log(0)
   // const
-  return Class;
+  return Class
 }
 
 @Decorator

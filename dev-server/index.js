@@ -2,13 +2,12 @@ const express = require('express')
 const del = require('del')
 
 const browserSync = require('./browser-sync')
-const { logGulp, getAvaiableLocales } = require('../tools')
+const { logGulp, getAvaiableLocales } = require('./helpers')
 
-const { public, tmp } = require('../.dirrc')
+const { assets, tmp } = require('../.dirrc')
 const browserSyncCfg = require('../.bsrc')
 
-
-//___________________________________________
+// __________________________________________
 //                  CHECKING SERVER LANGUAGES
 logGulp('Checking available locales')
 
@@ -31,8 +30,7 @@ if (locales[0]) {
 process.env.DS_LOCALES = locales.join(',')
 process.env.DS_DEFAULT_LANGUAGE = defaultLanguage
 
-
-//___________________________________________
+// __________________________________________
 //                          TWEAK SERVER EXIT
 process.on('exit', () => {
   logGulp('Clean temp files')
@@ -43,13 +41,12 @@ process.on('SIGINT', () => {
   process.exit()
 })
 
-
-//___________________________________________
+// __________________________________________
 //                               START SERVER
 const app = express()
 const routes = require('./routes')
 
-app.use(express['static'](public))
+app.use(express.static(assets))
 app.use(express.json())
 app.use(express.urlencoded({
   extended: true

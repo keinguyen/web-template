@@ -6,6 +6,7 @@ module.exports = {
   //   node: true
   // },
   parser: "babel-eslint",
+  extends: "standard",
   rules: {
     'semi': [1, 'never'],
   }

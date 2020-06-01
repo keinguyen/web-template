@@ -5,7 +5,7 @@ const { readFile } = require('fs')
 
 const { srcScripts, filesScript, tmpJs } = require('../../.dirrc')
 const webpackOpts = require('../../.webpackrc.dev.js')
-const { replaceSlash, logGulp, logError } = require('../../tools')
+const { replaceSlash, logGulp, logError, logWarning } = require('../helpers')
 const browserSync = require('../browser-sync')
 
 const router = express.Router()
@@ -13,9 +13,9 @@ const router = express.Router()
 let isRefreshScriptCache = false
 let isRefreshMapCache = false
 let CACHE = {}
-let COMPILER_CACHE = {}
 let LOG_CACHE = {}
 let MAP_CACHE = {}
+const COMPILER_CACHE = {}
 
 function renderJs (entry, filename) {
   return new Promise((resolve, reject) => {
@@ -33,6 +33,15 @@ function renderJs (entry, filename) {
     }
 
     COMPILER_CACHE[entry].run((err, stats) => {
+      if (err) {
+        reject({
+          code: 500,
+          msg: err
+        })
+
+        return
+      }
+
       const { errors, warnings } = stats.toJson('errors-warnings')
 
       if (errors[0]) {
@@ -69,26 +78,23 @@ function readJs (path) {
   })
 }
 
-function parseProblemLog (str) {
-  const [source, ...contentArr] = str.split('\n')
-  const message = contentArr.join('\n')
+function parseProblemStrToObj (str) {
+  const jsonStr = str.split('\n[{')[1]
 
-  let file = source
-  let line = 0
-  let column = 0
-
-  source.replace(/(.+) (\d+):(\d+)/, (match, path, l, c) => {
-    file = path,
-    line = l
-    column = c
-  })
-
-  return {
-    column,
-    line,
-    file,
-    message
+  if (!jsonStr) {
+    return str
   }
+
+  const json = JSON.parse(`[{${jsonStr}`) || []
+
+  return json.reduce((arr, { filePath: file, messages }) => {
+    return arr.concat(messages.map(({ column, line, message }) => ({
+      column,
+      line,
+      file,
+      message
+    })))
+  }, [])
 }
 
 router.get(/\.js$/, async (req, res) => {
@@ -107,7 +113,7 @@ router.get(/\.js$/, async (req, res) => {
     if (!filePath) {
       throw new Error({
         code: 404,
-        data: ''
+        msg: ''
       })
     }
 
@@ -120,7 +126,11 @@ router.get(/\.js$/, async (req, res) => {
     const { data, warnings } = await CACHE[filePath]
 
     if (warnings && warnings[0]) {
-      debugger
+      warnings.forEach((msg) => {
+        parseProblemStrToObj(msg).forEach((obj) => {
+          logWarning(path, obj)
+        })
+      })
     }
 
     if (!LOG_CACHE[filePath] && !isChunkFile) {
@@ -134,7 +144,9 @@ router.get(/\.js$/, async (req, res) => {
 
     if (messages[0] && !LOG_CACHE[filePath]) {
       messages.forEach((msg) => {
-        logError(path, parseProblemLog(msg))
+        parseProblemStrToObj(msg).forEach((obj) => {
+          logError(path, obj)
+        })
       })
 
       LOG_CACHE[filePath] = true

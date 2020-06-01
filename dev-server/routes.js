@@ -5,7 +5,7 @@ const routes = requireDir('./routes')
 
 const router = express.Router()
 
-for (let key in routes) {
+for (const key in routes) {
   if (Object.prototype.hasOwnProperty.call(routes, key)) {
     router.use('/', routes[key])
   }

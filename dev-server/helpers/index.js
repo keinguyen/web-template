@@ -1,6 +1,6 @@
 const requireDir = require('require-dir')
 
-const { srcLocales } = require('../.dirrc')
+const { srcLocales } = require('../../.dirrc')
 
 function parse2digits (value) {
   return +value < 10 ? `0${value}` : value
@@ -33,7 +33,7 @@ function logFormatter (path, err, formatter) {
     return
   }
 
-  const { column, line, file, message } = err
+  const { column = 0, line = 0, file = 'No source', message } = err
   const detail = formatter
     .replace(/{{time}}/g, `[\x1b[90m${getTime()}\x1b[0m]`)
     .replace(/{{path}}/g, path)
@@ -97,7 +97,7 @@ exports.getAvaiableLocalesData = (locale) => {
     }
 
     obj[key] = langDataKeys.reduce((data, key) => {
-      return {...data, ...langData[key]}
+      return { ...data, ...langData[key] }
     }, {})
 
     return obj

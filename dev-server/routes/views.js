@@ -2,10 +2,10 @@ const express = require('express')
 const pug = require('pug')
 const { join } = require('path')
 
-const { renderErrorHTML, getAvaiableLocalesData, replaceSlash, logGulp } = require('../../tools')
+const { renderErrorHTML, getAvaiableLocalesData, replaceSlash, logGulp } = require('../helpers')
 const browserSync = require('../browser-sync')
 
-const { srcViews, filesView, filesPublic, filesLocale } = require('../../.dirrc')
+const { srcViews, filesView, filesAssets, filesLocale } = require('../../.dirrc')
 const pugCfg = require('../../.pugrc')
 
 const router = express.Router()
@@ -27,11 +27,10 @@ function renderHtml (viewPath, options) {
   })
 }
 
-
 router.get('/', (req, res) => {
   const { DS_DEFAULT_LANGUAGE } = process.env
 
-  let languagePath = DS_DEFAULT_LANGUAGE ? `${DS_DEFAULT_LANGUAGE}/` : ''
+  const languagePath = DS_DEFAULT_LANGUAGE ? `${DS_DEFAULT_LANGUAGE}/` : ''
 
   res.redirect(`/${languagePath}index.html`)
 })
@@ -50,7 +49,7 @@ router.get(/\.html$/, async (req, res) => {
     if (DS_LOCALES) {
       const locales = DS_LOCALES.split(',')
 
-      path.replace(/^[/]?([^\/]+)\/(.+)\.html$/, (match, lang, file) => {
+      path.replace(/^[/]?([^/]+)\/(.+)\.html$/, (match, lang, file) => {
         filePath = file
         $localeName = lang
       })
@@ -84,7 +83,7 @@ router.get(/\.html$/, async (req, res) => {
       const options = {
         ...pugCfg,
         $translator,
-        $localeName,
+        $localeName
       }
 
       VIEW_CACHE[path] = renderHtml(viewPath, options)
@@ -117,7 +116,7 @@ browserSync.observe(replaceSlash(filesLocale), () => {
   browserSync.reload()
 })
 
-browserSync.observe(replaceSlash(filesPublic), () => {
+browserSync.observe(replaceSlash(filesAssets), () => {
   logGulp('ASSET(S) changed. Refreshing browser ...')
   browserSync.reload()
 })
