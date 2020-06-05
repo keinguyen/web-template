@@ -2,10 +2,10 @@ const express = require('express')
 const pug = require('pug')
 const { join } = require('path')
 
-const { renderErrorHTML, getAvaiableLocalesData, replaceSlash, logGulp } = require('../helpers')
+const { renderErrorHTML, getAvaiableLocalesData, logGulp } = require('../helpers')
 const browserSync = require('../browser-sync')
 
-const { srcViews, filesView, filesAssets, filesLocale } = require('../../.dirrc')
+const { srcViews, filesView, filesViewModel, filesAssets, filesLocale } = require('../../.dirrc')
 const pugCfg = require('../../.pugrc')
 
 const router = express.Router()
@@ -101,14 +101,14 @@ router.get(/\.html$/, async (req, res) => {
   }
 })
 
-browserSync.observe(replaceSlash(filesView), () => {
+browserSync.observe([filesView, filesViewModel], () => {
   isRefreshViewCache = true
 
   logGulp('PUG(S) changed. Refreshing browser ...')
   browserSync.reload()
 })
 
-browserSync.observe(replaceSlash(filesLocale), () => {
+browserSync.observe(filesLocale, () => {
   isRefreshLanguageCache = true
   isRefreshViewCache = true
 
@@ -116,7 +116,7 @@ browserSync.observe(replaceSlash(filesLocale), () => {
   browserSync.reload()
 })
 
-browserSync.observe(replaceSlash(filesAssets), () => {
+browserSync.observe(filesAssets, () => {
   logGulp('ASSET(S) changed. Refreshing browser ...')
   browserSync.reload()
 })

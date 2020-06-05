@@ -14,6 +14,10 @@ exports.srcViews = srcViews
 const filesView = join(srcViews, '**/*.pug')
 exports.filesView = filesView
 
+const srcViewModels = join(src, 'view-models')
+const filesViewModel = join(srcViewModels, '**/*.pug')
+exports.filesViewModel = filesViewModel
+
 const srcStyles = join(src, 'styles')
 exports.srcStyles = srcStyles
 

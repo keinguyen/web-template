@@ -5,7 +5,7 @@ const rtlcss = require('rtlcss')
 const autoprefixer = require('autoprefixer')
 const { join } = require('path')
 
-const { replaceSlash, logGulp, logError } = require('../helpers')
+const { logGulp, logError } = require('../helpers')
 const browserSync = require('../browser-sync')
 
 const { srcStyles, filesStyle } = require('../../.dirrc')
@@ -95,7 +95,7 @@ router.get(/\.css$/, async (req, res) => {
   }
 })
 
-browserSync.observe(replaceSlash(filesStyle), () => {
+browserSync.observe(filesStyle, () => {
   isRefreshStyleCache = true
 
   logGulp('STYLE(S) changed. Refreshing css ...')

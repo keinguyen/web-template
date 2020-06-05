@@ -1,15 +1,17 @@
 const browserSync = require('browser-sync')
+const { replaceSlash } = require('./helpers')
+
 const browserSyncInstance = browserSync.create()
 
 const observeTimeout = {}
 
-browserSyncInstance.observe = (path, fn) => {
-  browserSyncInstance.watch(path, (...arg) => {
+browserSyncInstance.observe = (paths, fn) => {
+  const pattern = [].concat(paths || []).map(path => replaceSlash(path))
+
+  browserSyncInstance.watch(pattern, (...arg) => {
     if (process.env.DS_STARTED) {
-      clearTimeout(observeTimeout[path])
-      observeTimeout[path] = setTimeout(() => {
-        fn(...arg)
-      })
+      clearTimeout(observeTimeout[pattern])
+      observeTimeout[pattern] = setTimeout(() => fn(...arg))
     }
   })
 }

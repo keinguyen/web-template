@@ -5,7 +5,7 @@ const { readFile } = require('fs')
 
 const { srcScripts, filesScript, tmpJs } = require('../../.dirrc')
 const webpackOpts = require('../../.webpackrc.dev.js')
-const { replaceSlash, logGulp, logError, logWarning } = require('../helpers')
+const { logGulp, logError, logWarning } = require('../helpers')
 const browserSync = require('../browser-sync')
 
 const router = express.Router()
@@ -180,7 +180,7 @@ router.get(/\.js\.map$/, async (req, res) => {
   }
 })
 
-browserSync.watch(replaceSlash(filesScript)).on('change', () => {
+browserSync.observe(filesScript, () => {
   isRefreshScriptCache = true
   isRefreshMapCache = true
 
