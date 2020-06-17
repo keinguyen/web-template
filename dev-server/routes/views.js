@@ -10,21 +10,15 @@ const pugCfg = require('../../.pugrc')
 
 const router = express.Router()
 
+let COMPILE_CACHE = {}
 let VIEW_CACHE = {}
 let TRANSLATOR_CACHE = {}
+let isRefreshCompileCache = false
 let isRefreshViewCache = false
 let isRefreshLanguageCache = false
 
-function renderHtml (viewPath, options) {
-  return new Promise((resolve, reject) => {
-    pug.renderFile(viewPath, options, (err, result) => {
-      if (result) {
-        resolve(result)
-      } else {
-        reject(err.message)
-      }
-    })
-  })
+function compileHtml (viewPath) {
+  return pug.compileFile(viewPath, pugCfg)
 }
 
 router.get('/', (req, res) => {
@@ -35,7 +29,7 @@ router.get('/', (req, res) => {
   res.redirect(`/${languagePath}index.html`)
 })
 
-router.get(/\.html$/, async (req, res) => {
+router.get(/\.html$/, (req, res) => {
   const { path } = req
   const { DS_LOCALES, DS_DEFAULT_LANGUAGE } = process.env
 
@@ -74,24 +68,30 @@ router.get(/\.html$/, async (req, res) => {
 
     viewPath = join(srcViews, `${filePath}.pug`)
 
+    if (isRefreshCompileCache) {
+      isRefreshCompileCache = false
+      COMPILE_CACHE = {}
+    }
+
     if (isRefreshViewCache) {
       isRefreshViewCache = false
       VIEW_CACHE = {}
     }
 
+    if (!COMPILE_CACHE[path]) {
+      COMPILE_CACHE[path] = compileHtml(viewPath)
+    }
+
     if (!VIEW_CACHE[path]) {
-      const options = {
-        ...pugCfg,
+      const variables = {
         $translator,
         $localeName
       }
 
-      VIEW_CACHE[path] = renderHtml(viewPath, options)
+      VIEW_CACHE[path] = COMPILE_CACHE[path](variables)
     }
 
-    const html = await VIEW_CACHE[path]
-
-    res.type('text/html').send(html)
+    res.type('text/html').send(VIEW_CACHE[path])
   } catch (err) {
     if (err === 'default_redirect') {
       res.redirect(`/${DS_DEFAULT_LANGUAGE + path}`)
@@ -102,6 +102,7 @@ router.get(/\.html$/, async (req, res) => {
 })
 
 browserSync.observe([filesView, filesViewModel], () => {
+  isRefreshCompileCache = true
   isRefreshViewCache = true
 
   logGulp('PUG(S) changed. Refreshing browser ...')
