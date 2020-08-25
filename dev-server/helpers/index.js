@@ -1,6 +1,10 @@
+const { readdirSync, statSync } = require('fs')
+const { join, extname } = require('path')
+const { compileFile } = require('pug')
 const requireDir = require('require-dir')
 
 const { srcLocales } = require('../../.dirrc')
+const pugCfg = require('../../.pugrc')
 
 function parse2digits (value) {
   return +value < 10 ? `0${value}` : value
@@ -65,6 +69,23 @@ exports.logWarning = (path, err) => {
   return logFormatter(path, err, wanringLogFormatter)
 }
 
+function walkSync (dir, ext) {
+  const files = readdirSync(dir)
+
+  return files.reduce((arr, file) => {
+    const fullPath = join(dir, file)
+
+    if (statSync(fullPath).isDirectory()) {
+      arr = arr.concat(walkSync(fullPath, ext))
+    } else if (!ext || extname(fullPath) === `.${ext}`) {
+      arr.push(fullPath)
+    }
+
+    return arr
+  }, [])
+}
+exports.walkSync = walkSync
+
 function getDetailLocalesData () {
   let data = {}
 
@@ -121,4 +142,8 @@ exports.renderErrorHTML = (msg) => `
 
 exports.replaceSlash = (path) => {
   return path.replace(/\\/g, '/')
+}
+
+exports.compileHtml = (viewPath) => {
+  return compileFile(viewPath, pugCfg)
 }

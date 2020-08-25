@@ -1,14 +1,23 @@
-const express = require('express')
-const pug = require('pug')
+const { Router } = require('express')
 const { join } = require('path')
 
-const { renderErrorHTML, getAvaiableLocalesData, logGulp } = require('../helpers')
+const {
+  compileHtml,
+  renderErrorHTML,
+  getAvaiableLocalesData,
+  logGulp
+} = require('../helpers')
 const browserSync = require('../browser-sync')
 
-const { srcViews, filesView, filesViewModel, filesAssets, filesLocale } = require('../../.dirrc')
-const pugCfg = require('../../.pugrc')
+const {
+  srcViews,
+  filesView,
+  filesViewModel,
+  filesAssets,
+  filesLocale
+} = require('../../.dirrc')
 
-const router = express.Router()
+const router = Router()
 
 let COMPILE_CACHE = {}
 let VIEW_CACHE = {}
@@ -16,10 +25,6 @@ let TRANSLATOR_CACHE = {}
 let isRefreshCompileCache = false
 let isRefreshViewCache = false
 let isRefreshLanguageCache = false
-
-function compileHtml (viewPath) {
-  return pug.compileFile(viewPath, pugCfg)
-}
 
 router.get('/', (req, res) => {
   const { DS_DEFAULT_LANGUAGE } = process.env
