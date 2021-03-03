@@ -69,7 +69,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp": "^4.0.2",
     "organizze-gulp-sass-bulk-import": "^0.1.1",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "require-dir": "^1.2.0",
     "strip-indent": "^3.0.0",
     "vinyl-named": "^1.1.0",
