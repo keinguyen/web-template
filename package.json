@@ -50,7 +50,7 @@
     "browser-sync": "^2.26.7",
     "compression": "^1.7.4",
     "del": "^5.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-cached": "^1.1.1",
     "gulp-clean-css": "^4.2.0",
